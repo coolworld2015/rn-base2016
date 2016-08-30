@@ -1,0 +1,3 @@
+rootProject.name = 'rxBase'
+
+include ':app'
