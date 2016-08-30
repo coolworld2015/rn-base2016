@@ -97,11 +97,17 @@ class Login extends Component {
           			/>
                 <Text style={styles.heading}>RX-Base</Text>
                 <TextInput
-                    onChangeText={(text)=> this.setState({username: text})}
+                    onChangeText={(text)=> this.setState({
+                      username: text,
+                      badCredentials: false
+                    })}
                     style={styles.loginInput}
                     placeholder="Login"></TextInput>
                 <TextInput
-                    onChangeText={(text)=> this.setState({password: text})}
+                    onChangeText={(text)=> this.setState({
+                      password: text,
+                      badCredentials: false
+                    })}
                     style={styles.loginInput}
                     placeholder="Password" secureTextEntry={true}></TextInput>
                 <TouchableHighlight
