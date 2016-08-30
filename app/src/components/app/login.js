@@ -93,9 +93,9 @@ class Login extends Component {
           <ScrollView>
             <View style={styles.container}>
                 <Image style={styles.logo}
-          				source={{uri: 'http://facebook.github.io/react/img/logo_og.png'}}
+          				source={require('../../../logo.jpg')}
           			/>
-                <Text style={styles.heading}>RX-Test</Text>
+                <Text style={styles.heading}>RX-Base</Text>
                 <TextInput
                     onChangeText={(text)=> this.setState({username: text})}
                     style={styles.loginInput}
@@ -105,8 +105,8 @@ class Login extends Component {
                     style={styles.loginInput}
                     placeholder="Password" secureTextEntry={true}></TextInput>
                 <TouchableHighlight
-onPress={this.onLoginPressed.bind(this)}
-//onPress={()=> this.getUser()}
+//onPress={this.onLoginPressed.bind(this)}
+onPress={()=> this.getUser()}
                     style={styles.button}>
                     <Text style={styles.buttonText}>Log in</Text>
                 </TouchableHighlight>
