@@ -21,6 +21,7 @@ import Phones from '../phones/phones';
 import PhoneSearch from '../phones/phoneSearch';
 import Users from '../users/users';
 import UserAdd from '../users/userAdd';
+import Audit from '../audit/audit';
 
 class AppContainer extends Component {
     constructor(props){
@@ -107,6 +108,24 @@ class AppContainer extends Component {
                       }}
                   />
               </TabBarIOS.Item>
+
+              <TabBarIOS.Item
+                   title="Audit"
+         					systemIcon="history"
+                   selected={this.state.selectedTab == 'Audit'}
+           				onPress={()=> this.setState({selectedTab: 'Audit'})}>
+
+                   <NavigatorIOS
+                       style={{
+                           flex: 1
+                       }}
+                       ref="audit"
+                       initialRoute={{
+                           component: Audit,
+                           title: 'Audit'
+                       }}
+                   />
+               </TabBarIOS.Item>
 
         </TabBarIOS>
       );
