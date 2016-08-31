@@ -18,6 +18,7 @@ import {
 } from 'react-native';
 
 import UserDetails from './userDetails';
+import Swipeout from 'react-native-swipeout';
 
 class Users extends Component {
     constructor(props){
@@ -139,6 +140,7 @@ class Users extends Component {
                 onPress={()=> this.pressRow(rowData)}
                 underlayColor='#ddd'
           	>
+
             <View style={{
                 flex: 1,
                 flexDirection: 'row',
@@ -148,10 +150,13 @@ class Users extends Component {
                 borderBottomWidth: 1,
                 backgroundColor: '#fff'
             }}>
+
               <Text style={{backgroundColor: '#fff'}}>
                   {rowData.name}
               </Text>
+
             </View>
+
           </TouchableHighlight>
         );
     }
@@ -167,7 +172,15 @@ class Users extends Component {
       }
     }
 
+
     render(){
+      var swipeoutBtns = [
+        {
+          text: 'Delete',
+          backgroundColor: 'red',
+        }
+      ]
+
       var errorCtrl = <View />;
 
         if(this.state.serverError){
@@ -188,6 +201,7 @@ class Users extends Component {
             </View>
         );
       }
+
         return (
           <View style={{flex: 1, justifyContent: 'center'}}>
             <View style={{marginTop: 60}}>
@@ -225,11 +239,12 @@ class Users extends Component {
     				</ScrollView>
 
             <View style={{marginBottom: 49}}>
-							<Text style={styles.countFooter}>
-              	{this.state.resultsCount} entries were found.
-              </Text>
+              <Swipeout right={swipeoutBtns} autoClose={true}>
+  							<Text style={styles.countFooter}>
+                	{this.state.resultsCount} entries were found.
+                </Text>
+              </Swipeout>
             </View>
-
   			  </View>
       )
 	}
