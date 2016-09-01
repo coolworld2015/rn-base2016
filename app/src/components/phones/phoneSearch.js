@@ -48,6 +48,7 @@ class PhoneSearch extends Component {
             <ScrollView>
             <View style={styles.container}>
           			<TouchableHighlight
+                    onPress={this.clearSearch.bind(this)}
                     style={styles.button}>
                     <Text style={styles.buttonText}>Search phones</Text>
                 </TouchableHighlight>
@@ -56,6 +57,7 @@ class PhoneSearch extends Component {
                       searchQuery: text,
                       invalidValue: false
                   })}
+                    value={this.state.searchQuery}
                     style={styles.loginInput}
                     placeholder="Search phones">
                 </TextInput>
@@ -78,6 +80,13 @@ class PhoneSearch extends Component {
             </View>
              </ScrollView>
         )
+    }
+
+    clearSearch(){
+      this.setState({
+        searchQuery: '',
+        invalidValue: false
+      })
     }
 
     onSearchPressed(){
@@ -134,7 +143,6 @@ const styles = StyleSheet.create({
       margin: 20,
     },
     container: {
-        backgroundColor: '#F5FCFF',
         paddingTop: 40,
         padding: 10,
         alignItems: 'center',
