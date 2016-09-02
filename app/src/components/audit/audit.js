@@ -104,7 +104,7 @@ class Audit extends Component {
     }
 
     refreshData(event){
-      if (event.nativeEvent.contentOffset.y <= -70) {
+      if (event.nativeEvent.contentOffset.y <= -100) {
 
         this.setState({
             showProgress: true,
