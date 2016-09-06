@@ -101,7 +101,7 @@ class UserAdd extends Component {
                 <Text style={{
                     fontSize: 24,
                     textAlign: 'center',
-                    marginTop: 10,
+                    marginTop: 0,
                     fontWeight: "bold"
                 }}>
           				New user
