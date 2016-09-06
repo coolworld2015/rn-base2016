@@ -18,6 +18,7 @@ import {
 } from 'react-native';
 
 import AuditDetails from './auditDetails';
+import AuditAdd from './auditAdd';
 
 class Audit extends Component {
     constructor(props){

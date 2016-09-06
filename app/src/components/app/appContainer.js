@@ -22,6 +22,7 @@ import PhoneSearch from '../phones/phoneSearch';
 import Users from '../users/users';
 import UserAdd from '../users/userAdd';
 import Audit from '../audit/audit';
+import AuditAdd from '../audit/auditAdd';
 
 class AppContainer extends Component {
     constructor(props){
@@ -33,21 +34,7 @@ class AppContainer extends Component {
     }
 
     render(){
-      /*
-      systemIcon List:
-      bookmarks
-      contacts
-      downloads
-      favorites
-      featured
-      history
-      more
-      "most-recent"
-      "most-viewed"
-      recents
-      search
-      "top-rated"
-      */
+
       return (
         <TabBarIOS style={styles.AppContainer}>
 
@@ -110,9 +97,9 @@ class AppContainer extends Component {
               </TabBarIOS.Item>
 
               <TabBarIOS.Item
-                   title="Audit"
+                  title="Audit"
          					systemIcon="history"
-                   selected={this.state.selectedTab == 'Audit'}
+                  selected={this.state.selectedTab == 'Audit'}
            				onPress={()=> this.setState({selectedTab: 'Audit'})}>
 
                    <NavigatorIOS
@@ -122,7 +109,18 @@ class AppContainer extends Component {
                        ref="audit"
                        initialRoute={{
                            component: Audit,
-                           title: 'Audit'
+                           title: 'Audit',
+                           rightButtonTitle: 'Add',
+                           onRightButtonPress: () => {
+                               this.refs.audit.navigator.push({
+                                   title: "New audit",
+                                   component: AuditAdd,
+                                   rightButtonTitle: 'Cancel',
+                                   onRightButtonPress: () => {
+                                     this.refs.audit.navigator.pop();
+                                   }
+                                 });
+                          }
                        }}
                    />
                </TabBarIOS.Item>
@@ -131,6 +129,22 @@ class AppContainer extends Component {
       );
     }
 }
+
+/*
+systemIcon List:
+bookmarks
+contacts
+downloads
+favorites
+featured
+history
+more
+"most-recent"
+"most-viewed"
+recents
+search
+"top-rated"
+*/
 
 const styles = StyleSheet.create({
     AppContainer: {

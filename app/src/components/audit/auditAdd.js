@@ -13,55 +13,41 @@ import {
     ActivityIndicator,
     TabBarIOS,
     NavigatorIOS,
-    TextInput
+    TextInput,
+    Picker
 } from 'react-native';
 
-import Users from './users';
+import Users from '../users/users';
 
-class UserAdd extends Component {
+class AuditAdd extends Component {
     constructor(props){
         super(props);
 
         this.state = {
-            showProgress: false
+            showProgress: true,
+            items: [],
+            item: 'New item'
         }
+
+        this.getUsers();
     }
 
-    addUser(){
-      if (this.state.name == undefined ||
-          this.state.pass == undefined ||
-          this.state.description == undefined) {
-        this.setState({
-       			invalidValue: true
-     		});
-      return;
-      }
-
-      this.setState({
-       	showProgress: true
-      });
-
-      var id = (Math.random() * 1000000).toFixed();
-
- 			fetch('http://ui-base.herokuapp.com/api/users/add/', {
-            method: 'POST',
-            body: JSON.stringify({
-                id: id,
-                name: this.state.name,
-                pass: this.state.pass,
-                description: this.state.description
-              }),
-              headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-              }
+    getUsers(){
+       fetch('http://ui-base.herokuapp.com/api/users/get', {
+            method: 'get',
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'
+            }
           })
  				.then((response)=> response.json())
         .then((responseData)=> {
-            this.props.navigator.pop()
-	       })
+
+      this.setState({
+         		items: responseData.sort(this.sort)
+         });
+       })
          .catch((error)=> {
-           console.log(error);
              this.setState({
                serverError: true
              });
@@ -71,6 +57,17 @@ class UserAdd extends Component {
              showProgress: false
            });
  				});
+    }
+
+    sort(a, b) {
+        var nameA = a.name.toLowerCase(), nameB = b.name.toLowerCase();
+        if (nameA < nameB) {
+            return -1
+        }
+        if (nameA > nameB) {
+            return 1
+        }
+        return 0;
     }
 
     render(){
@@ -92,20 +89,56 @@ class UserAdd extends Component {
 
         return (
           <ScrollView>
+
+          {errorCtrl}
+
+          <ActivityIndicator
+              animating={this.state.showProgress}
+              size="large"
+              style={styles.loader}
+           />
+
+          <View>
+             <Text style={{
+                    fontSize: 24,
+                    marginTop: 15,
+                    textAlign: 'center',
+                    fontWeight: "bold"
+              }}>
+                {this.state.item}
+            </Text>
+
+              <View style={{
+                    borderColor: 'lightgray',
+                    borderWidth: 5,
+                    marginTop: 10,
+                    margin: 5,
+                    flex: 1,
+                    }}>
+
+                <Picker style={{marginTop: -20}}
+                  selectedValue={this.state.item}
+
+                  onValueChange={(value) => (
+                      this.setState({
+                        item: value,
+                      })
+                  )}>
+
+                   {this.state.items.map((item, i) =>
+                      <Picker.Item value={item.id} label={item.name} key={i} />
+                   )}
+
+                </Picker>
+             </View>
+          </View>
+
             <View style={{
               flex: 1,
               padding: 10,
               justifyContent: 'flex-start'
             }}>
 
-                <Text style={{
-                    fontSize: 24,
-                    textAlign: 'center',
-                    marginTop: 10,
-                    fontWeight: "bold"
-                }}>
-          				New user
-                </Text>
 
                 <TextInput
                     onChangeText={(text)=> this.setState({
@@ -134,23 +167,26 @@ class UserAdd extends Component {
                 })}
                     style={styles.loginInput}
                     value={this.state.description}
-                    placeholder="Description"></TextInput>
+                    placeholder="Description">
+                </TextInput>
+
+                <TextInput
+                onChangeText={(text)=> this.setState({
+                  description: text,
+                  invalidValue: false
+                })}
+                    style={styles.loginInput}
+                    value={this.state.description}
+                    placeholder="Description">
+                </TextInput>
 
  								{validCtrl}
 
                 <TouchableHighlight
-                    onPress={()=> this.addUser()}
                     style={styles.button}>
                     <Text style={styles.buttonText}>Add item</Text>
                 </TouchableHighlight>
 
-                {errorCtrl}
-
-                <ActivityIndicator
-                    animating={this.state.showProgress}
-                    size="large"
-                    style={styles.loader}
-                 />
             </View>
           </ScrollView>
         )
@@ -207,7 +243,9 @@ const styles = StyleSheet.create({
         fontSize: 24
     },
     loader: {
-        marginTop: 20
+        top: 80,
+        left: 140,
+        position: 'absolute'
     },
     error: {
         color: 'red',
@@ -222,4 +260,4 @@ const styles = StyleSheet.create({
     }
 });
 
-module.exports = UserAdd;
+module.exports = AuditAdd;
