@@ -1,5 +1,5 @@
 # RN Base
-git clone https://github.com/coolworld2015/rx-base.git
+git clone https://github.com/coolworld2015/rn-base.git
 -------------------------------------------------------------------------------------------------
 git config --global user.name "coolworld2015"
 -------------------------------------------------------------------------------------------------
