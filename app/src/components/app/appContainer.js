@@ -1,6 +1,6 @@
-'use strict'
+'use strict';
 
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import {
     AppRegistry,
     StyleSheet,
@@ -25,7 +25,7 @@ import Audit from '../audit/audit';
 import AuditAdd from '../audit/auditAdd';
 
 class AppContainer extends Component {
-    constructor(props){
+    constructor(props) {
         super(props);
 
         this.state = {
@@ -33,130 +33,130 @@ class AppContainer extends Component {
         }
     }
 
-    render(){
+    render() {
 
-      return (
-        <TabBarIOS style={styles.AppContainer}>
+        return (
+            <TabBarIOS style={styles.AppContainer}>
 
-            <TabBarIOS.Item
-                 title="Phones"
-                 systemIcon="favorites"
-                 selected={this.state.selectedTab == 'Phones'}
-         				 onPress={()=> this.setState({selectedTab: 'Phones'})}>
+                <TabBarIOS.Item
+                    title="Phones"
+                    systemIcon="favorites"
+                    selected={this.state.selectedTab == 'Phones'}
+                    onPress={()=> this.setState({selectedTab: 'Phones'})}>
 
-                 <NavigatorIOS
-                     style={{
-                         flex: 1
-                     }}
-                     ref="phones"
-                     initialRoute={{
-                         component: Phones,
-                         title: 'Phones',
-                         rightButtonTitle: 'Search',
-                         onRightButtonPress: () => {
-                             this.refs.phones.navigator.push({
-                                 title: "Search",
-                                 component: PhoneSearch,
-                                 rightButtonTitle: 'Cancel',
-                                 onRightButtonPress: () => {
-                                   this.refs.phones.navigator.pop()
-                                 }
-                               });
- 												}
-                     }}
-                 />
-             </TabBarIOS.Item>
-
-             <TabBarIOS.Item
-                  title="Users"
-        					systemIcon="contacts"
-                  selected={this.state.selectedTab == 'Users'}
-          				onPress={()=> this.setState({selectedTab: 'Users'})}>
-
-                  <NavigatorIOS
-                      style={{
-                          flex: 1
-                      }}
-                      ref="users"
-                      initialRoute={{
-                          component: Users,
-                          title: 'Users',
-                          rightButtonTitle: 'Add',
-                          onRightButtonPress: () => {
-                              this.refs.users.navigator.push({
-                                  title: "New user",
-                                  component: UserAdd,
-                                  rightButtonTitle: 'Cancel',
-                                  onRightButtonPress: () => {
-                                    this.refs.users.navigator.pop();
-                                  }
+                    <NavigatorIOS
+                        style={{
+                            flex: 1
+                        }}
+                        ref="phones"
+                        initialRoute={{
+                            component: Phones,
+                            title: 'Phones',
+                            rightButtonTitle: 'Search',
+                            onRightButtonPress: () => {
+                                this.refs.phones.navigator.push({
+                                    title: "Search",
+                                    component: PhoneSearch,
+                                    rightButtonTitle: 'Cancel',
+                                    onRightButtonPress: () => {
+                                        this.refs.phones.navigator.pop()
+                                    }
                                 });
-  												}
-                      }}
-                  />
-              </TabBarIOS.Item>
+                            }
+                        }}
+                    />
+                </TabBarIOS.Item>
 
-              <TabBarIOS.Item
-                  title="Audit"
-         					systemIcon="history"
-                  selected={this.state.selectedTab == 'Audit'}
-           				onPress={()=> this.setState({selectedTab: 'Audit'})}>
+                <TabBarIOS.Item
+                    title="Users"
+                    systemIcon="contacts"
+                    selected={this.state.selectedTab == 'Users'}
+                    onPress={()=> this.setState({selectedTab: 'Users'})}>
 
-                   <NavigatorIOS
-                       style={{
-                           flex: 1
-                       }}
-                       ref="audit"
-                       initialRoute={{
-                           component: Audit,
-                           title: 'Audit',
-                           rightButtonTitle: 'Add',
-                           onRightButtonPress: () => {
-                               this.refs.audit.navigator.push({
-                                   title: "New audit",
-                                   component: AuditAdd,
-                                   rightButtonTitle: 'Cancel',
-                                   onRightButtonPress: () => {
-                                     this.refs.audit.navigator.pop();
-                                   }
-                                 });
-                          }
-                       }}
-                   />
-               </TabBarIOS.Item>
+                    <NavigatorIOS
+                        style={{
+                            flex: 1
+                        }}
+                        ref="users"
+                        initialRoute={{
+                            component: Users,
+                            title: 'Users',
+                            rightButtonTitle: 'Add',
+                            onRightButtonPress: () => {
+                                this.refs.users.navigator.push({
+                                    title: "New user",
+                                    component: UserAdd,
+                                    rightButtonTitle: 'Cancel',
+                                    onRightButtonPress: () => {
+                                        this.refs.users.navigator.pop();
+                                    }
+                                });
+                            }
+                        }}
+                    />
+                </TabBarIOS.Item>
 
-        </TabBarIOS>
-      );
+                <TabBarIOS.Item
+                    title="Audit"
+                    systemIcon="history"
+                    selected={this.state.selectedTab == 'Audit'}
+                    onPress={()=> this.setState({selectedTab: 'Audit'})}>
+
+                    <NavigatorIOS
+                        style={{
+                            flex: 1
+                        }}
+                        ref="audit"
+                        initialRoute={{
+                            component: Audit,
+                            title: 'Audit',
+                            rightButtonTitle: 'Add',
+                            onRightButtonPress: () => {
+                                this.refs.audit.navigator.push({
+                                    title: "New audit",
+                                    component: AuditAdd,
+                                    rightButtonTitle: 'Cancel',
+                                    onRightButtonPress: () => {
+                                        this.refs.audit.navigator.pop();
+                                    }
+                                });
+                            }
+                        }}
+                    />
+                </TabBarIOS.Item>
+
+            </TabBarIOS>
+        );
     }
 }
 
 /*
-systemIcon List:
-bookmarks
-contacts
-downloads
-favorites
-featured
-history
-more
-"most-recent"
-"most-viewed"
-recents
-search
-"top-rated"
-*/
+ systemIcon List:
+ bookmarks
+ contacts
+ downloads
+ favorites
+ featured
+ history
+ more
+ "most-recent"
+ "most-viewed"
+ recents
+ search
+ "top-rated"
+ */
 
 const styles = StyleSheet.create({
     AppContainer: {
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center',
-      backgroundColor: '#F5FCFF',
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#F5FCFF',
     },
     welcome: {
-      fontSize: 20,
-      textAlign: 'center',
-      margin: 20,
+        fontSize: 20,
+        textAlign: 'center',
+        margin: 20,
     },
     container: {
         backgroundColor: '#F5FCFF',
@@ -207,4 +207,4 @@ const styles = StyleSheet.create({
     }
 });
 
-module.exports = AppContainer;
+export default AppContainer;

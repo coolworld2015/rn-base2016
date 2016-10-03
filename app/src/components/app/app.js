@@ -1,6 +1,6 @@
-'use strict'
+'use strict';
 
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import {
     AppRegistry,
     StyleSheet,
@@ -22,7 +22,7 @@ import Login from './login';
 import AppContainer from './appContainer';
 
 class App extends Component {
-      constructor(props){
+    constructor(props) {
         super(props);
 
         this.state = {
@@ -32,38 +32,38 @@ class App extends Component {
         }
     }
 
-  render() {
-    if(this.state.checkingAuth){
-      return (
-        <View style={styles.container}>
-          <ActivityIndicatorIOS
-            animating={true}
-            size="large"
-            style={styles.loader} />
-        </View>
-      )
+    render() {
+        if (this.state.checkingAuth) {
+            return (
+                <View style={styles.container}>
+                    <ActivityIndicatorIOS
+                        animating={true}
+                        size="large"
+                        style={styles.loader}/>
+                </View>
+            )
+        }
+
+        if (this.state.isLoggedIn) {
+            return (
+                <AppContainer />
+            )
+        } else {
+            return (
+                <Login onLogin={this.onLogin.bind(this)}/>
+            )
+        }
     }
 
-    if(this.state.isLoggedIn){
-      return (
-        <AppContainer />
-      )
-    }else{
-      return (
-        <Login onLogin={this.onLogin.bind(this)} />
-      )
+    onLogin() {
+        console.log('onLogin');
+        this.setState({isLoggedIn: true});
     }
-  }
 
-  onLogin(){
-    console.log('onLogin');
-    this.setState({isLoggedIn: true});
-  }
-
-  onLogOut(){
-    console.log('onLogOut');
-    this.setState({isLoggedIn: false});
-  }
+    onLogOut() {
+        console.log('onLogOut');
+        this.setState({isLoggedIn: false});
+    }
 }
 
-module.exports = App;
+export default App;

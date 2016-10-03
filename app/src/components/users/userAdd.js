@@ -1,6 +1,6 @@
-'use strict'
+'use strict';
 
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import {
     AppRegistry,
     StyleSheet,
@@ -19,7 +19,7 @@ import {
 import Users from './users';
 
 class UserAdd extends Component {
-    constructor(props){
+    constructor(props) {
         super(props);
 
         this.state = {
@@ -27,160 +27,161 @@ class UserAdd extends Component {
         }
     }
 
-    addUser(){
-      if (this.state.name == undefined ||
-          this.state.pass == undefined ||
-          this.state.description == undefined) {
+    addUser() {
+        if (this.state.name == undefined ||
+            this.state.pass == undefined ||
+            this.state.description == undefined) {
+            this.setState({
+                invalidValue: true
+            });
+            return;
+        }
+
         this.setState({
-       			invalidValue: true
-     		});
-      return;
-      }
+            showProgress: true
+        });
 
-      this.setState({
-       	showProgress: true
-      });
+        var id = (Math.random() * 1000000).toFixed();
 
-      var id = (Math.random() * 1000000).toFixed();
-
- 			fetch('http://ui-base.herokuapp.com/api/users/add/', {
+        fetch('http://ui-base.herokuapp.com/api/users/add/', {
             method: 'POST',
             body: JSON.stringify({
                 id: id,
                 name: this.state.name,
                 pass: this.state.pass,
                 description: this.state.description
-              }),
-              headers: {
+            }),
+            headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
-              }
-          })
- 				.then((response)=> response.json())
-        .then((responseData)=> {
-            this.props.navigator.pop()
-	       })
-         .catch((error)=> {
-           console.log(error);
-             this.setState({
-               serverError: true
-             });
-       })
-         .finally(()=> {
-           this.setState({
-             showProgress: false
-           });
- 				});
+            }
+        })
+            .then((response)=> response.json())
+            .then((responseData)=> {
+                this.props.navigator.pop()
+            })
+            .catch((error)=> {
+                console.log(error);
+                this.setState({
+                    serverError: true
+                });
+            })
+            .finally(()=> {
+                this.setState({
+                    showProgress: false
+                });
+            });
     }
 
-    render(){
+    render() {
         var errorCtrl = <View />;
 
-        if(this.state.serverError){
+        if (this.state.serverError) {
             errorCtrl = <Text style={styles.error}>
-              	Something went wrong.
+                Something went wrong.
             </Text>;
         }
 
         var validCtrl = <View />;
 
-        if(this.state.invalidValue){
+        if (this.state.invalidValue) {
             validCtrl = <Text style={styles.error}>
                 Value required - please provide.
             </Text>;
         }
 
         return (
-          <ScrollView>
-            <View style={{
-              flex: 1,
-              padding: 10,
-              justifyContent: 'flex-start'
-            }}>
-
-                <Text style={{
-                    fontSize: 24,
-                    textAlign: 'center',
-                    marginTop: 0,
-                    fontWeight: "bold"
+            <ScrollView>
+                <View style={{
+                    flex: 1,
+                    padding: 10,
+                    justifyContent: 'flex-start'
                 }}>
-          				New user
-                </Text>
 
-                <TextInput
-                    onChangeText={(text)=> this.setState({
-                      name: text,
-                      invalidValue: false
-                    })}
-                    style={styles.loginInput}
-                    value={this.state.name}
-                    placeholder="Name">
-                </TextInput>
+                    <Text style={{
+                        fontSize: 24,
+                        textAlign: 'center',
+                        marginTop: 0,
+                        fontWeight: "bold"
+                    }}>
+                        New user
+                    </Text>
 
-                <TextInput
-                onChangeText={(text)=> this.setState({
-                  pass: text,
-                  invalidValue: false
-                })}
-                    style={styles.loginInput}
-                    value={this.state.pass}
-                    placeholder="Password">
-                </TextInput>
+                    <TextInput
+                        onChangeText={(text)=> this.setState({
+                            name: text,
+                            invalidValue: false
+                        })}
+                        style={styles.loginInput}
+                        value={this.state.name}
+                        placeholder="Name">
+                    </TextInput>
 
-                <TextInput
-                onChangeText={(text)=> this.setState({
-                  description: text,
-                  invalidValue: false
-                })}
-                    style={styles.loginInput}
-                    value={this.state.description}
-                    placeholder="Description"></TextInput>
+                    <TextInput
+                        onChangeText={(text)=> this.setState({
+                            pass: text,
+                            invalidValue: false
+                        })}
+                        style={styles.loginInput}
+                        value={this.state.pass}
+                        placeholder="Password">
+                    </TextInput>
 
- 								{validCtrl}
+                    <TextInput
+                        onChangeText={(text)=> this.setState({
+                            description: text,
+                            invalidValue: false
+                        })}
+                        style={styles.loginInput}
+                        value={this.state.description}
+                        placeholder="Description">
+                    </TextInput>
 
-                <TouchableHighlight
-                    onPress={()=> this.addUser()}
-                    style={styles.button}>
-                    <Text style={styles.buttonText}>Add item</Text>
-                </TouchableHighlight>
+                    {validCtrl}
 
-                {errorCtrl}
+                    <TouchableHighlight
+                        onPress={()=> this.addUser()}
+                        style={styles.button}>
+                        <Text style={styles.buttonText}>Add item</Text>
+                    </TouchableHighlight>
 
-                <ActivityIndicator
-                    animating={this.state.showProgress}
-                    size="large"
-                    style={styles.loader}
-                 />
-            </View>
-          </ScrollView>
+                    {errorCtrl}
+
+                    <ActivityIndicator
+                        animating={this.state.showProgress}
+                        size="large"
+                        style={styles.loader}
+                    />
+                </View>
+            </ScrollView>
         )
     }
 }
 
 const styles = StyleSheet.create({
     AppContainer: {
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center',
-      backgroundColor: 'gray',
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'gray',
     },
     countHeader: {
-      fontSize: 16,
-      textAlign: 'center',
-      padding: 15,
-      backgroundColor: '#F5FCFF',
+        fontSize: 16,
+        textAlign: 'center',
+        padding: 15,
+        backgroundColor: '#F5FCFF',
     },
-  	countFooter: {
-      fontSize: 16,
-      textAlign: 'center',
-      padding: 10,
-      borderColor: '#D7D7D7',
-      backgroundColor: 'whitesmoke'
+    countFooter: {
+        fontSize: 16,
+        textAlign: 'center',
+        padding: 10,
+        borderColor: '#D7D7D7',
+        backgroundColor: 'whitesmoke'
     },
     welcome: {
-      fontSize: 20,
-      textAlign: 'center',
-      margin: 20,
+        fontSize: 20,
+        textAlign: 'center',
+        margin: 20,
     },
     loginInput: {
         height: 50,
@@ -215,11 +216,11 @@ const styles = StyleSheet.create({
         textAlign: 'center'
     },
     img: {
-      height: 95,
-      width: 75,
-      borderRadius: 20,
-      margin: 20
+        height: 95,
+        width: 75,
+        borderRadius: 20,
+        margin: 20
     }
 });
 
-module.exports = UserAdd;
+export default UserAdd;

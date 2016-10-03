@@ -1,6 +1,6 @@
-'use strict'
+'use strict';
 
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import {
     AppRegistry,
     StyleSheet,
@@ -19,7 +19,7 @@ import {
 import PhoneDetails from './phoneDetails';
 
 class Phones extends Component {
-    constructor(props){
+    constructor(props) {
         super(props);
 
         var ds = new ListView.DataSource({
@@ -29,39 +29,39 @@ class Phones extends Component {
         this.state = {
             dataSource: ds.cloneWithRows([]),
             showProgress: true,
-			      resultsCount: 0
+            resultsCount: 0
         };
 
-      	this.getPhones();
+        this.getPhones();
     }
 
-    getPhones(){
-       fetch('http://ui-base.herokuapp.com/api/items/get', {
+    getPhones() {
+        fetch('http://ui-base.herokuapp.com/api/items/get', {
             method: 'get',
             headers: {
-              'Accept': 'application/json',
-              'Content-Type': 'application/json'
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
             }
-          })
- 				.then((response)=> response.json())
-        .then((responseData)=> {
-           this.setState({
-             dataSource: this.state.dataSource.cloneWithRows(responseData.splice(0,100).sort(this.sort)),
-             //resultsCount: responseData.length
-             resultsCount: 100,
-             responseData: responseData.splice(0,100).sort(this.sort)
-           })
-       })
-         .catch((error)=> {
-             this.setState({
-               serverError: true
-             });
-       })
-         .finally(()=> {
-           this.setState({
-             showProgress: false
-           });
- 				});
+        })
+            .then((response)=> response.json())
+            .then((responseData)=> {
+                this.setState({
+                    dataSource: this.state.dataSource.cloneWithRows(responseData.splice(0, 100).sort(this.sort)),
+                    //resultsCount: responseData.length
+                    resultsCount: 100,
+                    responseData: responseData.splice(0, 100).sort(this.sort)
+                })
+            })
+            .catch((error)=> {
+                this.setState({
+                    serverError: true
+                });
+            })
+            .finally(()=> {
+                this.setState({
+                    showProgress: false
+                });
+            });
     }
 
     sort(a, b) {
@@ -75,7 +75,7 @@ class Phones extends Component {
         return 0;
     }
 
-    pressRow(rowData){
+    pressRow(rowData) {
         this.props.navigator.push({
             title: rowData.name,
             component: PhoneDetails,
@@ -89,138 +89,140 @@ class Phones extends Component {
         });
     }
 
-    renderRow(rowData){
+    renderRow(rowData) {
         return (
-          	<TouchableHighlight
+            <TouchableHighlight
                 onPress={()=> this.pressRow(rowData)}
                 underlayColor='#ddd'
-          	>
-            <View style={{
-                flex: 1,
-                flexDirection: 'row',
-                padding: 20,
-                alignItems: 'center',
-                borderColor: '#D7D7D7',
-                borderBottomWidth: 1,
-                backgroundColor: '#fff'
-            }}>
-              <Text style={{backgroundColor: '#fff'}}>
-                  {rowData.name} - {rowData.phone}
-              </Text>
-            </View>
-          </TouchableHighlight>
+            >
+                <View style={{
+                    flex: 1,
+                    flexDirection: 'row',
+                    padding: 20,
+                    alignItems: 'center',
+                    borderColor: '#D7D7D7',
+                    borderBottomWidth: 1,
+                    backgroundColor: '#fff'
+                }}>
+                    <Text style={{backgroundColor: '#fff'}}>
+                        {rowData.name} - {rowData.phone}
+                    </Text>
+                </View>
+            </TouchableHighlight>
         );
     }
 
-    refreshData(event){
-      if (event.nativeEvent.contentOffset.y <= -100) {
+    refreshData(event) {
+        if (event.nativeEvent.contentOffset.y <= -100) {
 
-        this.setState({
-            showProgress: true,
-            resultsCount: event.nativeEvent.contentOffset.y
-        });
-        setTimeout(() => {this.getPhones()}, 300);
-      }
+            this.setState({
+                showProgress: true,
+                resultsCount: event.nativeEvent.contentOffset.y
+            });
+            setTimeout(() => {
+                this.getPhones()
+            }, 300);
+        }
     }
 
-    render(){
-      var errorCtrl = <View />;
+    render() {
+        var errorCtrl = <View />;
 
-        if(this.state.serverError){
+        if (this.state.serverError) {
             errorCtrl = <Text style={styles.error}>
                 Something went wrong.
             </Text>;
         }
 
-      if(this.state.showProgress){
+        if (this.state.showProgress) {
+            return (
+                <View style={{
+                    flex: 1,
+                    justifyContent: 'center'
+                }}>
+                    <ActivityIndicator
+                        size="large"
+                        animating={true}/>
+                </View>
+            );
+        }
         return (
-            <View style={{
-                flex: 1,
-                justifyContent: 'center'
-            }}>
-                <ActivityIndicator
-                    size="large"
-                    animating={true} />
+            <View style={{flex: 1, justifyContent: 'center'}}>
+                <View style={{marginTop: 60}}>
+                    <TextInput style={{
+                        height: 45,
+                        marginTop: 4,
+                        padding: 5,
+                        backgroundColor: 'white',
+                        borderWidth: 3,
+                        borderColor: 'lightgray',
+                        borderRadius: 0,
+                    }}
+                               onChangeText={(text)=> {
+                                   var arr = [].concat(this.state.responseData);
+                                   var items = arr.filter((el) => el.phone.indexOf(text) != -1);
+                                   this.setState({
+                                       dataSource: this.state.dataSource.cloneWithRows(items),
+                                       resultsCount: items.length,
+                                   })
+                               }}
+                               placeholder="Search">
+                    </TextInput>
+
+                    {errorCtrl}
+
+                </View>
+
+                <ScrollView
+                    onScroll={this.refreshData.bind(this)} scrollEventThrottle={16}
+                    style={{marginTop: 0, marginBottom: 0}}>
+                    <ListView
+                        dataSource={this.state.dataSource}
+                        renderRow={this.renderRow.bind(this)}
+                    />
+                </ScrollView>
+
+                <View style={{marginBottom: 49}}>
+                    <Text style={styles.countFooter}>
+                        {this.state.resultsCount} entries were found.
+                    </Text>
+                </View>
+
             </View>
         );
-      }
-        return (
-          <View style={{flex: 1, justifyContent: 'center'}}>
-            <View style={{marginTop: 60}}>
-				<TextInput style={{
-					  height: 45,
-					  marginTop: 4,
-					  padding: 5,
-					  backgroundColor: 'white',
-					  borderWidth: 3,
-					  borderColor: 'lightgray',
-					  borderRadius: 0,
-					}}
-					onChangeText={(text)=> {
-						var arr = [].concat(this.state.responseData);
-						var items = arr.filter((el) => el.phone.indexOf(text) != -1);
-						this.setState({
-						   dataSource: this.state.dataSource.cloneWithRows(items),
-						   resultsCount: items.length,
-						})
-					}}
-				  placeholder="Search">
-				</TextInput>
-
-          {errorCtrl}
-
-            </View>
-
-            <ScrollView
-                onScroll={this.refreshData.bind(this)} scrollEventThrottle={16}
-                style={{marginTop: 0, marginBottom: 0}}>
-              <ListView
-                dataSource={this.state.dataSource}
-                renderRow={this.renderRow.bind(this)}
-              />
-    				</ScrollView>
-
-            <View style={{marginBottom: 49}}>
-							<Text style={styles.countFooter}>
-              	{this.state.resultsCount} entries were found.
-              </Text>
-            </View>
-
-  			  </View>
-      );
-	}
+    }
 }
 
 const styles = StyleSheet.create({
     AppContainer: {
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center',
-      backgroundColor: '#F5FCFF',
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#F5FCFF',
     },
     countHeader: {
-      fontSize: 16,
-      textAlign: 'center',
-      padding: 15,
-      backgroundColor: '#F5FCFF',
+        fontSize: 16,
+        textAlign: 'center',
+        padding: 15,
+        backgroundColor: '#F5FCFF',
     },
-  	countFooter: {
-      fontSize: 16,
-      textAlign: 'center',
-      padding: 10,
-      borderColor: '#D7D7D7',
-      backgroundColor: 'whitesmoke'
+    countFooter: {
+        fontSize: 16,
+        textAlign: 'center',
+        padding: 10,
+        borderColor: '#D7D7D7',
+        backgroundColor: 'whitesmoke'
     },
-    countHeader: {
-      fontSize: 16,
-      textAlign: 'center',
-      padding: 15,
-      backgroundColor: '#F5FCFF',
+    countHeader1: {
+        fontSize: 16,
+        textAlign: 'center',
+        padding: 15,
+        backgroundColor: '#F5FCFF',
     },
     welcome: {
-      fontSize: 20,
-      textAlign: 'center',
-      margin: 20,
+        fontSize: 20,
+        textAlign: 'center',
+        margin: 20,
     },
     container: {
         backgroundColor: '#F5FCFF',
@@ -272,4 +274,4 @@ const styles = StyleSheet.create({
     }
 });
 
-module.exports = Phones;
+export default Phones;

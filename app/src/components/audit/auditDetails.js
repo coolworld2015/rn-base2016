@@ -1,6 +1,6 @@
-'use strict'
+'use strict';
 
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import {
     AppRegistry,
     StyleSheet,
@@ -17,7 +17,7 @@ import {
 } from 'react-native';
 
 class AuditDetails extends Component {
-    constructor(props){
+    constructor(props) {
         super(props);
 
         var ip = props.pushEvent.ip.split(':');
@@ -32,84 +32,84 @@ class AuditDetails extends Component {
         };
     }
 
-  render() {
+    render() {
 
-    return (
-      <ScrollView>
-        <View style={{
-            flex: 1,
-            padding: 10,
-            justifyContent: 'flex-start'
-        }}>
+        return (
+            <ScrollView>
+                <View style={{
+                    flex: 1,
+                    padding: 10,
+                    justifyContent: 'flex-start'
+                }}>
 
-      <Text style={{
-          fontSize: 24,
-      		textAlign: 'center',
-      		marginTop: 10,
-          }}>
-      		{this.state.date}
-      </Text>
+                    <Text style={{
+                        fontSize: 24,
+                        textAlign: 'center',
+                        marginTop: 10,
+                    }}>
+                        {this.state.date}
+                    </Text>
 
-      <TextInput
-        style={styles.loginInput}
-        value={this.state.name}
-        placeholder="Name">
-      </TextInput>
+                    <TextInput
+                        style={styles.loginInput}
+                        value={this.state.name}
+                        placeholder="Name">
+                    </TextInput>
 
-      <TextInput
-        style={styles.loginInput}
-        value={this.state.id}
-        placeholder="ID">
-      </TextInput>
+                    <TextInput
+                        style={styles.loginInput}
+                        value={this.state.id}
+                        placeholder="ID">
+                    </TextInput>
 
-      <TextInput
-        style={styles.loginInput}
-        value={this.state.ip}
-        placeholder="IP">
-      </TextInput>
+                    <TextInput
+                        style={styles.loginInput}
+                        value={this.state.ip}
+                        placeholder="IP">
+                    </TextInput>
 
-      <TextInput
-        style={styles.loginInput1}
-        value={this.state.description}
-        multiline={true}
-        placeholder="Description">
-      </TextInput>
+                    <TextInput
+                        style={styles.loginInput1}
+                        value={this.state.description}
+                        multiline={true}
+                        placeholder="Description">
+                    </TextInput>
 
-      <ActivityIndicator
-          animating={this.state.showProgress}
-          size="large"
-          style={styles.loader}
-       />
-      </View>
-    </ScrollView>
-    );
-  }
+                    <ActivityIndicator
+                        animating={this.state.showProgress}
+                        size="large"
+                        style={styles.loader}
+                    />
+                </View>
+            </ScrollView>
+        );
+    }
 }
 
 const styles = StyleSheet.create({
     AppContainer: {
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center',
-      backgroundColor: 'gray',
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'gray',
     },
     countHeader: {
-      fontSize: 16,
-      textAlign: 'center',
-      padding: 15,
-      backgroundColor: '#F5FCFF',
+        fontSize: 16,
+        textAlign: 'center',
+        padding: 15,
+        backgroundColor: '#F5FCFF',
     },
-  	countFooter: {
-      fontSize: 16,
-      textAlign: 'center',
-      padding: 10,
-      borderColor: '#D7D7D7',
-      backgroundColor: 'whitesmoke'
+    countFooter: {
+        fontSize: 16,
+        textAlign: 'center',
+        padding: 10,
+        borderColor: '#D7D7D7',
+        backgroundColor: 'whitesmoke'
     },
     welcome: {
-      fontSize: 20,
-      textAlign: 'center',
-      margin: 20,
+        fontSize: 20,
+        textAlign: 'center',
+        margin: 20,
     },
     loginInput: {
         height: 50,
@@ -154,11 +154,11 @@ const styles = StyleSheet.create({
         textAlign: 'center'
     },
     img: {
-      height: 95,
-      width: 75,
-      borderRadius: 20,
-      margin: 20
+        height: 95,
+        width: 75,
+        borderRadius: 20,
+        margin: 20
     }
 });
 
-module.exports = AuditDetails;
+export default AuditDetails;

@@ -1,6 +1,6 @@
-'use strict'
+'use strict';
 
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import {
     AppRegistry,
     StyleSheet,
@@ -21,7 +21,7 @@ import UserDetails from './userDetails';
 import Swipeout from 'react-native-swipeout';
 
 class Users extends Component {
-    constructor(props){
+    constructor(props) {
         super(props);
 
         var ds = new ListView.DataSource({
@@ -32,39 +32,39 @@ class Users extends Component {
             dataSource: ds.cloneWithRows([]),
             showProgress: true,
             serverError: false,
-          	resultsCount: 0
+            resultsCount: 0
         };
 
-      	this.getUsers();
+        this.getUsers();
     }
 
-    getUsers(){
-       fetch('http://ui-base.herokuapp.com/api/users/get', {
+    getUsers() {
+        fetch('http://ui-base.herokuapp.com/api/users/get', {
             method: 'get',
             headers: {
-              'Accept': 'application/json',
-              'Content-Type': 'application/json'
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
             }
-          })
- 				.then((response)=> response.json())
-        .then((responseData)=> {
+        })
+            .then((response)=> response.json())
+            .then((responseData)=> {
 
-      this.setState({
-         dataSource: this.state.dataSource.cloneWithRows(responseData.sort(this.sort)),
-         resultsCount: responseData.length,
-         responseData: responseData
-         });
-       })
-         .catch((error)=> {
-             this.setState({
-               serverError: true
-             });
-       })
-         .finally(()=> {
-           this.setState({
-             showProgress: false
-           });
- 				});
+                this.setState({
+                    dataSource: this.state.dataSource.cloneWithRows(responseData.sort(this.sort)),
+                    resultsCount: responseData.length,
+                    responseData: responseData
+                });
+            })
+            .catch((error)=> {
+                this.setState({
+                    serverError: true
+                });
+            })
+            .finally(()=> {
+                this.setState({
+                    showProgress: false
+                });
+            });
     }
 
     sort(a, b) {
@@ -78,55 +78,56 @@ class Users extends Component {
         return 0;
     }
 
-    deleteUser(id){
-      this.setState({
-       showProgress: true
-      });
+    deleteUser(id) {
+        this.setState({
+            showProgress: true
+        });
 
- 			fetch('http://ui-base.herokuapp.com/api/users/delete/', {
+        fetch('http://ui-base.herokuapp.com/api/users/delete/', {
             method: 'POST',
             body: JSON.stringify({
                 id: id
-              }),
-              headers: {
+            }),
+            headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
-              }
-          })
+            }
+        })
 
-        .then((responseData)=> {
-	       })
-         .catch((error)=> {
-           console.log(error);
-             this.setState({
-               serverError: true
-             });
-       })
-         .finally(()=> {
-           this.setState({
-             showProgress: false
-           });
-           this.props.navigator.pop();
- 				});
+            .then((responseData)=> {
+            })
+            .catch((error)=> {
+                console.log(error);
+                this.setState({
+                    serverError: true
+                });
+            })
+            .finally(()=> {
+                this.setState({
+                    showProgress: false
+                });
+                this.props.navigator.pop();
+            });
     }
 
-    pressRow(rowData){
+    pressRow(rowData) {
         this.props.navigator.push({
             title: 'Edit',
             component: UserDetails,
             rightButtonTitle: 'Delete',
             onRightButtonPress: () => {
-              Alert.alert(
-                'Delete user',
-                'Are you sure you want to delete user ' + rowData.name + '?',
-                [
-                  {text: 'Cancel', onPress: () => console.log('Cancel Pressed!')},
-                  {text: 'OK', onPress: () => {
-                    this.deleteUser(rowData.id);
-                  	}
-                  },
-                ]
-              );
+                Alert.alert(
+                    'Delete user',
+                    'Are you sure you want to delete user ' + rowData.name + '?',
+                    [
+                        {text: 'Cancel', onPress: () => console.log('Cancel Pressed!')},
+                        {
+                            text: 'OK', onPress: () => {
+                            this.deleteUser(rowData.id);
+                        }
+                        },
+                    ]
+                );
             },
             passProps: {
                 pushEvent: rowData
@@ -134,145 +135,147 @@ class Users extends Component {
         });
     }
 
-    renderRow(rowData){
+    renderRow(rowData) {
         return (
-          	<TouchableHighlight
+            <TouchableHighlight
                 onPress={()=> this.pressRow(rowData)}
                 underlayColor='#ddd'
-          	>
+            >
 
-            <View style={{
-                flex: 1,
-                flexDirection: 'row',
-                padding: 20,
-                alignItems: 'center',
-                borderColor: '#D7D7D7',
-                borderBottomWidth: 1,
-                backgroundColor: '#fff'
-            }}>
+                <View style={{
+                    flex: 1,
+                    flexDirection: 'row',
+                    padding: 20,
+                    alignItems: 'center',
+                    borderColor: '#D7D7D7',
+                    borderBottomWidth: 1,
+                    backgroundColor: '#fff'
+                }}>
 
-              <Text style={{backgroundColor: '#fff'}}>
-                  {rowData.name}
-              </Text>
+                    <Text style={{backgroundColor: '#fff'}}>
+                        {rowData.name}
+                    </Text>
 
-            </View>
+                </View>
 
-          </TouchableHighlight>
+            </TouchableHighlight>
         );
     }
 
-    refreshData(event){
-      if (event.nativeEvent.contentOffset.y <= -100) {
+    refreshData(event) {
+        if (event.nativeEvent.contentOffset.y <= -100) {
 
-        this.setState({
-            showProgress: true,
-            resultsCount: event.nativeEvent.contentOffset.y
-        });
-        setTimeout(() => {this.getUsers()}, 300);
-      }
+            this.setState({
+                showProgress: true,
+                resultsCount: event.nativeEvent.contentOffset.y
+            });
+            setTimeout(() => {
+                this.getUsers()
+            }, 300);
+        }
     }
 
 
-    render(){
-      var swipeoutBtns = [
-        {
-          text: 'Delete',
-          backgroundColor: 'red',
-        }
-      ]
+    render() {
+        var swipeoutBtns = [
+            {
+                text: 'Delete',
+                backgroundColor: 'red',
+            }
+        ]
 
-      var errorCtrl = <View />;
+        var errorCtrl = <View />;
 
-        if(this.state.serverError){
+        if (this.state.serverError) {
             errorCtrl = <Text style={styles.error}>
                 Something went wrong.
             </Text>;
         }
 
-      if(this.state.showProgress){
+        if (this.state.showProgress) {
+            return (
+                <View style={{
+                    flex: 1,
+                    justifyContent: 'center'
+                }}>
+                    <ActivityIndicator
+                        size="large"
+                        animating={true}/>
+                </View>
+            );
+        }
         return (
-            <View style={{
-                flex: 1,
-                justifyContent: 'center'
-            }}>
-                <ActivityIndicator
-                    size="large"
-                    animating={true} />
+            <View style={{flex: 1, justifyContent: 'center'}}>
+                <View style={{marginTop: 60}}>
+                    <TextInput style={{
+                        height: 45,
+                        marginTop: 4,
+                        padding: 5,
+                        backgroundColor: 'white',
+                        borderWidth: 3,
+                        borderColor: 'lightgray',
+                        borderRadius: 0,
+                    }}
+                               onChangeText={(text)=> {
+                                   var arr = [].concat(this.state.responseData);
+                                   var items = arr.filter((el) => el.name.indexOf(text) != -1);
+                                   this.setState({
+                                       dataSource: this.state.dataSource.cloneWithRows(items),
+                                       resultsCount: items.length,
+                                   })
+                               }}
+                               placeholder="Search">
+                    </TextInput>
+
+                    {errorCtrl}
+
+                </View>
+
+                <ScrollView
+                    onScroll={this.refreshData.bind(this)} scrollEventThrottle={16}
+                    style={{marginTop: 0, marginBottom: 0}}>
+                    <ListView
+                        dataSource={this.state.dataSource}
+                        renderRow={this.renderRow.bind(this)}
+                    />
+                </ScrollView>
+
+                <View style={{marginBottom: 49}}>
+                    <Swipeout right={swipeoutBtns} autoClose={true}>
+                        <Text style={styles.countFooter}>
+                            {this.state.resultsCount} entries were found.
+                        </Text>
+                    </Swipeout>
+                </View>
             </View>
-        );
-      }
-        return (
-          <View style={{flex: 1, justifyContent: 'center'}}>
-            <View style={{marginTop: 60}}>
-				<TextInput style={{
-					  height: 45,
-					  marginTop: 4,
-					  padding: 5,
-					  backgroundColor: 'white',
-					  borderWidth: 3,
-					  borderColor: 'lightgray',
-					  borderRadius: 0,
-					}}
-					onChangeText={(text)=> {
-					  var arr = [].concat(this.state.responseData);
-					  var items = arr.filter((el) => el.name.indexOf(text) != -1);
-					  this.setState({
-						 dataSource: this.state.dataSource.cloneWithRows(items),
-						 resultsCount: items.length,
-					  })
-					}}
-					placeholder="Search">
-				</TextInput>
-
-          	{errorCtrl}
-
-            </View>
-
-            <ScrollView
-                onScroll={this.refreshData.bind(this)} scrollEventThrottle={16}
-                style={{marginTop: 0, marginBottom: 0}}>
-              <ListView
-                dataSource={this.state.dataSource}
-                renderRow={this.renderRow.bind(this)}
-              />
-    				</ScrollView>
-
-            <View style={{marginBottom: 49}}>
-              <Swipeout right={swipeoutBtns} autoClose={true}>
-  							<Text style={styles.countFooter}>
-                	{this.state.resultsCount} entries were found.
-                </Text>
-              </Swipeout>
-            </View>
-  			  </View>
-      )
-	}
+        )
+    }
 }
 
 const styles = StyleSheet.create({
     AppContainer: {
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center',
-      backgroundColor: 'gray',
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'gray',
     },
     countHeader: {
-      fontSize: 16,
-      textAlign: 'center',
-      padding: 15,
-      backgroundColor: '#F5FCFF',
+        fontSize: 16,
+        textAlign: 'center',
+        padding: 15,
+        backgroundColor: '#F5FCFF',
     },
-  	countFooter: {
-      fontSize: 16,
-      textAlign: 'center',
-      padding: 10,
-      borderColor: '#D7D7D7',
-      backgroundColor: 'whitesmoke'
+    countFooter: {
+        fontSize: 16,
+        textAlign: 'center',
+        padding: 10,
+        borderColor: '#D7D7D7',
+        backgroundColor: 'whitesmoke'
     },
     welcome: {
-      fontSize: 20,
-      textAlign: 'center',
-      margin: 20,
+        fontSize: 20,
+        textAlign: 'center',
+        margin: 20,
     },
     loginInput: {
         height: 50,
@@ -307,11 +310,11 @@ const styles = StyleSheet.create({
         textAlign: 'center'
     },
     img: {
-      height: 95,
-      width: 75,
-      borderRadius: 20,
-      margin: 20
+        height: 95,
+        width: 75,
+        borderRadius: 20,
+        margin: 20
     }
 });
 
-module.exports = Users;
+export default Users;
