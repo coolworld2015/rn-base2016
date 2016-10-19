@@ -29,7 +29,9 @@ class Phones extends Component {
         this.state = {
             dataSource: ds.cloneWithRows([]),
             showProgress: true,
-            resultsCount: 0
+            resultsCount: 0,
+            recordsCount: 25,
+            positionY: 0
         };
 
         this.getPhones();
@@ -46,10 +48,9 @@ class Phones extends Component {
             .then((response)=> response.json())
             .then((responseData)=> {
                 this.setState({
-                    dataSource: this.state.dataSource.cloneWithRows(responseData.splice(0, 100).sort(this.sort)),
-                    //resultsCount: responseData.length
-                    resultsCount: 100,
-                    responseData: responseData.splice(0, 100).sort(this.sort)
+                    dataSource: this.state.dataSource.cloneWithRows(responseData.sort(this.sort).slice(0, 25)),
+                    resultsCount: responseData.length,
+                    responseData: responseData.sort(this.sort)
                 })
             })
             .catch((error)=> {
@@ -113,11 +114,31 @@ class Phones extends Component {
     }
 
     refreshData(event) {
+        var items, positionY, recordsCount;
+
+        recordsCount = this.state.recordsCount;
+        positionY = this.state.positionY;
+        items = this.state.responseData.slice(0, recordsCount);
+
+        console.log(positionY + ' - ' + recordsCount + ' - ' + items.length);
+
+        if (event.nativeEvent.contentOffset.y >= positionY - 10) {
+            console.log(items.length);
+            this.setState({
+                dataSource: this.state.dataSource.cloneWithRows(items),
+                recordsCount: recordsCount + 20,
+                positionY: positionY + 1000
+            });
+
+        }
+
         if (event.nativeEvent.contentOffset.y <= -100) {
 
             this.setState({
                 showProgress: true,
-                resultsCount: event.nativeEvent.contentOffset.y
+                resultsCount: 0,
+                recordsCount: 5,
+                positionY: 0
             });
             setTimeout(() => {
                 this.getPhones()
@@ -164,6 +185,7 @@ class Phones extends Component {
                                    this.setState({
                                        dataSource: this.state.dataSource.cloneWithRows(items),
                                        resultsCount: items.length,
+                                       recordsCount: items.length
                                    })
                                }}
                                placeholder="Search">

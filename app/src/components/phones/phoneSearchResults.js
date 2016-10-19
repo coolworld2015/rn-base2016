@@ -31,7 +31,9 @@ class PhoneSearchResults extends Component {
             dataSource: ds.cloneWithRows(items),
             searchQuery: props.searchQuery,
             showProgress: true,
-            resultsCount: 0
+            resultsCount: 0,
+            recordsCount: 25,
+            positionY: 0
         };
 
         this.findByPhone();
@@ -49,7 +51,7 @@ class PhoneSearchResults extends Component {
             .then((response)=> response.json())
             .then((responseData)=> {
                 this.setState({
-                    dataSource: this.state.dataSource.cloneWithRows(responseData.sort(this.sort)),
+                    dataSource: this.state.dataSource.cloneWithRows(responseData.sort(this.sort).slice(0, 25)),
                     resultsCount: responseData.length,
                     responseData: responseData.sort(this.sort)
                 });
@@ -80,7 +82,7 @@ class PhoneSearchResults extends Component {
 
     pressRow(rowData) {
         this.props.navigator.push({
-            title: rowData.trackName,
+            title: rowData.name,
             component: PhoneDetails,
             rightButtonTitle: 'Cancel',
             onRightButtonPress: () => {
@@ -115,6 +117,39 @@ class PhoneSearchResults extends Component {
         );
     }
 
+    refreshData(event) {
+        var items, positionY, recordsCount;
+
+        recordsCount = this.state.recordsCount;
+        positionY = this.state.positionY;
+        items = this.state.responseData.slice(0, recordsCount);
+
+        console.log(positionY + ' - ' + recordsCount + ' - ' + items.length);
+
+        if (event.nativeEvent.contentOffset.y >= positionY - 10) {
+            console.log(items.length);
+            this.setState({
+                dataSource: this.state.dataSource.cloneWithRows(items),
+                recordsCount: recordsCount + 20,
+                positionY: positionY + 1000
+            });
+
+        }
+
+        if (event.nativeEvent.contentOffset.y <= -100) {
+
+            this.setState({
+                showProgress: true,
+                resultsCount: 0,
+                recordsCount: 5,
+                positionY: 0
+            });
+            setTimeout(() => {
+                this.findByPhone()
+            }, 300);
+        }
+    }
+
     render() {
         var errorCtrl = <View />;
 
@@ -141,10 +176,10 @@ class PhoneSearchResults extends Component {
                 <View style={{marginTop: 60}}>
                     <TextInput style={{
                         height: 45,
-                        marginTop: 5,
+                        marginTop: 4,
                         padding: 5,
                         backgroundColor: 'white',
-                        borderWidth: 1,
+                        borderWidth: 3,
                         borderColor: 'lightgray',
                         borderRadius: 0,
                     }}
@@ -154,6 +189,7 @@ class PhoneSearchResults extends Component {
                                    this.setState({
                                        dataSource: this.state.dataSource.cloneWithRows(items),
                                        resultsCount: items.length,
+                                       recordsCount: items.length
                                    })
                                }}
                                placeholder="Search">
@@ -164,6 +200,7 @@ class PhoneSearchResults extends Component {
                 </View>
 
                 <ScrollView
+                    onScroll={this.refreshData.bind(this)} scrollEventThrottle={16}
                     style={{marginTop: 0, marginBottom: 0}}>
                     <ListView
                         dataSource={this.state.dataSource}
