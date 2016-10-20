@@ -1,4 +1,4 @@
-'use strict';
+//'use strict';
 
 import React, {Component} from 'react';
 import {
@@ -38,7 +38,16 @@ class Users extends Component {
         this.getUsers();
     }
 
+    componentWillUpdate() {
+        if (auth0.users.refresh) {
+            auth0.users.refresh = false;
+            this.getUsers();
+        }
+    }
+
     getUsers() {
+        console.log('refresh' + auth0.users);
+        console.log('getUsers');
         fetch('http://ui-base.herokuapp.com/api/users/get', {
             method: 'get',
             headers: {
@@ -106,6 +115,7 @@ class Users extends Component {
                 this.setState({
                     showProgress: false
                 });
+                auth0.users.refresh = true;
                 this.props.navigator.pop();
             });
     }

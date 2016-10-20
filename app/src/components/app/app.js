@@ -1,4 +1,4 @@
-'use strict';
+//'use strict';
 
 import React, {Component} from 'react';
 import {
@@ -29,7 +29,11 @@ class App extends Component {
             checkingAuth: false,
             showProgress: false,
             isLoggedIn: false
-        }
+        };
+
+        // auth0 = {
+        //     users: {}
+        // };
     }
 
     render() {

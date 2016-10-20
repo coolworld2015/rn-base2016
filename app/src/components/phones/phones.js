@@ -137,7 +137,7 @@ class Phones extends Component {
             this.setState({
                 showProgress: true,
                 resultsCount: 0,
-                recordsCount: 5,
+                recordsCount: 25,
                 positionY: 0
             });
             setTimeout(() => {

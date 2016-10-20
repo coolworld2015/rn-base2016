@@ -1,4 +1,4 @@
-'use strict';
+//'use strict';
 
 import React, {Component} from 'react';
 import {
@@ -29,8 +29,14 @@ class AppContainer extends Component {
         super(props);
 
         this.state = {
-            selectedTab: 'Phones'
-        }
+            selectedTab: 'Users'
+        };
+
+        auth0 = {
+            users: {
+                refresh: false
+            }
+        };
     }
 
     render() {

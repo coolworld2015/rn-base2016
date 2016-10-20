@@ -58,7 +58,8 @@ class UserAdd extends Component {
         })
             .then((response)=> response.json())
             .then((responseData)=> {
-                this.props.navigator.pop()
+                auth0.users.refresh = true;
+                this.props.navigator.pop();
             })
             .catch((error)=> {
                 console.log(error);
