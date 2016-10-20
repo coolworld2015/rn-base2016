@@ -39,14 +39,19 @@ class Users extends Component {
     }
 
     componentWillUpdate() {
-        if (auth0.users.refresh) {
-            auth0.users.refresh = false;
+        if (App.users.refresh) {
+            App.users.refresh = false;
+
+            this.setState({
+                showProgress: true
+            });
+
             this.getUsers();
         }
     }
 
     getUsers() {
-        console.log('refresh' + auth0.users);
+        console.log('refresh' + App.users);
         console.log('getUsers');
         fetch('http://ui-base.herokuapp.com/api/users/get', {
             method: 'get',
@@ -115,7 +120,7 @@ class Users extends Component {
                 this.setState({
                     showProgress: false
                 });
-                auth0.users.refresh = true;
+                App.users.refresh = true;
                 this.props.navigator.pop();
             });
     }

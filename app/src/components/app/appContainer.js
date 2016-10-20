@@ -32,7 +32,7 @@ class AppContainer extends Component {
             selectedTab: 'Users'
         };
 
-        auth0 = {
+        App = {
             users: {
                 refresh: false
             }
@@ -87,7 +87,7 @@ class AppContainer extends Component {
                         initialRoute={{
                             component: Users,
                             title: 'Users',
-                            rightButtonTitle: 'Add',
+                            rightButtonTitle: 'New',
                             onRightButtonPress: () => {
                                 this.refs.users.navigator.push({
                                     title: "New user",

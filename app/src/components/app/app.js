@@ -31,8 +31,10 @@ class App extends Component {
             isLoggedIn: false
         };
 
-        // auth0 = {
-        //     users: {}
+        // App = {
+        //     users: {
+        //         refresh: false
+        //     }
         // };
     }
 

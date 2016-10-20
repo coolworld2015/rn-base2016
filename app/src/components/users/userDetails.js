@@ -58,7 +58,8 @@ class UserDetails extends Component {
         })
             .then((response)=> response.json())
             .then((responseData)=> {
-                this.props.navigator.pop()
+                App.users.refresh = true;
+                this.props.navigator.pop();
             })
             .catch((error)=> {
                 console.log(error);
@@ -146,7 +147,7 @@ class UserDetails extends Component {
                     <TouchableHighlight
                         onPress={()=> this.updateUser()}
                         style={styles.button}>
-                        <Text style={styles.buttonText}>Update item</Text>
+                        <Text style={styles.buttonText}>Update</Text>
                     </TouchableHighlight>
 
                     {errorCtrl}

@@ -58,7 +58,7 @@ class UserAdd extends Component {
         })
             .then((response)=> response.json())
             .then((responseData)=> {
-                auth0.users.refresh = true;
+                App.users.refresh = true;
                 this.props.navigator.pop();
             })
             .catch((error)=> {
@@ -105,7 +105,7 @@ class UserAdd extends Component {
                         marginTop: 0,
                         fontWeight: "bold"
                     }}>
-                        New user
+                        New
                     </Text>
 
                     <TextInput
@@ -143,7 +143,7 @@ class UserAdd extends Component {
                     <TouchableHighlight
                         onPress={()=> this.addUser()}
                         style={styles.button}>
-                        <Text style={styles.buttonText}>Add item</Text>
+                        <Text style={styles.buttonText}>Add</Text>
                     </TouchableHighlight>
 
                     {errorCtrl}
