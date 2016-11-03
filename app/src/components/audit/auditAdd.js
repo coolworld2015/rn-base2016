@@ -14,22 +14,69 @@ import {
     TabBarIOS,
     NavigatorIOS,
     TextInput,
-    Picker
+    Picker,
+    CameraRoll
 } from 'react-native';
 
 import Users from '../users/users';
+
+//const CameraRollView = require('./CameraRollView');
+
+//import CameraRollPicker from 'react-native-camera-roll-picker';
 
 class AuditAdd extends Component {
     constructor(props) {
         super(props);
 
+        var ds = new ListView.DataSource({
+            rowHasChanged: (r1, r2) => r1 != r2
+        });
+
         this.state = {
-            showProgress: true,
+            //showProgress: true,
             items: [],
-            item: 'New item'
+            item: 'New item',
+            dataSource: ds.cloneWithRows([])
         };
 
-        this.getUsers();
+        //this.getUsers();
+
+        // CameraRoll.getPhotos({first: 5})
+        //     .done((data) =>{
+        //         console.log(data);
+        //     },
+        //     (error) => {
+        //         console.warn(error);
+        //     }
+        // );
+
+        CameraRoll.getPhotos({first: 5})
+            .then((data) => {
+                console.log(data);
+                var images = data.edges.map((asset) => {
+                    return {
+                        uri: asset.node.image.uri
+                    };
+                });
+
+                console.log(images);
+
+                this.setState({
+                    dataSource: this.state.dataSource.cloneWithRows(images),
+                    //images: this.state.images.cloneWithRows(images)
+                });
+            }, () => {
+                this.setState({
+                    retrievePhotoError: messages.errors.retrievePhotos
+                });
+            });
+    }
+
+    renderImage(image) {
+        return <Image resizeMode="cover" source={{uri: image.uri}} style={[{
+            height: imageDimensions, // imageDimensions == 93.5
+            width: imageDimensions
+        }, componentStyles.thumbnails]}/>;
     }
 
     getUsers() {
@@ -70,6 +117,46 @@ class AuditAdd extends Component {
         return 0;
     }
 
+    getSelectedImages(images, current) {
+        var num = images.length;
+
+        this.setState({
+            num: num,
+            selected: images,
+        });
+
+        console.log(current);
+        console.log(this.state.selected);
+    }
+
+    renderRow(rowData) {
+        return (
+            <TouchableHighlight
+                onPress={()=> this.pressRow(rowData)}
+                underlayColor='#ddd'>
+
+                <View style={styles.imgsList}>
+
+                    <Image
+                        source={{uri: rowData.uri}}
+                        resizeMode='stretch'
+                        style={styles.img}
+                    />
+
+                    <View style={{
+                        flex: 1,
+                        flexDirection: 'column',
+                        justifyContent: 'space-between'
+                    }}>
+                        <Text style={styles.text}>{rowData.name}</Text>
+                        <Text style={styles.text1}>{rowData.group}</Text>
+                        <Text>{rowData.category}</Text>
+                    </View>
+                </View>
+            </TouchableHighlight>
+        );
+    }
+
     render() {
         var errorCtrl = <View />;
 
@@ -90,13 +177,38 @@ class AuditAdd extends Component {
         return (
             <ScrollView>
 
+                {/*<ListView*/}
+                {/*automaticallyAdjustContentInsets={false}*/}
+
+                {/*dataSource={this.state.images}*/}
+                {/*renderRow={this.renderImage}*/}
+                {/*/>*/}
+
+                <ListView
+                    dataSource={this.state.dataSource}
+                    renderRow={this.renderRow.bind(this)}
+                />
+
                 {errorCtrl}
 
-                <ActivityIndicator
-                    animating={this.state.showProgress}
-                    size="large"
-                    style={styles.loader}
-                />
+                {/*<CameraRollPicker*/}
+                {/*callback={this.getSelectedImages} />*/}
+
+                {/*<CameraRollView*/}
+                {/*/>*/}
+
+                {/*<CameraRollView*/}
+                {/*ref={(ref) => { this._cameraRollView = ref; }}*/}
+                {/*batchSize={20}*/}
+                {/*groupTypes={this.state.groupTypes}*/}
+                {/*renderImage={this._renderImage}*/}
+                {/*/>*/}
+
+                {/*<ActivityIndicator*/}
+                    {/*animating={this.state.showProgress}*/}
+                    {/*size="large"*/}
+                    {/*style={styles.loader}*/}
+                {/*/>*/}
 
                 <View>
                     <Text style={{

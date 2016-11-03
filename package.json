@@ -8,6 +8,7 @@
   "dependencies": {
     "react": "15.3.1",
     "react-native": "0.32.0",
+    "react-native-camera-roll-picker": "^1.1.9",
     "react-native-swipeout": "git+https://github.com/magrinj/react-native-swipeout"
   }
 }
