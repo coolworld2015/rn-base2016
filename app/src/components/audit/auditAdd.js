@@ -33,24 +33,15 @@ class AuditAdd extends Component {
         });
 
         this.state = {
-            //showProgress: true,
+            showProgress: true,
             items: [],
             item: 'New item',
             dataSource: ds.cloneWithRows([])
         };
 
-        //this.getUsers();
+        this.getUsers();
 
-        // CameraRoll.getPhotos({first: 5})
-        //     .done((data) =>{
-        //         console.log(data);
-        //     },
-        //     (error) => {
-        //         console.warn(error);
-        //     }
-        // );
-
-        CameraRoll.getPhotos({first: 5})
+        CameraRoll.getPhotos({first: 50})
             .then((data) => {
                 console.log(data);
                 var images = data.edges.map((asset) => {
@@ -70,13 +61,6 @@ class AuditAdd extends Component {
                     retrievePhotoError: messages.errors.retrievePhotos
                 });
             });
-    }
-
-    renderImage(image) {
-        return <Image resizeMode="cover" source={{uri: image.uri}} style={[{
-            height: imageDimensions, // imageDimensions == 93.5
-            width: imageDimensions
-        }, componentStyles.thumbnails]}/>;
     }
 
     getUsers() {
@@ -176,39 +160,12 @@ class AuditAdd extends Component {
 
         return (
             <ScrollView>
-
-                {/*<ListView*/}
-                {/*automaticallyAdjustContentInsets={false}*/}
-
-                {/*dataSource={this.state.images}*/}
-                {/*renderRow={this.renderImage}*/}
-                {/*/>*/}
-
                 <ListView
                     dataSource={this.state.dataSource}
                     renderRow={this.renderRow.bind(this)}
                 />
 
                 {errorCtrl}
-
-                {/*<CameraRollPicker*/}
-                {/*callback={this.getSelectedImages} />*/}
-
-                {/*<CameraRollView*/}
-                {/*/>*/}
-
-                {/*<CameraRollView*/}
-                {/*ref={(ref) => { this._cameraRollView = ref; }}*/}
-                {/*batchSize={20}*/}
-                {/*groupTypes={this.state.groupTypes}*/}
-                {/*renderImage={this._renderImage}*/}
-                {/*/>*/}
-
-                {/*<ActivityIndicator*/}
-                    {/*animating={this.state.showProgress}*/}
-                    {/*size="large"*/}
-                    {/*style={styles.loader}*/}
-                {/*/>*/}
 
                 <View>
                     <Text style={{
@@ -306,6 +263,15 @@ class AuditAdd extends Component {
 }
 
 const styles = StyleSheet.create({
+    imgsList: {
+        flex: 1,
+        flexDirection: 'row',
+        padding: 0,
+        alignItems: 'center',
+        borderColor: '#D7D7D7',
+        borderBottomWidth: 1,
+        backgroundColor: '#fff'
+    },
     AppContainer: {
         flex: 1,
         justifyContent: 'center',
@@ -365,8 +331,8 @@ const styles = StyleSheet.create({
         textAlign: 'center'
     },
     img: {
-        height: 95,
-        width: 75,
+        height: 300,
+        width: 300,
         borderRadius: 20,
         margin: 20
     }
