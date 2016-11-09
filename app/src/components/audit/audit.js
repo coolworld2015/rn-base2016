@@ -31,7 +31,6 @@ class Audit extends Component {
         this.state = {
             dataSource: ds.cloneWithRows([]),
             showProgress: true,
-            serverError: false,
             resultsCount: 0,
             recordsCount: 25,
             positionY: 0
@@ -54,7 +53,8 @@ class Audit extends Component {
                 this.setState({
                     dataSource: this.state.dataSource.cloneWithRows(responseData.slice(0, 25)),
                     resultsCount: responseData.length,
-                    responseData: responseData
+                    responseData: responseData,
+                    filteredItems: responseData
                 });
             })
             .catch((error)=> {
@@ -73,10 +73,10 @@ class Audit extends Component {
         this.props.navigator.push({
             title: rowData.date,
             component: AuditDetails,
-            rightButtonTitle: 'Cancel',
-            onRightButtonPress: () => {
-                this.props.navigator.pop()
-            },
+            //rightButtonTitle: 'Cancel',
+            //onRightButtonPress: () => {
+            //    this.props.navigator.pop()
+            //},
             passProps: {
                 pushEvent: rowData
             }
@@ -107,11 +107,32 @@ class Audit extends Component {
     }
 
     refreshData(event) {
-        var items, positionY, recordsCount;
+        if (this.state.showProgress == true) {
+            return;
+        }
 
+        if (event.nativeEvent.contentOffset.y <= -150) {
+            this.setState({
+                showProgress: true,
+                resultsCount: 0,
+                recordsCount: 25,
+                positionY: 0,
+                searchQuery: ''
+            });
+
+            setTimeout(() => {
+                this.getAudit()
+            }, 300);
+        }
+
+        if (this.state.filteredItems == undefined) {
+            return;
+        }
+
+        var items, positionY, recordsCount;
         recordsCount = this.state.recordsCount;
         positionY = this.state.positionY;
-        items = this.state.responseData.slice(0, recordsCount);
+        items = this.state.filteredItems.slice(0, recordsCount);
 
         console.log(positionY + ' - ' + recordsCount + ' - ' + items.length);
 
@@ -124,23 +145,25 @@ class Audit extends Component {
             });
 
         }
+    }
 
-        if (event.nativeEvent.contentOffset.y <= -100) {
-
-            this.setState({
-                showProgress: true,
-                resultsCount: 0,
-                recordsCount: 25,
-                positionY: 0
-            });
-            setTimeout(() => {
-                this.getAudit()
-            }, 300);
+    onChangeText(text) {
+        if (this.state.dataSource == undefined) {
+            return;
         }
+
+        var arr = [].concat(this.state.responseData);
+        var items = arr.filter((el) => el.name.toLowerCase().indexOf(text.toLowerCase()) != -1);
+        this.setState({
+            dataSource: this.state.dataSource.cloneWithRows(items),
+            resultsCount: items.length,
+            filteredItems: items,
+            searchQuery: text
+        })
     }
 
     render() {
-        var errorCtrl = <View />;
+        var errorCtrl, loader;
 
         if (this.state.serverError) {
             errorCtrl = <Text style={styles.error}>
@@ -149,17 +172,16 @@ class Audit extends Component {
         }
 
         if (this.state.showProgress) {
-            return (
-                <View style={{
-                    flex: 1,
-                    justifyContent: 'center'
-                }}>
-                    <ActivityIndicator
-                        size="large"
-                        animating={true}/>
-                </View>
-            );
+            loader = <View style={{
+                justifyContent: 'center',
+                height: 100
+            }}>
+                <ActivityIndicator
+                    size="large"
+                    animating={true}/>
+            </View>;
         }
+
         return (
             <View style={{flex: 1, justifyContent: 'center'}}>
                 <View style={{marginTop: 60}}>
@@ -172,15 +194,8 @@ class Audit extends Component {
                         borderColor: 'lightgray',
                         borderRadius: 0,
                     }}
-                               onChangeText={(text)=> {
-                                   var arr = [].concat(this.state.responseData);
-                                   var items = arr.filter((el) => el.name.indexOf(text) != -1);
-                                   this.setState({
-                                       dataSource: this.state.dataSource.cloneWithRows(items),
-                                       resultsCount: items.length,
-                                       recordsCount: items.length
-                                   })
-                               }}
+                               onChangeText={this.onChangeText.bind(this)}
+                               value={this.state.searchQuery}
                                placeholder="Search">
                     </TextInput>
 
@@ -188,10 +203,12 @@ class Audit extends Component {
 
                 </View>
 
+                {loader}
+
                 <ScrollView
-                    onScroll={this.refreshData.bind(this)} scrollEventThrottle={16}
-                    style={{marginTop: 0, marginBottom: 0}}>
+                    onScroll={this.refreshData.bind(this)} scrollEventThrottle={16}>
                     <ListView
+                        style={{marginTop: -65, marginBottom: -45}}
                         dataSource={this.state.dataSource}
                         renderRow={this.renderRow.bind(this)}
                     />

@@ -200,7 +200,7 @@ class AuditAdd extends Component {
 
                     <TouchableHighlight
                         style={styles.button}>
-                        <Text style={styles.buttonText}>Add item</Text>
+                        <Text style={styles.buttonText}>Add</Text>
                     </TouchableHighlight>
 
                 </View>

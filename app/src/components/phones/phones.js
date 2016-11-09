@@ -50,7 +50,8 @@ class Phones extends Component {
                 this.setState({
                     dataSource: this.state.dataSource.cloneWithRows(responseData.sort(this.sort).slice(0, 25)),
                     resultsCount: responseData.length,
-                    responseData: responseData.sort(this.sort)
+                    responseData: responseData.sort(this.sort),
+                    filteredItems: responseData.sort(this.sort)
                 })
             })
             .catch((error)=> {
@@ -114,11 +115,32 @@ class Phones extends Component {
     }
 
     refreshData(event) {
-        var items, positionY, recordsCount;
+        if (this.state.showProgress == true) {
+            return;
+        }
 
+        if (event.nativeEvent.contentOffset.y <= -150) {
+            this.setState({
+                showProgress: true,
+                resultsCount: 0,
+                recordsCount: 25,
+                positionY: 0,
+                searchQuery: ''
+            });
+
+            setTimeout(() => {
+                this.getPhones()
+            }, 300);
+        }
+
+        if (this.state.filteredItems == undefined) {
+            return;
+        }
+
+        var items, positionY, recordsCount;
         recordsCount = this.state.recordsCount;
         positionY = this.state.positionY;
-        items = this.state.responseData.slice(0, recordsCount);
+        items = this.state.filteredItems.slice(0, recordsCount);
 
         console.log(positionY + ' - ' + recordsCount + ' - ' + items.length);
 
@@ -131,23 +153,25 @@ class Phones extends Component {
             });
 
         }
+    }
 
-        if (event.nativeEvent.contentOffset.y <= -100) {
-
-            this.setState({
-                showProgress: true,
-                resultsCount: 0,
-                recordsCount: 25,
-                positionY: 0
-            });
-            setTimeout(() => {
-                this.getPhones()
-            }, 300);
+    onChangeText(text) {
+        if (this.state.dataSource == undefined) {
+            return;
         }
+
+        var arr = [].concat(this.state.responseData);
+        var items = arr.filter((el) => el.phone.toLowerCase().indexOf(text.toLowerCase()) != -1);
+        this.setState({
+            dataSource: this.state.dataSource.cloneWithRows(items),
+            resultsCount: items.length,
+            filteredItems: items,
+            searchQuery: text
+        })
     }
 
     render() {
-        var errorCtrl = <View />;
+        var errorCtrl, loader;
 
         if (this.state.serverError) {
             errorCtrl = <Text style={styles.error}>
@@ -156,17 +180,16 @@ class Phones extends Component {
         }
 
         if (this.state.showProgress) {
-            return (
-                <View style={{
-                    flex: 1,
-                    justifyContent: 'center'
-                }}>
-                    <ActivityIndicator
-                        size="large"
-                        animating={true}/>
-                </View>
-            );
+            loader = <View style={{
+                justifyContent: 'center',
+                height: 100
+            }}>
+                <ActivityIndicator
+                    size="large"
+                    animating={true}/>
+            </View>;
         }
+
         return (
             <View style={{flex: 1, justifyContent: 'center'}}>
                 <View style={{marginTop: 60}}>
@@ -179,15 +202,8 @@ class Phones extends Component {
                         borderColor: 'lightgray',
                         borderRadius: 0,
                     }}
-                               onChangeText={(text)=> {
-                                   var arr = [].concat(this.state.responseData);
-                                   var items = arr.filter((el) => el.phone.indexOf(text) != -1);
-                                   this.setState({
-                                       dataSource: this.state.dataSource.cloneWithRows(items),
-                                       resultsCount: items.length,
-                                       recordsCount: items.length
-                                   })
-                               }}
+                               onChangeText={this.onChangeText.bind(this)}
+                               value={this.state.searchQuery}
                                placeholder="Search">
                     </TextInput>
 
@@ -195,10 +211,12 @@ class Phones extends Component {
 
                 </View>
 
+                {loader}
+
                 <ScrollView
-                    onScroll={this.refreshData.bind(this)} scrollEventThrottle={16}
-                    style={{marginTop: 0, marginBottom: 0}}>
+                    onScroll={this.refreshData.bind(this)} scrollEventThrottle={16}>
                     <ListView
+                        style={{marginTop: -65, marginBottom: -45}}
                         dataSource={this.state.dataSource}
                         renderRow={this.renderRow.bind(this)}
                     />

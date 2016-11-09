@@ -29,7 +29,7 @@ class AppContainer extends Component {
         super(props);
 
         this.state = {
-            selectedTab: 'Phones'
+            selectedTab: 'Audit'
         };
 
         App = {
@@ -114,14 +114,14 @@ class AppContainer extends Component {
                         initialRoute={{
                             component: Audit,
                             title: 'Audit',
-                            rightButtonTitle: 'Add',
+                            rightButtonTitle: 'Test',
                             onRightButtonPress: () => {
                                 this.refs.audit.navigator.push({
-                                    title: "New audit",
+                                    title: "Test",
                                     component: AuditAdd,
-                                    rightButtonTitle: 'Cancel',
+                                    rightButtonTitle: 'Back',
                                     onRightButtonPress: () => {
-                                        this.refs.audit.navigator.pop();
+                                        this.refs.audit.navigator.popToTop();
                                     }
                                 });
                             }

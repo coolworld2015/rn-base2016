@@ -46,6 +46,7 @@ class AuditDetails extends Component {
                         fontSize: 24,
                         textAlign: 'center',
                         marginTop: 10,
+                        fontWeight: 'bold'
                     }}>
                         {this.state.date}
                     </Text>
@@ -119,7 +120,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: 'lightgray',
         borderRadius: 0,
-        color: 'gray'
+        color: 'black'
     },
     loginInput1: {
         height: 150,
@@ -129,7 +130,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: 'lightgray',
         borderRadius: 0,
-        color: 'gray'
+        color: 'black'
     },
     button: {
         height: 50,
