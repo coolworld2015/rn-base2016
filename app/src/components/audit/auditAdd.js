@@ -334,7 +334,8 @@ const styles = StyleSheet.create({
         height: 300,
         width: 300,
         borderRadius: 20,
-        margin: 20
+        margin: 20,
+        alignItems: 'center'
     }
 });
 
