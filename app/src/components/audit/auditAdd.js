@@ -40,27 +40,6 @@ class AuditAdd extends Component {
         };
 
         this.getUsers();
-
-        CameraRoll.getPhotos({first: 50})
-            .then((data) => {
-                console.log(data);
-                var images = data.edges.map((asset) => {
-                    return {
-                        uri: asset.node.image.uri
-                    };
-                });
-
-                console.log(images);
-
-                this.setState({
-                    dataSource: this.state.dataSource.cloneWithRows(images),
-                    //images: this.state.images.cloneWithRows(images)
-                });
-            }, () => {
-                this.setState({
-                    retrievePhotoError: messages.errors.retrievePhotos
-                });
-            });
     }
 
     getUsers() {
@@ -113,34 +92,6 @@ class AuditAdd extends Component {
         console.log(this.state.selected);
     }
 
-    renderRow(rowData) {
-        return (
-            <TouchableHighlight
-                onPress={()=> this.pressRow(rowData)}
-                underlayColor='#ddd'>
-
-                <View style={styles.imgsList}>
-
-                    <Image
-                        source={{uri: rowData.uri}}
-                        resizeMode='stretch'
-                        style={styles.img}
-                    />
-
-                    <View style={{
-                        flex: 1,
-                        flexDirection: 'column',
-                        justifyContent: 'space-between'
-                    }}>
-                        <Text style={styles.text}>{rowData.name}</Text>
-                        <Text style={styles.text1}>{rowData.group}</Text>
-                        <Text>{rowData.category}</Text>
-                    </View>
-                </View>
-            </TouchableHighlight>
-        );
-    }
-
     render() {
         var errorCtrl = <View />;
 
@@ -160,10 +111,6 @@ class AuditAdd extends Component {
 
         return (
             <ScrollView>
-                <ListView
-                    dataSource={this.state.dataSource}
-                    renderRow={this.renderRow.bind(this)}
-                />
 
                 {errorCtrl}
 
