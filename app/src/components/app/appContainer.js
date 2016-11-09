@@ -29,7 +29,7 @@ class AppContainer extends Component {
         super(props);
 
         this.state = {
-            selectedTab: 'Audit'
+            selectedTab: 'Phones'
         };
 
         App = {
@@ -63,11 +63,7 @@ class AppContainer extends Component {
                             onRightButtonPress: () => {
                                 this.refs.phones.navigator.push({
                                     title: "Search",
-                                    component: PhoneSearch,
-                                    rightButtonTitle: 'Cancel',
-                                    onRightButtonPress: () => {
-                                        this.refs.phones.navigator.pop()
-                                    }
+                                    component: PhoneSearch
                                 });
                             }
                         }}

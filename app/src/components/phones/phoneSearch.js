@@ -13,7 +13,8 @@ import {
     ActivityIndicator,
     TabBarIOS,
     NavigatorIOS,
-    TextInput
+    TextInput,
+    Switch
 } from 'react-native';
 
 import PhoneSearchResults from './phoneSearchResults';
@@ -23,7 +24,8 @@ class PhoneSearch extends Component {
         super(props);
 
         this.state = {
-            showProgress: false
+            showProgress: false,
+            eventSwitchTitle: true
         }
     }
 
@@ -52,6 +54,42 @@ class PhoneSearch extends Component {
                         style={styles.button}>
                         <Text style={styles.buttonText}>Search phones</Text>
                     </TouchableHighlight>
+
+                    <View style={{
+                        height: 50,
+                        marginTop: 10,
+                        padding: 10,
+                        borderWidth: 1,
+                        borderColor: '#48BBEC',
+                        alignSelf: 'stretch',
+                        flex: 1,
+                        flexDirection: 'row'
+                    }}>
+                        <View
+                            style={{
+                                marginTop: 3,
+                                flex: 1
+                            }}>
+                            <Text style={{
+                                fontSize: 18,
+                            }}>
+                                Search by title
+                            </Text>
+                        </View>
+
+                        <View
+                            style={{
+                                marginTop: -1
+                            }}>
+                            <Switch
+                                onValueChange={(value) => this.setState({
+                                    eventSwitchTitle: value
+                                })}
+                                value={this.state.eventSwitchTitle}
+                            />
+                        </View>
+                    </View>
+
                     <TextInput
                         onChangeText={(text)=> this.setState({
                             searchQuery: text,
@@ -100,9 +138,9 @@ class PhoneSearch extends Component {
         this.props.navigator.push({
             component: PhoneSearchResults,
             title: this.state.searchQuery,
-            rightButtonTitle: 'Cancel',
+            rightButtonTitle: 'Back',
             onRightButtonPress: () => {
-                this.props.navigator.pop()
+                this.props.navigator.popToTop()
             },
             passProps: {
                 searchQuery: this.state.searchQuery
@@ -143,7 +181,6 @@ const styles = StyleSheet.create({
         margin: 20,
     },
     container: {
-        paddingTop: 40,
         padding: 10,
         alignItems: 'center',
         flex: 1
@@ -165,7 +202,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: '#48BBEC',
         borderRadius: 0,
-        color: 'gray'
+        color: 'black'
     },
     button: {
         height: 50,
