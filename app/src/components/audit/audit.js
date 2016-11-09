@@ -143,7 +143,6 @@ class Audit extends Component {
                 recordsCount: recordsCount + 20,
                 positionY: positionY + 1000
             });
-
         }
     }
 

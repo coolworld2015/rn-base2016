@@ -32,7 +32,9 @@ class Users extends Component {
             dataSource: ds.cloneWithRows([]),
             showProgress: true,
             serverError: false,
-            resultsCount: 0
+            resultsCount: 0,
+            recordsCount: 25,
+            positionY: 0
         };
 
         this.getUsers();
@@ -66,7 +68,8 @@ class Users extends Component {
                 this.setState({
                     dataSource: this.state.dataSource.cloneWithRows(responseData.sort(this.sort)),
                     resultsCount: responseData.length,
-                    responseData: responseData
+                    responseData: responseData,
+                    filteredItems: responseData
                 });
             })
             .catch((error)=> {
@@ -156,7 +159,6 @@ class Users extends Component {
                 onPress={()=> this.pressRow(rowData)}
                 underlayColor='#ddd'
             >
-
                 <View style={{
                     flex: 1,
                     flexDirection: 'row',
@@ -166,30 +168,68 @@ class Users extends Component {
                     borderBottomWidth: 1,
                     backgroundColor: '#fff'
                 }}>
-
                     <Text style={{backgroundColor: '#fff'}}>
                         {rowData.name}
                     </Text>
-
                 </View>
-
             </TouchableHighlight>
         );
     }
 
     refreshData(event) {
-        if (event.nativeEvent.contentOffset.y <= -100) {
+        if (this.state.showProgress == true) {
+            return;
+        }
 
+        if (event.nativeEvent.contentOffset.y <= -150) {
             this.setState({
                 showProgress: true,
-                resultsCount: event.nativeEvent.contentOffset.y
+                resultsCount: 0,
+                recordsCount: 25,
+                positionY: 0,
+                searchQuery: ''
             });
+
             setTimeout(() => {
                 this.getUsers()
             }, 300);
         }
+
+        if (this.state.filteredItems == undefined) {
+            return;
+        }
+
+        var items, positionY, recordsCount;
+        recordsCount = this.state.recordsCount;
+        positionY = this.state.positionY;
+        items = this.state.filteredItems.slice(0, recordsCount);
+
+        console.log(positionY + ' - ' + recordsCount + ' - ' + items.length);
+
+        if (event.nativeEvent.contentOffset.y >= positionY - 10) {
+            console.log(items.length);
+            this.setState({
+                dataSource: this.state.dataSource.cloneWithRows(items),
+                recordsCount: recordsCount + 20,
+                positionY: positionY + 1000
+            });
+        }
     }
 
+    onChangeText(text) {
+        if (this.state.dataSource == undefined) {
+            return;
+        }
+
+        var arr = [].concat(this.state.responseData);
+        var items = arr.filter((el) => el.name.toLowerCase().indexOf(text.toLowerCase()) != -1);
+        this.setState({
+            dataSource: this.state.dataSource.cloneWithRows(items),
+            resultsCount: items.length,
+            filteredItems: items,
+            searchQuery: text
+        })
+    }
 
     render() {
         var swipeoutBtns = [
@@ -199,7 +239,7 @@ class Users extends Component {
             }
         ];
 
-        var errorCtrl = <View />;
+        var errorCtrl, loader;
 
         if (this.state.serverError) {
             errorCtrl = <Text style={styles.error}>
@@ -208,17 +248,16 @@ class Users extends Component {
         }
 
         if (this.state.showProgress) {
-            return (
-                <View style={{
-                    flex: 1,
-                    justifyContent: 'center'
-                }}>
-                    <ActivityIndicator
-                        size="large"
-                        animating={true}/>
-                </View>
-            );
+            loader = <View style={{
+                justifyContent: 'center',
+                height: 100
+            }}>
+                <ActivityIndicator
+                    size="large"
+                    animating={true}/>
+            </View>;
         }
+
         return (
             <View style={{flex: 1, justifyContent: 'center'}}>
                 <View style={{marginTop: 60}}>
@@ -231,14 +270,8 @@ class Users extends Component {
                         borderColor: 'lightgray',
                         borderRadius: 0,
                     }}
-                               onChangeText={(text)=> {
-                                   var arr = [].concat(this.state.responseData);
-                                   var items = arr.filter((el) => el.name.indexOf(text) != -1);
-                                   this.setState({
-                                       dataSource: this.state.dataSource.cloneWithRows(items),
-                                       resultsCount: items.length,
-                                   })
-                               }}
+                               onChangeText={this.onChangeText.bind(this)}
+                               value={this.state.searchQuery}
                                placeholder="Search">
                     </TextInput>
 
@@ -246,10 +279,12 @@ class Users extends Component {
 
                 </View>
 
+                {loader}
+
                 <ScrollView
-                    onScroll={this.refreshData.bind(this)} scrollEventThrottle={16}
-                    style={{marginTop: 0, marginBottom: 0}}>
+                    onScroll={this.refreshData.bind(this)} scrollEventThrottle={16}>
                     <ListView
+                        style={{marginTop: -65, marginBottom: -45}}
                         dataSource={this.state.dataSource}
                         renderRow={this.renderRow.bind(this)}
                     />
