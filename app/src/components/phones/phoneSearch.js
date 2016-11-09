@@ -73,7 +73,7 @@ class PhoneSearch extends Component {
                             <Text style={{
                                 fontSize: 18,
                             }}>
-                                Search by title
+                                Search by number
                             </Text>
                         </View>
 
@@ -138,10 +138,10 @@ class PhoneSearch extends Component {
         this.props.navigator.push({
             component: PhoneSearchResults,
             title: this.state.searchQuery,
-            rightButtonTitle: 'Back',
-            onRightButtonPress: () => {
-                this.props.navigator.popToTop()
-            },
+            //rightButtonTitle: 'Back',
+            //onRightButtonPress: () => {
+            //    this.props.navigator.popToTop()
+            //},
             passProps: {
                 searchQuery: this.state.searchQuery
             }

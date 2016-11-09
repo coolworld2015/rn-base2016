@@ -9,4 +9,4 @@ import {
 import App from './app/src/components/app/app';
 import AppContainer from './app/src/components/app/appContainer';
 
-AppRegistry.registerComponent('rxBase', () => AppContainer);
+AppRegistry.registerComponent('rxBase', () => App);
