@@ -115,8 +115,8 @@ class Login extends Component {
                     </TextInput>
 
                     <TouchableHighlight
-                        onPress={this.onLoginPressed.bind(this)}
-                        //onPress={()=> this.getUser()}
+                        //onPress={this.onLoginPressed.bind(this)}
+                        onPress={()=> this.getUser()}
                         style={styles.button}>
                         <Text style={styles.buttonText}>Log in</Text>
                     </TouchableHighlight>
@@ -186,7 +186,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: 'lightgray',
         borderRadius: 0,
-        color: 'gray'
+        color: 'black'
     },
     button: {
         height: 50,

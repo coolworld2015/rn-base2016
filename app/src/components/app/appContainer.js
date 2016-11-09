@@ -39,8 +39,11 @@ class AppContainer extends Component {
         };
     }
 
-    render() {
+    onLogOut() {
+        this.props.onLogOut();
+    }
 
+    render() {
         return (
             <TabBarIOS style={styles.AppContainer}>
 
@@ -89,11 +92,7 @@ class AppContainer extends Component {
                             onRightButtonPress: () => {
                                 this.refs.users.navigator.push({
                                     title: "New user",
-                                    component: UserAdd,
-                                    rightButtonTitle: 'Cancel',
-                                    onRightButtonPress: () => {
-                                        this.refs.users.navigator.pop();
-                                    }
+                                    component: UserAdd
                                 });
                             }
                         }}
@@ -128,6 +127,14 @@ class AppContainer extends Component {
                             }
                         }}
                     />
+                </TabBarIOS.Item>
+
+                <TabBarIOS.Item
+                    title="Logout"
+                    //systemIcon="more"
+                    icon={require('../../../log-out.png')}
+                    selected={this.state.selectedTab == 'Logout'}
+                    onPress={this.onLogOut.bind(this)}>
                 </TabBarIOS.Item>
 
             </TabBarIOS>

@@ -30,12 +30,6 @@ class App extends Component {
             showProgress: false,
             isLoggedIn: false
         };
-
-        // App = {
-        //     users: {
-        //         refresh: false
-        //     }
-        // };
     }
 
     render() {
@@ -52,7 +46,7 @@ class App extends Component {
 
         if (this.state.isLoggedIn) {
             return (
-                <AppContainer />
+                <AppContainer onLogOut={this.onLogOut.bind(this)}/>
             )
         } else {
             return (

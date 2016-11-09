@@ -197,7 +197,7 @@ class Users extends Component {
                 text: 'Delete',
                 backgroundColor: 'red',
             }
-        ]
+        ];
 
         var errorCtrl = <View />;
 
