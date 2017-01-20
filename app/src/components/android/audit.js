@@ -17,8 +17,6 @@ import {
     Alert
 } from 'react-native';
 
-console.disableYellowBox = true;
-
 import AuditDetails from './auditDetails';
 import AuditAdd from './auditAdd';
 
@@ -197,7 +195,7 @@ class Audit extends Component {
                     }}
                                onChangeText={this.onChangeText.bind(this)}
                                value={this.state.searchQuery}
-                               placeholder="Search1">
+                               placeholder="Search">
                     </TextInput>
 
                     {errorCtrl}
