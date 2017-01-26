@@ -25,6 +25,10 @@ Genymotion -> Ctrl+M -> Menu
 -------------------------------------------------------------------------------------------------
 react-native run-android
 -------------------------------------------------------------------------------------------------
+APK -> cd android -> gradlew assembleDebug(assembleRelease) -> \android\app\build\outputs\apk
+-------------------------------------------------------------------------------------------------
+APK -> react-native bundle --dev false --platform android --entry-file index.android.js --bundle-output ./android/app/build/intermediates/assets/debug/index.android.bundle --assets-dest ./android/app/build/intermediates/res/merged/debug
+-------------------------------------------------------------------------------------------------
 react-native start
 -------------------------------------------------------------------------------------------------
 react-native run-ios
