@@ -6,8 +6,8 @@ import {
   AppRegistry
 } from 'react-native';
 
-import Audit from './app/src/components/audit/audit';
+import Audit from './app/src/components/android/audit';
 import SampleApp from './app/src/components/android/navigator';
 
-//AppRegistry.registerComponent('rxBase', () => Audit);
-AppRegistry.registerComponent('rxBase', () => SampleApp);
+AppRegistry.registerComponent('rxBase', () => Audit);
+//AppRegistry.registerComponent('rxBase', () => SampleApp);

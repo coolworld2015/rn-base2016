@@ -47,7 +47,7 @@ class PageOne extends Component {
 	render() {
 		return (
 			<View style={[styles.container, {backgroundColor: 'green'}]}>
-				<Text style={styles.welcome}>Greetings!!!</Text>
+				<Text style={styles.welcome}>Greetings!!</Text>
 				<TouchableOpacity onPress={this._handlePress}>
 					<View style={{paddingVertical: 10, paddingHorizontal: 20, backgroundColor: 'black'}}>
 						<Text style={styles.welcome}>Go to page two</Text>

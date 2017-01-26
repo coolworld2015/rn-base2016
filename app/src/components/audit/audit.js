@@ -197,7 +197,7 @@ class Audit extends Component {
                     }}
                                onChangeText={this.onChangeText.bind(this)}
                                value={this.state.searchQuery}
-                               placeholder="Search1">
+                               placeholder="Search">
                     </TextInput>
 
                     {errorCtrl}
