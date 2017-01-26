@@ -17,6 +17,10 @@ rn-base\android -> local.properties -> sdk.dir = C:/Users/ed/AppData/Local/Andro
 -------------------------------------------------------------------------------------------------
 Android SDK Manager -> Android SDK Build-tools (23.0.1)
 -------------------------------------------------------------------------------------------------
+ANDROID_HOME -> C:/Users/ed/AppData/Local/Android/sdk
+-------------------------------------------------------------------------------------------------
+MAX_WAIT_TIME = 360000 -> node_modules\react-native\packager\react-packager\src\node-haste\FileWatcher
+-------------------------------------------------------------------------------------------------
 Genymotion -> Ctrl+M -> Menu
 -------------------------------------------------------------------------------------------------
 react-native run-android
