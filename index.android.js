@@ -9,5 +9,5 @@ import {
 import Audit from './app/src/components/android/audit';
 import SampleApp from './app/src/components/android/navigator';
 
-AppRegistry.registerComponent('rxBase', () => Audit);
-//AppRegistry.registerComponent('rxBase', () => SampleApp);
+//AppRegistry.registerComponent('rxBase', () => Audit);
+AppRegistry.registerComponent('rxBase', () => SampleApp);
