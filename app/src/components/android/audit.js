@@ -19,7 +19,7 @@ import {
 
 console.disableYellowBox = true;
 
-//import AuditDetails from './auditDetails';
+import AuditDetails from './auditDetails';
 //import AuditAdd from './auditAdd';
 
 class Audit extends Component {
@@ -40,7 +40,12 @@ class Audit extends Component {
 
         this.getAudit();
     }
-
+	
+	_handlePress() {
+		//this.props.navigator.pop();
+		this.props.navigator.push(this.props.routes[1]);
+	}
+	
     getAudit() {
         fetch('http://ui-base.herokuapp.com/api/audit/get', {
             method: 'get',
@@ -51,7 +56,7 @@ class Audit extends Component {
         })
             .then((response)=> response.json())
             .then((responseData)=> {
-console.log(responseData)
+//console.log(responseData)
                 this.setState({
                     dataSource: this.state.dataSource.cloneWithRows(responseData.slice(0, 25)),
                     resultsCount: responseData.length,
@@ -72,6 +77,11 @@ console.log(responseData)
     }
 
     pressRow(rowData) {
+		this.props.navigator.push({
+			index: 1,
+			data: rowData
+		});
+		return;
         this.props.navigator.push({
             title: rowData.date,
             component: AuditDetails,
@@ -142,8 +152,8 @@ console.log(responseData)
             console.log(items.length);
             this.setState({
                 dataSource: this.state.dataSource.cloneWithRows(items),
-                recordsCount: recordsCount + 20,
-                positionY: positionY + 1000
+                recordsCount: recordsCount + 10,
+                positionY: positionY + 500
             });
         }
     }
@@ -185,12 +195,12 @@ console.log(responseData)
 
         return (
             <View style={{flex: 1, justifyContent: 'center'}}>
-                <View style={{marginTop: 60}}>
+                <View style={{marginTop: 0}}>
                     <TextInput style={{
                         height: 45,
                         marginTop: 4,
                         padding: 5,
-                        backgroundColor: 'white',
+                        backgroundColor: 'lightgray',
                         borderWidth: 3,
                         borderColor: 'lightgray',
                         borderRadius: 0,
@@ -215,7 +225,7 @@ console.log(responseData)
                     />
                 </ScrollView>
 
-                <View style={{marginBottom: 49}}>
+                <View style={{marginBottom: 0}}>
                     <Text style={styles.countFooter}>
                         {this.state.resultsCount} entries were found.
                     </Text>
@@ -244,7 +254,7 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         padding: 10,
         borderColor: '#D7D7D7',
-        backgroundColor: 'whitesmoke'
+        backgroundColor: 'lightgray'
     },
     welcome: {
         fontSize: 20,

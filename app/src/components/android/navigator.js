@@ -12,8 +12,10 @@ import {
 	TouchableOpacity
 } from 'react-native';
 
-import Audit from './audit';
 import ScrollableTabView from 'react-native-scrollable-tab-view';
+
+import Audit from './audit';
+import AuditDetails from './auditDetails';
 
 class SampleApp extends Component {
 	constructor(props) {
@@ -21,14 +23,61 @@ class SampleApp extends Component {
 	}
 	
 	render() {
-	  return (
-		  <ScrollableTabView>
-			<PageOne tabLabel="PageOne" />
-			<PageTwo tabLabel="PageTwo" />
-			<PageThree tabLabel="PageThree" />
-			<Audit tabLabel="Audit" />
-		  </ScrollableTabView>
-	  );
+		return (
+			<ScrollableTabView>
+				<AuditTab tabLabel="Audit" />
+				<PageOne tabLabel="PageOne" />
+ 
+			</ScrollableTabView>
+		);
+	}
+}
+
+class AuditTab extends Component {
+	constructor(props) {
+		super(props);
+		this.routes = [
+			{title: 'Audit', index: 0},
+			{title: 'Audit Details', index: 1}
+		];
+	}
+		  
+	renderScene(route, navigator) {
+		switch (route.index) {
+			case 0: return <Audit routes={this.routes} navigator={navigator} />
+					break;			
+			case 1: return <AuditDetails data={route.data} routes={this.routes} navigator={navigator} />
+					break
+ 		}
+ 	}	
+	
+	render() {
+		return (
+	  		<Navigator
+			initialRoute={this.routes[0]}
+			initialRouteStack={this.routes}
+		    renderScene={this.renderScene.bind(this)}
+
+		    navigationBar1={
+				<Navigator.NavigationBar
+					routeMapper={{
+						LeftButton: (route, navigator, index, navState) =>
+							{ return null;(<Text>Cancel</Text>); },
+						RightButton: (route, navigator, index, navState) =>
+							{ return null; (<Text>Done</Text>); },
+						Title: (route, navigator, index, navState) =>
+							{ return (<Text>{route.title}</Text>); },
+					}}
+					style={{backgroundColor: 'white'}}
+				/>
+			}
+			
+			style={{padding: 0}}
+		  
+			configureScene={(route, routeStack) =>
+				Navigator.SceneConfigs.PushFromRight}
+		/>
+		)
 	}
 }
 
