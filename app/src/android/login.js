@@ -22,10 +22,18 @@ class Login extends Component {
 
         this.state = {
             showProgress: false,
+			username: '1',
+			password: '1',
+			bugANDROID: ''
         }
     }
 
     getUser() {
+		this.setState({
+            showProgress: true,
+			bugANDROID: ' '
+        });
+
         if (this.state.username == undefined ||
             this.state.password == undefined) {
             this.setState({
@@ -33,10 +41,6 @@ class Login extends Component {
             });
             return;
         }
-
-        this.setState({
-            showProgress: true
-        });
 
         fetch('http://ui-base.herokuapp.com/api/users/findByName/'
             + this.state.username, {
@@ -102,7 +106,7 @@ class Login extends Component {
                             badCredentials: false
                         })}
                         style={styles.loginInput}
-                        placeholder="Login">
+                        placeholder="Login">1
                     </TextInput>
 
                     <TextInput
@@ -111,7 +115,7 @@ class Login extends Component {
                             badCredentials: false
                         })}
                         style={styles.loginInput}
-                        placeholder="Password" secureTextEntry={true}>
+                        placeholder="Password" secureTextEntry={true}>1
                     </TextInput>
 
                     <TouchableHighlight
@@ -128,6 +132,8 @@ class Login extends Component {
                         size="large"
                         style={styles.loader}
                     />
+					
+					<Text style={styles.footer}>{this.state.bugANDROID}</Text>
                 </View>
             </ScrollView>
         )
@@ -164,6 +170,11 @@ const styles = StyleSheet.create({
         borderRadius: 20,
     },
     heading: {
+        fontSize: 30,
+        marginTop: 10,
+        //marginBottom: 20
+    },
+	footer: {
         fontSize: 30,
         marginTop: 10,
         //marginBottom: 20
