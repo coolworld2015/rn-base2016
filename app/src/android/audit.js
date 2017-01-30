@@ -206,7 +206,7 @@ class Audit extends Component {
                 <ScrollView
                     onScroll={this.refreshData.bind(this)} scrollEventThrottle={16}>
                     <ListView
-                        style={{marginTop: -65, marginBottom: -45}}
+                        style={{marginTop: 0, marginBottom: 0}}
                         dataSource={this.state.dataSource}
                         renderRow={this.renderRow.bind(this)}
                     />
