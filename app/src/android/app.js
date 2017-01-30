@@ -19,8 +19,7 @@ import {
 console.disableYellowBox = true;
 
 import Login from './login';
-//import AppContainer from './appContainer';
-import SampleApp from './navigator';
+import AppContainer from './appContainer';
 
 class App extends Component {
     constructor(props) {
@@ -47,7 +46,7 @@ class App extends Component {
 
         if (this.state.isLoggedIn) {
             return (
-                <SampleApp onLogOut={this.onLogOut.bind(this)}/>
+                <AppContainer onLogOut={this.onLogOut.bind(this)}/>
             )
         } else {
             return (

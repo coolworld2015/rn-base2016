@@ -56,7 +56,6 @@ class Audit extends Component {
         })
             .then((response)=> response.json())
             .then((responseData)=> {
-//console.log(responseData)
                 this.setState({
                     dataSource: this.state.dataSource.cloneWithRows(responseData.slice(0, 25)),
                     resultsCount: responseData.length,
@@ -81,18 +80,6 @@ class Audit extends Component {
 			index: 1,
 			data: rowData
 		});
-		return;
-        this.props.navigator.push({
-            title: rowData.date,
-            component: AuditDetails,
-            //rightButtonTitle: 'Cancel',
-            //onRightButtonPress: () => {
-            //    this.props.navigator.pop()
-            //},
-            passProps: {
-                pushEvent: rowData
-            }
-        });
     }
 
     renderRow(rowData) {

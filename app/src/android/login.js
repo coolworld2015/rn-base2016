@@ -93,7 +93,7 @@ class Login extends Component {
             <ScrollView>
                 <View style={styles.container}>
                     <Image style={styles.logo}
-                           source={require('../../../logo.jpg')}
+                           source={require('../../logo.jpg')}
                     />
                     <Text style={styles.heading}>RN-Base</Text>
                     <TextInput
