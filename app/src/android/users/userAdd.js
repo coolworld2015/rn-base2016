@@ -16,40 +16,40 @@ import {
     TextInput
 } from 'react-native';
 
-class Login extends Component {
+import Users from './users';
+
+class UserAdd extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            showProgress: false,
-			username: '2',
-			password: '2',
-			bugANDROID: ''
+            showProgress: false
         }
     }
 
-    onLogin() {
-		this.setState({
-            showProgress: true,
-			bugANDROID: ' '
-        });
-
-        if (this.state.username == undefined ||
-            this.state.password == undefined) {
+    addUser() {
+        if (this.state.name == undefined ||
+            this.state.pass == undefined ||
+            this.state.description == undefined) {
             this.setState({
-                badCredentials: true
+                invalidValue: true
             });
             return;
         }
-		
-		var url = appConfig.url;
-		
-        fetch(appConfig.url + 'api/login', {
-            method: 'post',
-			body: JSON.stringify({
-                name: this.state.username,
-                pass: this.state.password,
-				description: 'Android'
+
+        this.setState({
+            showProgress: true
+        });
+
+        var id = (Math.random() * 1000000).toFixed();
+
+        fetch('http://ui-base.herokuapp.com/api/users/add/', {
+            method: 'POST',
+            body: JSON.stringify({
+                id: id,
+                name: this.state.name,
+                pass: this.state.pass,
+                description: this.state.description
             }),
             headers: {
                 'Accept': 'application/json',
@@ -58,27 +58,13 @@ class Login extends Component {
         })
             .then((response)=> response.json())
             .then((responseData)=> {
-				if (responseData.token) {
-					appConfig.access_token = responseData.token;
-					
-					this.setState({
-						badCredentials: false
-					});
-					
-					console.log(appConfig.access_token);
-					this.props.onLogin();
-					
-				} else {
-					console.log(responseData);
-					this.setState({
-						badCredentials: true
-					});
-				}
+                App.users.refresh = true;
+                this.props.navigator.pop();
             })
             .catch((error)=> {
-				console.log(error);
+                console.log(error);
                 this.setState({
-                    badCredentials: true
+                    serverError: true
                 });
             })
             .finally(()=> {
@@ -91,48 +77,73 @@ class Login extends Component {
     render() {
         var errorCtrl = <View />;
 
-        if (!this.state.success && this.state.badCredentials) {
+        if (this.state.serverError) {
             errorCtrl = <Text style={styles.error}>
-                That username and password combination did not work
+                Something went wrong.
             </Text>;
         }
 
-        if (!this.state.success && this.state.unknownError) {
-            errorCtrl = <Text style={styles.error}>
-                We experienced an unexpected issue
+        var validCtrl = <View />;
+
+        if (this.state.invalidValue) {
+            validCtrl = <Text style={styles.error}>
+                Value required - please provide.
             </Text>;
         }
 
         return (
             <ScrollView>
-                <View style={styles.container}>
-                    <Image style={styles.logo}
-                           source={require('../../logo.jpg')}
-                    />
-                    <Text style={styles.heading}>RN-Base</Text>
+                <View style={{
+                    flex: 1,
+                    padding: 10,
+                    justifyContent: 'flex-start'
+                }}>
+
+                    <Text style={{
+                        fontSize: 24,
+                        textAlign: 'center',
+                        marginTop: 0,
+                        fontWeight: "bold"
+                    }}>
+                        New
+                    </Text>
+
                     <TextInput
                         onChangeText={(text)=> this.setState({
-                            username: text,
-                            badCredentials: false
+                            name: text,
+                            invalidValue: false
                         })}
                         style={styles.loginInput}
-                        placeholder="Login">1
+                        value={this.state.name}
+                        placeholder="Name">
                     </TextInput>
 
                     <TextInput
                         onChangeText={(text)=> this.setState({
-                            password: text,
-                            badCredentials: false
+                            pass: text,
+                            invalidValue: false
                         })}
                         style={styles.loginInput}
-                        placeholder="Password" secureTextEntry={true}>1
+                        value={this.state.pass}
+                        placeholder="Password">
                     </TextInput>
+
+                    <TextInput
+                        onChangeText={(text)=> this.setState({
+                            description: text,
+                            invalidValue: false
+                        })}
+                        style={styles.loginInput}
+                        value={this.state.description}
+                        placeholder="Description">
+                    </TextInput>
+
+                    {validCtrl}
 
                     <TouchableHighlight
-                        //onPress={this.onLoginPressed.bind(this)}
-                        onPress={()=> this.onLogin()}
+                        onPress={()=> this.addUser()}
                         style={styles.button}>
-                        <Text style={styles.buttonText}>Log in</Text>
+                        <Text style={styles.buttonText}>Add</Text>
                     </TouchableHighlight>
 
                     {errorCtrl}
@@ -142,15 +153,9 @@ class Login extends Component {
                         size="large"
                         style={styles.loader}
                     />
-					
-					<Text style={styles.footer}>{this.state.bugANDROID}</Text>
                 </View>
             </ScrollView>
         )
-    }
-
-    onLoginPressed() {
-        this.props.onLogin();
     }
 }
 
@@ -159,57 +164,35 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
+        backgroundColor: 'gray',
+    },
+    countHeader: {
+        fontSize: 16,
+        textAlign: 'center',
+        padding: 15,
         backgroundColor: '#F5FCFF',
+    },
+    countFooter: {
+        fontSize: 16,
+        textAlign: 'center',
+        padding: 10,
+        borderColor: '#D7D7D7',
+        backgroundColor: 'whitesmoke'
     },
     welcome: {
         fontSize: 20,
         textAlign: 'center',
         margin: 20,
     },
-    container: {
-        //backgroundColor: '#F5FCFF',
-        paddingTop: 40,
-        padding: 10,
-        alignItems: 'center',
-        flex: 1
-    },
-    logo: {
-        width: 150,
-        height: 150,
-        paddingTop: 140,
-        borderRadius: 20,
-    },
-    heading: {
-        fontSize: 30,
-        marginTop: 10,
-        //marginBottom: 20
-    },
-	footer: {
-        fontSize: 30,
-        marginTop: 10,
-        //marginBottom: 20
-    },
-    loginInput1: {
-        height: 50,
-        marginTop: 10,
-        padding: 4,
-        fontSize: 18,
-        borderWidth: 1,
-        borderColor: '#48BBEC',
-        borderRadius: 0,
-        color: '#48BBEC'
-    },
     loginInput: {
         height: 50,
-		width: 250,
         marginTop: 10,
         padding: 4,
         fontSize: 18,
         borderWidth: 1,
         borderColor: 'lightgray',
         borderRadius: 0,
-        color: 'black',
-		backgroundColor: 'white'
+        color: 'black'
     },
     button: {
         height: 50,
@@ -232,7 +215,13 @@ const styles = StyleSheet.create({
         color: 'red',
         paddingTop: 10,
         textAlign: 'center'
+    },
+    img: {
+        height: 95,
+        width: 75,
+        borderRadius: 20,
+        margin: 20
     }
 });
 
-export default Login;
+export default UserAdd;

@@ -1,4 +1,4 @@
-'use strict';
+//'use strict';
 
 import React, {Component} from 'react';
 import {
@@ -20,7 +20,6 @@ import {
 console.disableYellowBox = true;
 
 import AuditDetails from './auditDetails';
-//import AuditAdd from './auditAdd';
 
 class Audit extends Component {
     constructor(props) {
@@ -46,9 +45,7 @@ class Audit extends Component {
 		this.props.navigator.push(this.props.routes[1]);
 	}
 	
-    getAudit() {
-		var url = appConfig.url;
-		
+    getAudit() {		
         fetch(appConfig.url + 'api/audit/get', {
             method: 'get',
             headers: {

@@ -19,10 +19,6 @@ import {
 class AuditDetails extends Component {
     constructor(props) {
         super(props);
-		
-		this.state = {
-			name: 'Ed'
-		}	
 					
 		if (props.data) {
 			var ip = props.data.ip.split(':');

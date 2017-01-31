@@ -33,7 +33,10 @@ class App extends Component {
 		
         appConfig = {
             access_token: '',
-			url: 'http://jwt-base.herokuapp.com/'
+			url: 'http://jwt-base.herokuapp.com/',
+			users: {
+                refresh: false
+            }
         };		
     }
 
