@@ -48,6 +48,7 @@ class Audit extends Component {
 	
     getAudit() {
 		var url = appConfig.url;
+		
         fetch(appConfig.url + 'api/audit/get', {
             method: 'get',
             headers: {

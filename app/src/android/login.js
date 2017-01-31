@@ -43,12 +43,13 @@ class Login extends Component {
         }
 		
 		var url = appConfig.url;
+		
         fetch(appConfig.url + 'api/login', {
             method: 'post',
 			body: JSON.stringify({
                 name: this.state.username,
                 pass: this.state.password,
-				description: navigator.userAgent
+				description: 'Android'
             }),
             headers: {
                 'Accept': 'application/json',
@@ -64,14 +65,18 @@ class Login extends Component {
 						badCredentials: false
 					});
 					
+					console.log(appConfig.access_token);
 					this.props.onLogin();
+					
 				} else {
+					console.log(responseData);
 					this.setState({
 						badCredentials: true
 					});
 				}
             })
             .catch((error)=> {
+				console.log(error);
                 this.setState({
                     badCredentials: true
                 });
