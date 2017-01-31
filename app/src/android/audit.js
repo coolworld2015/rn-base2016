@@ -55,7 +55,7 @@ class Audit extends Component {
             }
         })
             .then((response)=> response.json())
-            .then((responseData)=> {
+            .then((responseData)=> {			
                 this.setState({
                     dataSource: this.state.dataSource.cloneWithRows(responseData.slice(0, 25)),
                     resultsCount: responseData.length,

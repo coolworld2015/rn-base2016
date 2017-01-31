@@ -22,13 +22,13 @@ class Login extends Component {
 
         this.state = {
             showProgress: false,
-			username: '1',
-			password: '1',
+			username: '2',
+			password: '2',
 			bugANDROID: ''
         }
     }
 
-    getUser() {
+    onLogin() {
 		this.setState({
             showProgress: true,
 			bugANDROID: ' '
@@ -42,9 +42,13 @@ class Login extends Component {
             return;
         }
 
-        fetch('http://ui-base.herokuapp.com/api/users/findByName/'
-            + this.state.username, {
-            method: 'get',
+        fetch('http://jwt-base.herokuapp.com/api/login', {
+            method: 'post',
+			body: JSON.stringify({
+                name: this.state.username,
+                pass: this.state.password,
+				description: navigator.userAgent
+            }),
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
@@ -52,21 +56,25 @@ class Login extends Component {
         })
             .then((response)=> response.json())
             .then((responseData)=> {
-                if (this.state.password == responseData.pass) {
-
-                    this.setState({
-                        badCredentials: false
-                    });
-
-                    this.props.onLogin().bind(this);
-
-                } else {
-                    this.setState({
-                        badCredentials: true
-                    });
-                }
+				if (responseData.token) {
+					auth.access_token = responseData.token;
+					
+					this.setState({
+						badCredentials: false
+					});
+					
+					console.log(auth.access_token);
+					this.props.onLogin();
+					
+				} else {
+					console.log(responseData);
+					this.setState({
+						badCredentials: true
+					});
+				}
             })
             .catch((error)=> {
+				console.log(error);
                 this.setState({
                     badCredentials: true
                 });
@@ -120,7 +128,7 @@ class Login extends Component {
 
                     <TouchableHighlight
                         //onPress={this.onLoginPressed.bind(this)}
-                        onPress={()=> this.getUser()}
+                        onPress={()=> this.onLogin()}
                         style={styles.button}>
                         <Text style={styles.buttonText}>Log in</Text>
                     </TouchableHighlight>

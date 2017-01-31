@@ -30,6 +30,10 @@ class App extends Component {
             showProgress: false,
             isLoggedIn: false
         };
+		
+        auth = {
+            access_token: ''
+        };		
     }
 
     render() {
