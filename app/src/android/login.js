@@ -41,8 +41,9 @@ class Login extends Component {
             });
             return;
         }
-
-        fetch('http://jwt-base.herokuapp.com/api/login', {
+		
+		var url = appConfig.url;
+        fetch(appConfig.url + 'api/login', {
             method: 'post',
 			body: JSON.stringify({
                 name: this.state.username,
@@ -57,24 +58,20 @@ class Login extends Component {
             .then((response)=> response.json())
             .then((responseData)=> {
 				if (responseData.token) {
-					auth.access_token = responseData.token;
+					appConfig.access_token = responseData.token;
 					
 					this.setState({
 						badCredentials: false
 					});
 					
-					console.log(auth.access_token);
 					this.props.onLogin();
-					
 				} else {
-					console.log(responseData);
 					this.setState({
 						badCredentials: true
 					});
 				}
             })
             .catch((error)=> {
-				console.log(error);
                 this.setState({
                     badCredentials: true
                 });

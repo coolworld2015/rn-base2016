@@ -31,8 +31,9 @@ class App extends Component {
             isLoggedIn: false
         };
 		
-        auth = {
-            access_token: ''
+        appConfig = {
+            access_token: '',
+			url: 'http://jwt-base.herokuapp.com/'
         };		
     }
 

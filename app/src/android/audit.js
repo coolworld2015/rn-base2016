@@ -47,11 +47,13 @@ class Audit extends Component {
 	}
 	
     getAudit() {
-        fetch('http://ui-base.herokuapp.com/api/audit/get', {
+		var url = appConfig.url;
+        fetch(appConfig.url + 'api/audit/get', {
             method: 'get',
             headers: {
                 'Accept': 'application/json',
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+				'Authorization': appConfig.access_token
             }
         })
             .then((response)=> response.json())
