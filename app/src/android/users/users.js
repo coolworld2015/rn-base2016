@@ -191,8 +191,8 @@ class Users extends Component {
             console.log(items.length);
             this.setState({
                 dataSource: this.state.dataSource.cloneWithRows(items),
-                recordsCount: recordsCount + 20,
-                positionY: positionY + 1000
+                recordsCount: recordsCount + 10,
+                positionY: positionY + 500
             });
         }
     }
@@ -241,12 +241,12 @@ class Users extends Component {
 
         return (
             <View style={{flex: 1, justifyContent: 'center'}}>
-                <View style={{marginTop: 60}}>
+                <View style={{marginTop: 0}}>
                     <TextInput style={{
                         height: 45,
                         marginTop: 4,
                         padding: 5,
-                        backgroundColor: 'white',
+                        backgroundColor: 'lightgray',
                         borderWidth: 3,
                         borderColor: 'lightgray',
                         borderRadius: 0,
@@ -265,13 +265,13 @@ class Users extends Component {
                 <ScrollView
                     onScroll={this.refreshData.bind(this)} scrollEventThrottle={16}>
                     <ListView
-                        style={{marginTop: -65, marginBottom: -45}}
+                        style={{marginTop: 0, marginBottom: 0}}
                         dataSource={this.state.dataSource}
                         renderRow={this.renderRow.bind(this)}
                     />
                 </ScrollView>
 
-                <View style={{marginBottom: 49}}>
+                <View style={{marginBottom: 0}}>
                     <Swipeout right={swipeoutBtns} autoClose={true}>
                         <Text style={styles.countFooter}>
                             {this.state.resultsCount} entries were found.
@@ -301,7 +301,7 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         padding: 10,
         borderColor: '#D7D7D7',
-        backgroundColor: 'whitesmoke'
+        backgroundColor: 'lightgray'
     },
     welcome: {
         fontSize: 20,

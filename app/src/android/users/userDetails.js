@@ -48,14 +48,15 @@ class UserDetails extends Component {
         this.setState({
             showProgress: true
         });
-
-        fetch('http://ui-base.herokuapp.com/api/users/update/', {
-            method: 'POST',
+		
+        fetch(appConfig.url + 'api/users/update', {
+            method: 'post',
             body: JSON.stringify({
                 id: this.state.id,
                 name: this.state.name,
                 pass: this.state.pass,
-                description: this.state.description
+                description: this.state.description,
+				Authorization: appConfig.access_token
             }),
             headers: {
                 'Accept': 'application/json',
@@ -64,7 +65,7 @@ class UserDetails extends Component {
         })
             .then((response)=> response.json())
             .then((responseData)=> {
-                App.users.refresh = true;
+                appConfig.users.refresh = true;
                 this.props.navigator.pop();
             })
             .catch((error)=> {

@@ -65,18 +65,14 @@ class Login extends Component {
 						badCredentials: false
 					});
 					
-					console.log(appConfig.access_token);
 					this.props.onLogin();
-					
 				} else {
-					console.log(responseData);
 					this.setState({
 						badCredentials: true
 					});
 				}
             })
             .catch((error)=> {
-				console.log(error);
                 this.setState({
                     badCredentials: true
                 });
