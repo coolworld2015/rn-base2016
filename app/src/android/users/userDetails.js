@@ -66,8 +66,14 @@ class UserDetails extends Component {
             .then((response)=> response.json())
             .then((responseData)=> {
 				console.log(responseData);
-                appConfig.users.refresh = true;
-                this.props.navigator.pop();
+				if (responseData.pass) {
+					appConfig.users.refresh = true;
+					this.props.navigator.pop();
+				} else {
+					this.setState({
+						badCredentials: true
+					});
+				}
             })
             .catch((error)=> {
                 console.log(error);
@@ -100,6 +106,15 @@ class UserDetails extends Component {
         })
 			.then((response)=> response.json())
             .then((responseData)=> {
+				console.log(responseData);
+				if (responseData.text) {
+					appConfig.users.refresh = true;
+					this.props.navigator.pop();
+				} else {
+					this.setState({
+						badCredentials: true
+					});
+				}
             })
             .catch((error)=> {
                 console.log(error);
@@ -111,8 +126,6 @@ class UserDetails extends Component {
                 this.setState({
                     showProgress: false
                 });
-                App.users.refresh = true;
-                this.props.navigator.pop();
             });
     }
     
@@ -205,7 +218,7 @@ class UserDetails extends Component {
 						
 						<TouchableHighlight
 							//onPress={()=> this.updateUser()}
-							onPress={()=> this.deleteUser(this.state.id)}
+							onPress={()=> this.deleteUser()}
 							style={styles.button}>
 							<Text style={styles.buttonText}>Delete</Text>
 						</TouchableHighlight>

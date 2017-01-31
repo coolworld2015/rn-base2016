@@ -191,7 +191,7 @@ app.post('/api/users/delete', function(req, res) {
 					return res.send({error: 'Server error'});
 				} else {
 					console.log('User with id: ', req.body.id, ' was removed');
-					res.send('User with id: ' + req.body.id + ' was removed');
+					res.send({text: 'User with id: ' + req.body.id + ' was removed'});
 				}
 			});
 		}
