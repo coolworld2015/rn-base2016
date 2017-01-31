@@ -94,39 +94,6 @@ class Users extends Component {
         return 0;
     }
 
-    deleteUser(id) {
-        this.setState({
-            showProgress: true
-        });
-
-        fetch('http://ui-base.herokuapp.com/api/users/delete/', {
-            method: 'POST',
-            body: JSON.stringify({
-                id: id
-            }),
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            }
-        })
-
-            .then((responseData)=> {
-            })
-            .catch((error)=> {
-                console.log(error);
-                this.setState({
-                    serverError: true
-                });
-            })
-            .finally(()=> {
-                this.setState({
-                    showProgress: false
-                });
-                App.users.refresh = true;
-                this.props.navigator.pop();
-            });
-    }
-
     pressRow(rowData) {
 		this.props.navigator.push({
 			index: 1,

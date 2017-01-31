@@ -1,4 +1,4 @@
-'use strict';
+//'use strict';
 
 import React, {Component} from 'react';
 import {
@@ -48,7 +48,7 @@ class UserDetails extends Component {
         this.setState({
             showProgress: true
         });
-		
+		console.log(appConfig.access_token);
         fetch(appConfig.url + 'api/users/update', {
             method: 'post',
             body: JSON.stringify({
@@ -56,7 +56,7 @@ class UserDetails extends Component {
                 name: this.state.name,
                 pass: this.state.pass,
                 description: this.state.description,
-				Authorization: appConfig.access_token
+				authorization: appConfig.access_token
             }),
             headers: {
                 'Accept': 'application/json',
@@ -65,6 +65,7 @@ class UserDetails extends Component {
         })
             .then((response)=> response.json())
             .then((responseData)=> {
+				console.log(responseData);
                 appConfig.users.refresh = true;
                 this.props.navigator.pop();
             })
@@ -78,6 +79,40 @@ class UserDetails extends Component {
                 this.setState({
                     showProgress: false
                 });
+            });
+    }
+
+    deleteUser() {
+        this.setState({
+            showProgress: true
+        });
+		
+        fetch(appConfig.url + 'api/users/delete', {
+            method: 'post',
+            body: JSON.stringify({
+                id: this.state.id,
+				authorization: appConfig.access_token
+            }),
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        })
+			.then((response)=> response.json())
+            .then((responseData)=> {
+            })
+            .catch((error)=> {
+                console.log(error);
+                this.setState({
+                    serverError: true
+                });
+            })
+            .finally(()=> {
+                this.setState({
+                    showProgress: false
+                });
+                App.users.refresh = true;
+                this.props.navigator.pop();
             });
     }
     
@@ -111,7 +146,8 @@ class UserDetails extends Component {
 					<View style={{
 						flex: 1,
 						padding: 10,
-						justifyContent: 'flex-start'
+						justifyContent: 'flex-start',
+						backgroundColor: 'white'
 					}}>
 
 						<Text style={{
@@ -162,10 +198,18 @@ class UserDetails extends Component {
 
 						<TouchableHighlight
 							onPress={()=> this.updateUser()}
+							//onPress={()=> this.deleteUser(this.state.id)}
 							style={styles.button}>
 							<Text style={styles.buttonText}>Submit</Text>
 						</TouchableHighlight>
-
+						
+						<TouchableHighlight
+							//onPress={()=> this.updateUser()}
+							onPress={()=> this.deleteUser(this.state.id)}
+							style={styles.button}>
+							<Text style={styles.buttonText}>Delete</Text>
+						</TouchableHighlight>
+						
 						{errorCtrl}
 
 						<ActivityIndicator
