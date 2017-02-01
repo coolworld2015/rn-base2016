@@ -48,7 +48,7 @@ class UserDetails extends Component {
         this.setState({
             showProgress: true
         });
-		console.log(appConfig.access_token);
+
         fetch(appConfig.url + 'api/users/update', {
             method: 'post',
             body: JSON.stringify({
@@ -65,7 +65,6 @@ class UserDetails extends Component {
         })
             .then((response)=> response.json())
             .then((responseData)=> {
-				console.log(responseData);
 				if (responseData.pass) {
 					appConfig.users.refresh = true;
 					this.props.navigator.pop();
@@ -76,7 +75,6 @@ class UserDetails extends Component {
 				}
             })
             .catch((error)=> {
-                console.log(error);
                 this.setState({
                     serverError: true
                 });
@@ -129,7 +127,7 @@ class UserDetails extends Component {
             });
     }
     
-	pressRow(rowData) {
+	goBack() {
 		this.props.navigator.pop();
 	}
 	
@@ -153,7 +151,7 @@ class UserDetails extends Component {
         return (
             <ScrollView>
 				<TouchableHighlight
-					onPress={()=> this.pressRow()}
+					onPress={()=> this.goBack()}
 					underlayColor='#ddd'
 				>
 					<View style={{

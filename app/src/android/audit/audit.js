@@ -75,7 +75,7 @@ class Audit extends Component {
             });
     }
 
-    pressRow(rowData) {
+    showDetails(rowData) {
 		this.props.navigator.push({
 			index: 1,
 			data: rowData
@@ -85,7 +85,7 @@ class Audit extends Component {
     renderRow(rowData) {
         return (
             <TouchableHighlight
-                onPress={()=> this.pressRow(rowData)}
+                onPress={()=> this.showDetails(rowData)}
                 underlayColor='#ddd'
             >
                 <View style={{

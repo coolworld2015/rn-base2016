@@ -16,7 +16,7 @@ import {
     TextInput
 } from 'react-native';
 
-import Users from './users';
+//import Users from './users';
 
 class UserAdd extends Component {
     constructor(props) {
@@ -40,16 +40,15 @@ class UserAdd extends Component {
         this.setState({
             showProgress: true
         });
-
-        var id = (Math.random() * 1000000).toFixed();
-
-        fetch('http://ui-base.herokuapp.com/api/users/add/', {
-            method: 'POST',
+		
+        fetch(appConfig.url + 'api/users/add', {
+            method: 'post',
             body: JSON.stringify({
-                id: id,
+                id: + new Date,
                 name: this.state.name,
                 pass: this.state.pass,
-                description: this.state.description
+                description: this.state.description,
+				authorization: appConfig.access_token
             }),
             headers: {
                 'Accept': 'application/json',
@@ -58,7 +57,7 @@ class UserAdd extends Component {
         })
             .then((response)=> response.json())
             .then((responseData)=> {
-                App.users.refresh = true;
+                appConfig.users.refresh = true;
                 this.props.navigator.pop();
             })
             .catch((error)=> {
@@ -73,7 +72,11 @@ class UserAdd extends Component {
                 });
             });
     }
-
+	
+	goBack() {
+		this.props.navigator.pop();
+	}
+	
     render() {
         var errorCtrl = <View />;
 
@@ -93,67 +96,73 @@ class UserAdd extends Component {
 
         return (
             <ScrollView>
-                <View style={{
-                    flex: 1,
-                    padding: 10,
-                    justifyContent: 'flex-start'
-                }}>
+				<TouchableHighlight
+					onPress={()=> this.goBack()}
+					underlayColor='#ddd'
+				>
+					<View style={{
+						flex: 1,
+						padding: 10,
+						justifyContent: 'flex-start',
+						backgroundColor: 'white'
+					}}>
 
-                    <Text style={{
-                        fontSize: 24,
-                        textAlign: 'center',
-                        marginTop: 0,
-                        fontWeight: "bold"
-                    }}>
-                        New
-                    </Text>
+						<Text style={{
+							fontSize: 24,
+							textAlign: 'center',
+							marginTop: 0,
+							fontWeight: "bold"
+						}}>
+							New
+						</Text>
 
-                    <TextInput
-                        onChangeText={(text)=> this.setState({
-                            name: text,
-                            invalidValue: false
-                        })}
-                        style={styles.loginInput}
-                        value={this.state.name}
-                        placeholder="Name">
-                    </TextInput>
+						<TextInput
+							onChangeText={(text)=> this.setState({
+								name: text,
+								invalidValue: false
+							})}
+							style={styles.loginInput}
+							value={this.state.name}
+							placeholder="Name">
+						</TextInput>
 
-                    <TextInput
-                        onChangeText={(text)=> this.setState({
-                            pass: text,
-                            invalidValue: false
-                        })}
-                        style={styles.loginInput}
-                        value={this.state.pass}
-                        placeholder="Password">
-                    </TextInput>
+						<TextInput
+							onChangeText={(text)=> this.setState({
+								pass: text,
+								invalidValue: false
+							})}
+							style={styles.loginInput}
+							value={this.state.pass}
+							placeholder="Password">
+						</TextInput>
 
-                    <TextInput
-                        onChangeText={(text)=> this.setState({
-                            description: text,
-                            invalidValue: false
-                        })}
-                        style={styles.loginInput}
-                        value={this.state.description}
-                        placeholder="Description">
-                    </TextInput>
+						<TextInput
+							onChangeText={(text)=> this.setState({
+								description: text,
+								invalidValue: false
+							})}
+							style={styles.loginInput}
+							value={this.state.description}
+							placeholder="Description">
+						</TextInput>
 
-                    {validCtrl}
+						{validCtrl}
 
-                    <TouchableHighlight
-                        onPress={()=> this.addUser()}
-                        style={styles.button}>
-                        <Text style={styles.buttonText}>Add</Text>
-                    </TouchableHighlight>
+						<TouchableHighlight
+							onPress={()=> this.addUser()}
+							style={styles.button}>
+							<Text style={styles.buttonText}>Add</Text>
+						</TouchableHighlight>
 
-                    {errorCtrl}
+						{errorCtrl}
 
-                    <ActivityIndicator
-                        animating={this.state.showProgress}
-                        size="large"
-                        style={styles.loader}
-                    />
-                </View>
+						<ActivityIndicator
+							animating={this.state.showProgress}
+							size="large"
+							style={styles.loader}
+						/>
+					</View>
+					</TouchableHighlight>
             </ScrollView>
         )
     }

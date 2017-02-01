@@ -94,17 +94,23 @@ class Users extends Component {
         return 0;
     }
 
-    pressRow(rowData) {
+    showDetails(rowData) {
 		this.props.navigator.push({
 			index: 1,
 			data: rowData
 		});
     }
-
+	
+    addUser() {
+		this.props.navigator.push({
+			index: 2
+		});
+    }
+	
     renderRow(rowData) {
         return (
             <TouchableHighlight
-                onPress={()=> this.pressRow(rowData)}
+                onPress={()=> this.showDetails(rowData)}
                 underlayColor='#ddd'
             >
                 <View style={{
@@ -237,14 +243,17 @@ class Users extends Component {
                         renderRow={this.renderRow.bind(this)}
                     />
                 </ScrollView>
-
-                <View style={{marginBottom: 0}}>
-                    <Swipeout right={swipeoutBtns} autoClose={true}>
-                        <Text style={styles.countFooter}>
-                            {this.state.resultsCount} entries were found.
-                        </Text>
-                    </Swipeout>
-                </View>
+				
+				<TouchableHighlight
+					onPress={()=> this.addUser()}
+					underlayColor='#ddd'
+				>
+					<View style={{marginBottom: 0}}>
+						<Text style={styles.countFooter}>
+							{this.state.resultsCount} entries were found.
+						</Text>
+					</View>
+				</TouchableHighlight>
             </View>
         )
     }

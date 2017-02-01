@@ -197,7 +197,7 @@ const styles = StyleSheet.create({
     },
     loginInput: {
         height: 50,
-		width: 250,
+		width: 360,
         marginTop: 10,
         padding: 4,
         fontSize: 18,

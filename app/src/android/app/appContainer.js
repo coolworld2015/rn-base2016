@@ -19,6 +19,7 @@ import AuditDetails from '../audit/auditDetails';
 
 import Users from '../users/users';
 import UserDetails from '../users/userDetails';
+import UserAdd from '../users/userAdd';
 
 class AppContainer extends Component {
 	constructor(props) {
@@ -31,7 +32,6 @@ class AppContainer extends Component {
 				<UsersTab tabLabel="Users" />
 				<AuditTab tabLabel="Audit" />
 				<PageOne tabLabel="PageOne" />
- 
 			</ScrollableTabView>
 		);
 	}
@@ -90,7 +90,8 @@ class UsersTab extends Component {
 		super(props);
 		this.routes = [
 			{title: 'Users', index: 0},
-			{title: 'Users Details', index: 1}
+			{title: 'Users Details', index: 1},
+			{title: 'Add User', index: 2}
 		];
 	}
 		  
@@ -99,6 +100,8 @@ class UsersTab extends Component {
 			case 0: return <Users routes={this.routes} navigator={navigator} />
 					break;			
 			case 1: return <UserDetails data={route.data} routes={this.routes} navigator={navigator} />
+					break;
+			case 2: return <UserAdd data={route.data} routes={this.routes} navigator={navigator} />
 					break
  		}
  	}	

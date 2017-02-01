@@ -38,7 +38,7 @@ class AuditDetails extends Component {
 		}
     }
 	
-    pressRow(rowData) {
+    goBack(rowData) {
 		this.props.navigator.pop();
 	}
 	
@@ -46,7 +46,7 @@ class AuditDetails extends Component {
         return (
             <ScrollView>
 				<TouchableHighlight
-					onPress={()=> this.pressRow()}
+					onPress={()=> this.goBack()}
 					underlayColor='#ddd'
 				>
 					<View style={{
