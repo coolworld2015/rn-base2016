@@ -23,7 +23,8 @@ class UserAdd extends Component {
         super(props);
 
         this.state = {
-            showProgress: false
+            showProgress: false,
+			bugANDROID: ''
         }
     }
 
@@ -38,7 +39,8 @@ class UserAdd extends Component {
         }
 
         this.setState({
-            showProgress: true
+            showProgress: true,
+			bugANDROID: ' '
         });
 		
         fetch(appConfig.url + 'api/users/add', {
@@ -161,6 +163,8 @@ class UserAdd extends Component {
 							size="large"
 							style={styles.loader}
 						/>
+						
+						<Text>{this.state.bugANDROID}</Text>
 					</View>
 					</TouchableHighlight>
             </ScrollView>

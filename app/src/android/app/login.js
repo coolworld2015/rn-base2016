@@ -139,7 +139,7 @@ class Login extends Component {
                         style={styles.loader}
                     />
 					
-					<Text style={styles.footer}>{this.state.bugANDROID}</Text>
+					<Text>{this.state.bugANDROID}</Text>
                 </View>
             </ScrollView>
         )
