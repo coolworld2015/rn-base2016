@@ -18,7 +18,6 @@ import {
 } from 'react-native';
 
 import UserDetails from './userDetails';
-import Swipeout from 'react-native-swipeout';
 
 class Users extends Component {
     constructor(props) {
@@ -186,13 +185,6 @@ class Users extends Component {
     }
 
     render() {
-        var swipeoutBtns = [
-            {
-                text: 'Delete',
-                backgroundColor: 'red',
-            }
-        ];
-
         var errorCtrl, loader;
 
         if (this.state.serverError) {
@@ -214,12 +206,23 @@ class Users extends Component {
 
         return (
             <View style={{flex: 1, justifyContent: 'center'}}>
+				<View style={{marginTop: 0}}>
+					<Text style={{
+						fontSize: 24,
+						textAlign: 'center',
+						marginTop: 10,
+						fontWeight: 'bold'
+					}}>
+						Users
+					</Text>
+
+                </View>
                 <View style={{marginTop: 0}}>
                     <TextInput style={{
                         height: 45,
                         marginTop: 4,
                         padding: 5,
-                        backgroundColor: 'lightgray',
+                        backgroundColor: '#DCDCDC',
                         borderWidth: 3,
                         borderColor: 'lightgray',
                         borderRadius: 0,

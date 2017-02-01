@@ -153,26 +153,30 @@ class UserDetails extends Component {
 
         return (
             <ScrollView>
-				<TouchableHighlight
-					onPress={()=> this.goBack()}
-					underlayColor='#ddd'
-				>
+
+				<View style={{flex: 1, justifyContent: 'center'}}>
+					<TouchableHighlight
+						onPress={()=> this.goBack()}
+						underlayColor='#ddd'
+					>
+						<View style={{marginTop: 0}}>
+							<Text style={{
+								fontSize: 24,
+								textAlign: 'center',
+								margin: 10,
+								fontWeight: 'bold'
+							}}>
+								User - {this.state.name}
+							</Text>
+						</View>
+					</TouchableHighlight>
+					
 					<View style={{
 						flex: 1,
 						padding: 10,
 						justifyContent: 'flex-start',
 						backgroundColor: 'white'
 					}}>
-
-						<Text style={{
-							fontSize: 24,
-							textAlign: 'center',
-							marginTop: 10,
-							fontWeight: 'bold'
-						}}>
-							{this.state.name}
-						</Text>
-
 						<TextInput
 							onChangeText={(text)=> this.setState({
 								name: text,
@@ -234,7 +238,8 @@ class UserDetails extends Component {
 						
 						<Text>{this.state.bugANDROID}</Text>
 					</View>
-				</TouchableHighlight>
+				</View>
+
             </ScrollView>
         );
     }
