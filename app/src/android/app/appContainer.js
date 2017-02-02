@@ -21,6 +21,9 @@ import Users from '../users/users';
 import UserDetails from '../users/userDetails';
 import UserAdd from '../users/userAdd';
 
+import Phones from '../phones/phones';
+import PhoneDetails from '../phones/phoneDetails';
+
 class AppContainer extends Component {
 	constructor(props) {
 		super(props);				
@@ -29,6 +32,7 @@ class AppContainer extends Component {
 	render() {
 		return (
 			<ScrollableTabView>
+				<PhonesTab tabLabel="Phones" />
 				<UsersTab tabLabel="Users" />
 				<AuditTab tabLabel="Audit" />
 				<PageOne tabLabel="PageOne" />
@@ -37,20 +41,20 @@ class AppContainer extends Component {
 	}
 }
 
-class AuditTab extends Component {
+class PhonesTab extends Component {
 	constructor(props) {
 		super(props);
 		this.routes = [
-			{title: 'Audit', index: 0},
-			{title: 'Audit Details', index: 1}
+			{title: 'Phones', index: 0},
+			{title: 'Phones Details', index: 1}
 		];
 	}
 		  
 	renderScene(route, navigator) {
 		switch (route.index) {
-			case 0: return <Audit routes={this.routes} navigator={navigator} />
+			case 0: return <Phones routes={this.routes} navigator={navigator} />
 					break;			
-			case 1: return <AuditDetails data={route.data} routes={this.routes} navigator={navigator} />
+			case 1: return <PhoneDetails data={route.data} routes={this.routes} navigator={navigator} />
 					break
  		}
  	}	
@@ -61,21 +65,6 @@ class AuditTab extends Component {
 			initialRoute={this.routes[0]}
 			initialRouteStack={this.routes}
 		    renderScene={this.renderScene.bind(this)}
-
-		    navigationBar1={
-				<Navigator.NavigationBar
-					routeMapper={{
-						LeftButton: (route, navigator, index, navState) =>
-							{ return null;(<Text>Cancel</Text>); },
-						RightButton: (route, navigator, index, navState) =>
-							{ return null; (<Text>Done</Text>); },
-						Title: (route, navigator, index, navState) =>
-							{ return (<Text>{route.title}</Text>); },
-					}}
-					style={{backgroundColor: 'white'}}
-				/>
-			}
-			
 			style={{padding: 0}}
 		  
 			configureScene={(route, routeStack) =>
@@ -112,21 +101,39 @@ class UsersTab extends Component {
 			initialRoute={this.routes[0]}
 			initialRouteStack={this.routes}
 		    renderScene={this.renderScene.bind(this)}
+			style={{padding: 0}}
+		  
+			configureScene={(route, routeStack) =>
+				Navigator.SceneConfigs.PushFromRight}
+		/>
+		)
+	}
+}
 
-		    navigationBar1={
-				<Navigator.NavigationBar
-					routeMapper={{
-						LeftButton: (route, navigator, index, navState) =>
-							{ return null;(<Text>Cancel</Text>); },
-						RightButton: (route, navigator, index, navState) =>
-							{ return null; (<Text>Done</Text>); },
-						Title: (route, navigator, index, navState) =>
-							{ return (<Text>{route.title}</Text>); },
-					}}
-					style={{backgroundColor: 'white'}}
-				/>
-			}
-			
+class AuditTab extends Component {
+	constructor(props) {
+		super(props);
+		this.routes = [
+			{title: 'Audit', index: 0},
+			{title: 'Audit Details', index: 1}
+		];
+	}
+		  
+	renderScene(route, navigator) {
+		switch (route.index) {
+			case 0: return <Audit routes={this.routes} navigator={navigator} />
+					break;			
+			case 1: return <AuditDetails data={route.data} routes={this.routes} navigator={navigator} />
+					break
+ 		}
+ 	}	
+	
+	render() {
+		return (
+	  		<Navigator
+			initialRoute={this.routes[0]}
+			initialRouteStack={this.routes}
+		    renderScene={this.renderScene.bind(this)}			
 			style={{padding: 0}}
 		  
 			configureScene={(route, routeStack) =>

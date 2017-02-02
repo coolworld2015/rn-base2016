@@ -36,6 +36,9 @@ class App extends Component {
 			url: 'http://jwt-base.herokuapp.com/',
 			users: {
                 refresh: false
+            },
+			phones: {
+                refresh: false
             }
         };		
     }

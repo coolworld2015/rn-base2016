@@ -95,8 +95,6 @@ class AuditDetails extends Component {
 							size="large"
 							style={styles.loader}
 						/>
-						
-						<Text>{this.state.bugANDROID}</Text>
 					</View>
 				</TouchableHighlight>	
             </ScrollView>
