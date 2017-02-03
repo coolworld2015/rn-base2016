@@ -184,24 +184,13 @@ class Audit extends Component {
         }
 
         return (
-            <View style={{flex: 1, justifyContent: 'center'}}>
-				<View style={{marginTop: 0}}>
-					<Text style={{
-						fontSize: 24,
-						textAlign: 'center',
-						marginTop: 10,
-						fontWeight: 'bold'
-					}}>
-						Audit
-					</Text>
-                </View>
-				
+            <View style={{flex: 1, justifyContent: 'center'}}>				
                 <View style={{marginTop: 60}}>
                     <TextInput style={{
                         height: 45,
                         marginTop: 4,
                         padding: 5,
-                        backgroundColor: 'whitesmoke',
+                        backgroundColor: 'white',
                         borderWidth: 3,
                         borderColor: 'lightgray',
                         borderRadius: 0,
