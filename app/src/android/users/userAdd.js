@@ -98,26 +98,30 @@ class UserAdd extends Component {
 
         return (
             <ScrollView>
-				<TouchableHighlight
-					onPress={()=> this.goBack()}
-					underlayColor='#ddd'
-				>
+				<View style={{flex: 1, justifyContent: 'center'}}>
+					<TouchableHighlight
+						onPress={()=> this.goBack()}
+						underlayColor='#ddd'
+					>
+						<View style={{marginTop: 0}}>
+							<Text style={{
+								fontSize: 24,
+								textAlign: 'center',
+								margin: 10,
+								fontWeight: 'bold'
+							}}>
+								New
+							</Text>
+						</View>
+					</TouchableHighlight>
+					
 					<View style={{
 						flex: 1,
 						padding: 10,
 						justifyContent: 'flex-start',
+						paddingBottom: 150,
 						backgroundColor: 'white'
 					}}>
-
-						<Text style={{
-							fontSize: 24,
-							textAlign: 'center',
-							marginTop: 0,
-							fontWeight: "bold"
-						}}>
-							New
-						</Text>
-
 						<TextInput
 							onChangeText={(text)=> this.setState({
 								name: text,
@@ -166,7 +170,7 @@ class UserAdd extends Component {
 						
 						<Text>{this.state.bugANDROID}</Text>
 					</View>
-					</TouchableHighlight>
+				</View>
             </ScrollView>
         )
     }

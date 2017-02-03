@@ -147,7 +147,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#F5FCFF',
+        backgroundColor: 'white',
     },
     countHeader: {
         fontSize: 16,
@@ -174,9 +174,11 @@ const styles = StyleSheet.create({
         margin: 20,
     },
     container: {
-        padding: 10,
+		padding: 10,
+        paddingBottom: 210,
         alignItems: 'center',
-        flex: 1
+        flex: 1,
+		backgroundColor: 'white',
     },
     logo: {
         width: 66,

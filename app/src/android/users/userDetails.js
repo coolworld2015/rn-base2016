@@ -153,27 +153,63 @@ class UserDetails extends Component {
 
         return (
             <ScrollView>
-
 				<View style={{flex: 1, justifyContent: 'center'}}>
-					<TouchableHighlight
-						onPress={()=> this.goBack()}
-						underlayColor='#ddd'
-					>
-						<View style={{marginTop: 0}}>
-							<Text style={{
-								fontSize: 24,
-								textAlign: 'center',
-								margin: 10,
-								fontWeight: 'bold'
-							}}>
-								User - {this.state.name}
-							</Text>
+					<View style={{
+							flex: 1, 
+							flexDirection: 'row',
+							justifyContent: 'space-between'
+						}}>
+						<View>
+							<TouchableHighlight
+								onPress={()=> this.goBack()}
+								underlayColor='#ddd'
+							>
+								<Text style={{
+									fontSize: 18,
+									textAlign: 'center',
+									margin: 20,
+									fontWeight: 'bold'
+								}}>
+									Back
+								</Text>
+							</TouchableHighlight>	
 						</View>
-					</TouchableHighlight>
+						<View>
+							<TouchableHighlight
+								underlayColor='#ddd'
+							>
+								<Text style={{
+									fontSize: 24,
+									textAlign: 'center',
+									margin: 15,
+									fontWeight: 'bold'
+								}}>
+									{this.state.name}
+								</Text>
+							</TouchableHighlight>	
+						</View>						
+						<View>
+							<TouchableHighlight
+								onPress={()=> this.deleteUser()}
+								underlayColor='#ddd'
+							>
+								<Text style={{
+									fontSize: 18,
+									textAlign: 'center',
+									margin: 20,
+									fontWeight: 'bold'
+								}}>
+									Delete
+								</Text>
+							</TouchableHighlight>	
+						</View>
+					</View>
 					
 					<View style={{
 						flex: 1,
 						padding: 10,
+						marginTop: -150,
+						paddingBottom: 225,
 						justifyContent: 'flex-start',
 						backgroundColor: 'white'
 					}}>
@@ -216,16 +252,9 @@ class UserDetails extends Component {
 
 						<TouchableHighlight
 							onPress={()=> this.updateUser()}
-							//onPress={()=> this.deleteUser(this.state.id)}
+
 							style={styles.button}>
 							<Text style={styles.buttonText}>Submit</Text>
-						</TouchableHighlight>
-						
-						<TouchableHighlight
-							//onPress={()=> this.updateUser()}
-							onPress={()=> this.deleteUser()}
-							style={styles.button}>
-							<Text style={styles.buttonText}>Delete</Text>
 						</TouchableHighlight>
 						
 						{errorCtrl}
@@ -239,7 +268,6 @@ class UserDetails extends Component {
 						<Text>{this.state.bugANDROID}</Text>
 					</View>
 				</View>
-
             </ScrollView>
         );
     }

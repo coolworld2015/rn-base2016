@@ -215,14 +215,14 @@ class Users extends Component {
 					}}>
 						Users
 					</Text>
-
                 </View>
+				
                 <View style={{marginTop: 0}}>
                     <TextInput style={{
                         height: 45,
                         marginTop: 4,
                         padding: 5,
-                        backgroundColor: '#DCDCDC',
+                        backgroundColor: 'whitesmoke',
                         borderWidth: 3,
                         borderColor: 'lightgray',
                         borderRadius: 0,

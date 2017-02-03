@@ -217,6 +217,7 @@ class SearchResults extends Component {
 						</Text>
 					</TouchableHighlight>
 				</View>
+				
 				<View style={{marginTop: 0}}>
 					<TextInput style={{
 						height: 45,
@@ -275,7 +276,7 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         padding: 10,
         borderColor: '#D7D7D7',
-        backgroundColor: 'whitesmoke'
+        backgroundColor: 'lightgray'
     },
     countHeader1: {
         fontSize: 16,
