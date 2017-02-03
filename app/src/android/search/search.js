@@ -17,9 +17,9 @@ import {
     Switch
 } from 'react-native';
 
-import PhoneSearchResults from './phoneSearchResults';
+//import SearchResults from './phoneSearchResults';
 
-class PhoneSearch extends Component {
+class Search extends Component {
     constructor(props) {
         super(props);
 
@@ -135,17 +135,10 @@ class PhoneSearch extends Component {
             return;
         }
 
-        this.props.navigator.push({
-            component: PhoneSearchResults,
-            title: this.state.searchQuery,
-            //rightButtonTitle: 'Back',
-            //onRightButtonPress: () => {
-            //    this.props.navigator.popToTop()
-            //},
-            passProps: {
-                searchQuery: this.state.searchQuery
-            }
-        });
+		this.props.navigator.push({
+			index: 1,
+			data: {searchQuery: this.state.searchQuery}
+		});
     }
 }
 
@@ -196,6 +189,7 @@ const styles = StyleSheet.create({
     },
     loginInput: {
         height: 50,
+		width: 360,
         marginTop: 10,
         padding: 4,
         fontSize: 18,
@@ -228,4 +222,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default PhoneSearch;
+export default Search;

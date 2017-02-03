@@ -16,8 +16,6 @@ import {
     TextInput
 } from 'react-native';
 
-//import PhoneDetails from './phoneDetails';
-
 class Phones extends Component {
     constructor(props) {
         super(props);

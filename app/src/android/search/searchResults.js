@@ -16,36 +16,39 @@ import {
     TextInput
 } from 'react-native';
 
-import PhoneDetails from './phoneDetails';
-
-class PhoneSearchResults extends Component {
+class SearchResults extends Component {
     constructor(props) {
         super(props);
 
         var ds = new ListView.DataSource({
             rowHasChanged: (r1, r2) => r1 != r2
         });
-
-        var items = [];
-        this.state = {
-            dataSource: ds.cloneWithRows(items),
-            searchQueryHttp: props.searchQuery,
-            showProgress: true,
-            resultsCount: 0,
-            recordsCount: 25,
-            positionY: 0
-        };
-
-        this.findByPhone();
+		
+		this.state = {
+			dataSource: ds.cloneWithRows([])
+		}	
+		
+		if (props.data) {
+			this.state = {
+				dataSource: ds.cloneWithRows([]),
+				searchQueryHttp: props.data.searchQuery,
+				showProgress: true,
+				resultsCount: 0,
+				recordsCount: 25,
+				positionY: 0
+			};
+			this.findByPhone();
+		}
     }
 
     findByPhone() {
-        fetch('http://ui-base.herokuapp.com/api/items/findByPhone/'
+		fetch(appConfig.url + 'api/items/findByPhone/'
             + this.state.searchQueryHttp, {
             method: 'get',
             headers: {
                 'Accept': 'application/json',
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+				'Authorization': appConfig.access_token
             }
         })
             .then((response)=> response.json())
@@ -172,7 +175,11 @@ class PhoneSearchResults extends Component {
             searchQuery: text
         })
     }
-
+	
+    goBack(rowData) {
+		this.props.navigator.pop();
+	}
+	
     render() {
         var errorCtrl, loader;
 
@@ -195,42 +202,56 @@ class PhoneSearchResults extends Component {
 
         return (
             <View style={{flex: 1, justifyContent: 'center'}}>
-                <View style={{marginTop: 60}}>
-                    <TextInput style={{
-                        height: 45,
-                        marginTop: 4,
-                        padding: 5,
-                        backgroundColor: 'white',
-                        borderWidth: 3,
-                        borderColor: 'lightgray',
-                        borderRadius: 0,
-                    }}
-                               onChangeText={this.onChangeText.bind(this)}
-                               value={this.state.searchQuery}
-                               placeholder="Search">
-                    </TextInput>
+				<View style={{marginTop: 0}}>
+					<TouchableHighlight
+						onPress={()=> this.goBack()}
+						underlayColor='#ddd'
+					>
+						<Text style={{
+							fontSize: 24,
+							textAlign: 'center',
+							marginTop: 10,
+							fontWeight: 'bold'
+						}}>
+							{this.state.searchQueryHttp}
+						</Text>
+					</TouchableHighlight>
+				</View>
+				<View style={{marginTop: 0}}>
+					<TextInput style={{
+						height: 45,
+						marginTop: 4,
+						padding: 5,
+						backgroundColor: 'whitesmoke',
+						borderWidth: 3,
+						borderColor: 'whitesmoke',
+						borderRadius: 0,
+					}}
+							   onChangeText={this.onChangeText.bind(this)}
+							   value={this.state.searchQuery}
+							   placeholder="Search">
+					</TextInput>
 
-                    {errorCtrl}
+					{errorCtrl}
 
-                </View>
+				</View>
 
-                {loader}
+				{loader}
 
-                <ScrollView
-                    onScroll={this.refreshData.bind(this)} scrollEventThrottle={16}>
-                    <ListView
-                        style={{marginTop: -65, marginBottom: -45}}
-                        dataSource={this.state.dataSource}
-                        renderRow={this.renderRow.bind(this)}
-                    />
-                </ScrollView>
+				<ScrollView
+					onScroll={this.refreshData.bind(this)} scrollEventThrottle={16}>
+					<ListView
+						style={{marginTop: 0, marginBottom: 0}}
+						dataSource={this.state.dataSource}
+						renderRow={this.renderRow.bind(this)}
+					/>
+				</ScrollView>
 
-                <View style={{marginBottom: 49}}>
-                    <Text style={styles.countFooter}>
-                        {this.state.resultsCount} entries were found.
-                    </Text>
-                </View>
-
+				<View style={{marginBottom: 0}}>
+					<Text style={styles.countFooter}>
+						{this.state.resultsCount} entries were found.
+					</Text>
+				</View>
             </View>
         );
     }
@@ -317,4 +338,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default PhoneSearchResults;
+export default SearchResults;

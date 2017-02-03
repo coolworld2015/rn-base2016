@@ -24,6 +24,9 @@ import UserAdd from '../users/userAdd';
 import Phones from '../phones/phones';
 import PhoneDetails from '../phones/phoneDetails';
 
+import Search from '../search/search';
+import SearchResults from '../search/searchResults';
+
 class AppContainer extends Component {
 	constructor(props) {
 		super(props);				
@@ -32,12 +35,46 @@ class AppContainer extends Component {
 	render() {
 		return (
 			<ScrollableTabView>
+				<SearchTab tabLabel="Search" />
 				<PhonesTab tabLabel="Phones" />
 				<UsersTab tabLabel="Users" />
 				<AuditTab tabLabel="Audit" />
 				<PageOne tabLabel="PageOne" />
 			</ScrollableTabView>
 		);
+	}
+}
+
+class SearchTab extends Component {
+	constructor(props) {
+		super(props);
+		this.routes = [
+			{title: 'Search', index: 0},
+			{title: 'Search Results', index: 1}
+		];
+	}
+		  
+	renderScene(route, navigator) {
+		switch (route.index) {
+			case 0: return <Search routes={this.routes} navigator={navigator} />
+					break;			
+			case 1: return <SearchResults data={route.data} routes={this.routes} navigator={navigator} />
+					break
+ 		}
+ 	}	
+	
+	render() {
+		return (
+	  		<Navigator
+			initialRoute={this.routes[0]}
+			initialRouteStack={this.routes}
+		    renderScene={this.renderScene.bind(this)}
+			style={{padding: 0}}
+		  
+			configureScene={(route, routeStack) =>
+				Navigator.SceneConfigs.PushFromRight}
+		/>
+		)
 	}
 }
 
