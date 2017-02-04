@@ -117,7 +117,7 @@ class SearchResults extends Component {
                     borderBottomWidth: 1,
                     backgroundColor: '#fff'
                 }}>
-                    <Text style={{backgroundColor: '#fff'}}>
+                    <Text style={{backgroundColor: '#fff', color: 'black'}}>
                         {rowData.name} - {rowData.phone}
                     </Text>
                 </View>
@@ -219,7 +219,8 @@ class SearchResults extends Component {
 								fontSize: 18,
 								textAlign: 'center',
 								margin: 20,
-								fontWeight: 'bold'
+								fontWeight: 'bold',
+								color: 'black'
 							}}>
 								 Back
 							</Text>
@@ -233,7 +234,8 @@ class SearchResults extends Component {
 								fontSize: 24,
 								textAlign: 'center',
 								margin: 14,
-								fontWeight: 'bold'
+								fontWeight: 'bold',
+								color: 'black'
 							}}>
 								{this.state.searchQueryHttp}
 							</Text>
@@ -241,13 +243,15 @@ class SearchResults extends Component {
 					</View>						
 					<View>
 						<TouchableHighlight
+							onPress={()=> this.goBack()}
 							underlayColor='#ddd'
 						>
 							<Text style={{
 								fontSize: 18,
 								textAlign: 'center',
 								margin: 20,
-								fontWeight: 'bold'
+								fontWeight: 'bold',
+								color: 'black'
 							}}>
 								Done 
 							</Text>
@@ -313,7 +317,8 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         padding: 10,
         borderColor: '#D7D7D7',
-        backgroundColor: 'lightgray'
+        backgroundColor: 'lightgray',
+		color: 'black'
     },
     countHeader1: {
         fontSize: 16,

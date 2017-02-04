@@ -14,10 +14,9 @@ import {
     TabBarIOS,
     NavigatorIOS,
     TextInput,
-    Switch
+    Switch,
+	Dimensions
 } from 'react-native';
-
-//import SearchResults from './phoneSearchResults';
 
 class Search extends Component {
     constructor(props) {
@@ -29,6 +28,12 @@ class Search extends Component {
 			bugANDROID: ''
         }
     }
+	
+	componentDidMount() {
+		this.setState({
+			width: Dimensions.get('window').width
+        });
+	}
 	
     clearSearch() {
         this.setState({
@@ -118,7 +123,17 @@ class Search extends Component {
                             invalidValue: false
                         })}
                         value={this.state.searchQuery}
-                        style={styles.loginInput}
+                        style={{ 
+							height: 50,
+							width: this.state.width * .94,
+							marginTop: 10,
+							padding: 4,
+							fontSize: 18,
+							borderWidth: 3,
+							borderColor: '#48BBEC',
+							borderRadius: 0,
+							color: 'black'
+						}} 
                         placeholder="Search phones">
                     </TextInput>
 

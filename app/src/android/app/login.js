@@ -13,13 +13,16 @@ import {
     ActivityIndicator,
     TabBarIOS,
     NavigatorIOS,
-    TextInput
+    TextInput,
+	Dimensions
 } from 'react-native';
 
 class Login extends Component {
     constructor(props) {
         super(props);
-
+		
+		var width = Dimensions.get('window').width;
+		
         this.state = {
             showProgress: false,
 			username: '1',
@@ -27,7 +30,13 @@ class Login extends Component {
 			bugANDROID: ''
         }
     }
-
+	
+	componentDidMount() {
+		this.setState({
+			width: Dimensions.get('window').width
+        });
+	}
+	
     onLogin() {
 		this.setState({
             showProgress: true,
@@ -111,7 +120,18 @@ class Login extends Component {
                             username: text,
                             badCredentials: false
                         })}
-                        style={styles.loginInput}
+                         style={{ 
+							height: 50,
+							width: this.state.width * .94,
+							marginTop: 10,
+							padding: 4,
+							fontSize: 18,
+							borderWidth: 1,
+							borderColor: 'lightgray',
+							borderRadius: 0,
+							color: 'black',
+							backgroundColor: 'white'
+						}} 
                         placeholder="Login">1
                     </TextInput>
 
@@ -120,7 +140,18 @@ class Login extends Component {
                             password: text,
                             badCredentials: false
                         })}
-                        style={styles.loginInput}
+                        style={{ 
+							height: 50,
+							width: this.state.width * .94,
+							marginTop: 10,
+							padding: 4,
+							fontSize: 18,
+							borderWidth: 1,
+							borderColor: 'lightgray',
+							borderRadius: 0,
+							color: 'black',
+							backgroundColor: 'white'
+						}} 
                         placeholder="Password" secureTextEntry={true}>1
                     </TextInput>
 
@@ -198,7 +229,7 @@ const styles = StyleSheet.create({
     },
     loginInput: {
         height: 50,
-		width: 360,
+		//width: this.state.width,
         marginTop: 10,
         padding: 4,
         fontSize: 18,

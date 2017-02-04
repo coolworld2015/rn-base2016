@@ -105,10 +105,10 @@ class PhoneDetails extends Component {
 					<View style={{
 						flex: 1,
 						padding: 10,
+						paddingBottom: 85,
 						justifyContent: 'flex-start',
 						backgroundColor: 'white'
 					}}>
-
 						<TextInput
 							style={styles.loginInput}
 							value={'Phone: ' + this.state.phone}

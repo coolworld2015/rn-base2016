@@ -106,7 +106,7 @@ class AuditDetails extends Component {
 				<View style={{
 					flex: 1,
 					padding: 10,
-					paddingBottom: 50,
+					paddingBottom: 95,
 					justifyContent: 'flex-start',
 					backgroundColor: 'white'
 				}}>

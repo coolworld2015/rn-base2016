@@ -160,7 +160,7 @@ class UserAdd extends Component {
 						flex: 1,
 						padding: 10,
 						justifyContent: 'flex-start',
-						paddingBottom: 150,
+						paddingBottom: 115,
 						backgroundColor: 'white'
 					}}>
 						<TextInput
