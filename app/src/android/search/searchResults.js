@@ -196,21 +196,16 @@ class SearchResults extends Component {
         return (
             <View style={{flex: 1, justifyContent: 'center'}}>
 				<View style={{marginTop: 0}}>
-					<TouchableHighlight
-						onPress={()=> this.goBack()}
-						underlayColor='#ddd'
-					>
-						<Text style={{
-							fontSize: 24,
-							textAlign: 'center',
-							marginTop: 10,
-							fontWeight: 'bold'
-						}}>
-							{this.state.searchQueryHttp}
-						</Text>
-					</TouchableHighlight>
-				</View>
-				
+					<Text style={{
+						fontSize: 24,
+						textAlign: 'center',
+						margin: 14,
+						fontWeight: 'bold'
+					}}>
+						{this.state.searchQueryHttp}
+					</Text>
+                </View>
+
 				<View style={{marginTop: 0}}>
 					<TextInput style={{
 						height: 45,

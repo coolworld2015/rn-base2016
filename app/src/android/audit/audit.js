@@ -186,7 +186,7 @@ class Audit extends Component {
 					<Text style={{
 						fontSize: 24,
 						textAlign: 'center',
-						marginTop: 10,
+						margin: 14,
 						fontWeight: 'bold'
 					}}>
 						Audit

@@ -44,45 +44,106 @@ class PhoneDetails extends Component {
     render() {
         return (
             <ScrollView>
-				<TouchableHighlight
-					onPress={()=> this.goBack()}
-					underlayColor='#ddd'
-				>
+					<View style={{
+							flexDirection: 'row',
+							justifyContent: 'space-between'
+						}}>
+						<View>
+							<TouchableHighlight
+								onPress={()=> this.goBack()}
+								underlayColor='#ddd'
+							>
+								<Text style={{
+									fontSize: 18,
+									textAlign: 'center',
+									margin: 20,
+									fontWeight: 'bold'
+								}}>
+									 
+								</Text>
+							</TouchableHighlight>	
+						</View>
+						<View>
+							<TouchableHighlight
+								underlayColor='#ddd'
+							>
+								<Text style={{
+									fontSize: 24,
+									textAlign: 'center',
+									margin: 14,
+									fontWeight: 'bold'
+								}}>
+									{this.state.name}
+								</Text>
+							</TouchableHighlight>	
+						</View>						
+						<View>
+							<TouchableHighlight
+								underlayColor='#ddd'
+							>
+								<Text style={{
+									fontSize: 18,
+									textAlign: 'center',
+									margin: 20,
+									fontWeight: 'bold'
+								}}>
+									 
+								</Text>
+							</TouchableHighlight>	
+						</View>
+					</View>
+					
 					<View style={{
 						flex: 1,
 						padding: 10,
 						justifyContent: 'flex-start',
 						backgroundColor: 'white'
 					}}>
-						<Text style={styles.headder}>
-							{this.state.name}
-						</Text>
 
-						<Text style={styles.details}>
-							Phone: {this.state.phone}
-						</Text>
+						<TextInput
+							style={styles.loginInput}
+							value={'Phone: ' + this.state.phone}
+							>
+						</TextInput>
+						
+						<TextInput
+							style={styles.loginInput}
+							value={'Str: ' + this.state.street}
+							>
+						</TextInput>
 
-						<Text style={styles.details}>
-							Str: {this.state.street}
-						</Text>
+						<TextInput
+							style={styles.loginInput}
+							value={'House: ' + this.state.house}
+							>
+						</TextInput>	
 
-						<Text style={styles.details}>
-							House: {this.state.house}
-						</Text>
+						<TextInput
+							style={styles.loginInput}
+							value={'Apt: ' + this.state.apt}
+							>
+						</TextInput>	
 
-						<Text style={styles.details}>
-							Apt: {this.state.apt}
-						</Text>
+						<TextInput
+							style={styles.loginInput}
+							value={'ID: ' + this.state.id}
+							>
+						</TextInput>	
 
-						<Text style={styles.details}>
-							ID: {this.state.id}
-						</Text>
+						<TextInput
+							style={styles.loginInput}
+							value={'Zip: ' + this.state.index}
+							>
+						</TextInput>
+						
+						<TouchableHighlight
+							onPress={()=> this.goBack()}
 
-						<Text style={styles.details}>
-							Zip: {this.state.index}
-						</Text>
+							style={styles.button}>
+							<Text style={styles.buttonText}>Back</Text>
+						</TouchableHighlight>
+						
 					</View>
-				</TouchableHighlight>	
             </ScrollView>
         );
     }

@@ -45,58 +45,94 @@ class AuditDetails extends Component {
     render() {
         return (
             <ScrollView>
-				<TouchableHighlight
-					onPress={()=> this.goBack()}
-					underlayColor='#ddd'
-				>
-					<View style={{
-						flex: 1,
-						padding: 10,
-						justifyContent: 'flex-start',
-						backgroundColor: 'white'
+				<View style={{
+						flexDirection: 'row',
+						justifyContent: 'space-between'
 					}}>
-
-						<Text style={{
-							fontSize: 24,
-							textAlign: 'center',
-							marginTop: 10,
-							fontWeight: 'bold'
-						}}>
-							{this.state.date}
-						</Text>
-
-						<TextInput
-							style={styles.loginInput}
-							value={this.state.name}
-							placeholder="Name">
-						</TextInput>
-
-						<TextInput
-							style={styles.loginInput}
-							value={this.state.id}
-							placeholder="ID">
-						</TextInput>
-
-						<TextInput
-							style={styles.loginInput}
-							value={this.state.ip}
-							placeholder="IP">
-						</TextInput>
-
-						<TextInput
-							style={styles.loginInput1}
-							value={this.state.description}
-							multiline={true}
-							placeholder="Description">
-						</TextInput>
-
-						<ActivityIndicator
-							animating={this.state.showProgress}
-							size="large"
-							style={styles.loader}
-						/>
+					<View>
+						<TouchableHighlight
+							onPress={()=> this.goBack()}
+							underlayColor='#ddd'
+						>
+							<Text style={{
+								fontSize: 18,
+								textAlign: 'center',
+								margin: 20,
+								fontWeight: 'bold'
+							}}>
+								 
+							</Text>
+						</TouchableHighlight>	
 					</View>
-				</TouchableHighlight>	
+					<View>
+						<TouchableHighlight
+							underlayColor='#ddd'
+						>
+							<Text style={{
+								fontSize: 24,
+								textAlign: 'center',
+								margin: 14,
+								fontWeight: 'bold'
+							}}>
+								{this.state.name}
+							</Text>
+						</TouchableHighlight>	
+					</View>						
+					<View>
+						<TouchableHighlight
+							underlayColor='#ddd'
+						>
+							<Text style={{
+								fontSize: 18,
+								textAlign: 'center',
+								margin: 20,
+								fontWeight: 'bold'
+							}}>
+								 
+							</Text>
+						</TouchableHighlight>	
+					</View>
+				</View>
+					
+				<View style={{
+					flex: 1,
+					padding: 10,
+					paddingBottom: 50,
+					justifyContent: 'flex-start',
+					backgroundColor: 'white'
+				}}>
+					<TextInput
+						style={styles.loginInput}
+						value={this.state.date}
+						placeholder="Date">
+					</TextInput>
+					
+					<TextInput
+						style={styles.loginInput}
+						value={this.state.id}
+						placeholder="ID">
+					</TextInput>
+					
+					<TextInput
+						style={styles.loginInput}
+						value={this.state.ip}
+						placeholder="IP">
+					</TextInput>
+
+					<TextInput
+						style={styles.loginInput1}
+						value={this.state.description}
+						multiline={true}
+						placeholder="Description">
+					</TextInput>
+
+					<TouchableHighlight
+						onPress={()=> this.goBack()}
+
+						style={styles.button}>
+						<Text style={styles.buttonText}>Back</Text>
+					</TouchableHighlight>
+				</View>
             </ScrollView>
         );
     }
@@ -135,7 +171,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: 'lightgray',
         borderRadius: 0,
-        color: 'black'
+        color: 'gray'
     },
     loginInput1: {
         height: 150,
@@ -145,7 +181,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: 'lightgray',
         borderRadius: 0,
-        color: 'black'
+        color: 'gray'
     },
     button: {
         height: 50,
