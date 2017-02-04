@@ -84,24 +84,17 @@ class SearchResults extends Component {
         return 0;
     }
 
-    pressRow(rowData) {
-        this.props.navigator.push({
-            title: rowData.name,
-            component: PhoneDetails,
-            rightButtonTitle: 'Back',
-            onRightButtonPress: () => {
-                this.props.navigator.popToTop()
-            },
-            passProps: {
-                pushEvent: rowData
-            }
-        });
+    showDetails(rowData) {
+		this.props.navigator.push({
+			index: 2,
+			data: rowData
+		});
     }
 
     renderRow(rowData) {
         return (
             <TouchableHighlight
-                onPress={()=> this.pressRow(rowData)}
+                onPress={()=> this.showDetails(rowData)}
                 underlayColor='#ddd'
             >
                 <View style={{

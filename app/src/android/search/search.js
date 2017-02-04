@@ -25,10 +25,32 @@ class Search extends Component {
 
         this.state = {
             showProgress: false,
-            eventSwitchTitle: true
+            eventSwitchTitle: true,
+			bugANDROID: ''
         }
     }
+	
+    clearSearch() {
+        this.setState({
+            searchQuery: '',
+            invalidValue: false
+        })
+    }
 
+    onSearchPressed() {
+        if (this.state.searchQuery == undefined) {
+            this.setState({
+                invalidValue: true
+            });
+            return;
+        }
+
+		this.props.navigator.push({
+			index: 1,
+			data: {searchQuery: this.state.searchQuery}
+		});
+    }
+	
     render() {
         var errorCtrl = <View />;
 
@@ -115,30 +137,11 @@ class Search extends Component {
                         size="large"
                         style={styles.loader}
                     />
+					
+					<Text>{this.state.bugANDROID}</Text>
                 </View>
             </ScrollView>
         )
-    }
-
-    clearSearch() {
-        this.setState({
-            searchQuery: '',
-            invalidValue: false
-        })
-    }
-
-    onSearchPressed() {
-        if (this.state.searchQuery == undefined) {
-            this.setState({
-                invalidValue: true
-            });
-            return;
-        }
-
-		this.props.navigator.push({
-			index: 1,
-			data: {searchQuery: this.state.searchQuery}
-		});
     }
 }
 
@@ -215,7 +218,7 @@ const styles = StyleSheet.create({
         fontSize: 24
     },
     loader: {
-        marginTop: 20
+        marginTop: 40
     },
     error: {
         color: 'red',

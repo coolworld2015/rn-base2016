@@ -49,7 +49,8 @@ class SearchTab extends Component {
 		super(props);
 		this.routes = [
 			{title: 'Search', index: 0},
-			{title: 'Search Results', index: 1}
+			{title: 'Search Results', index: 1},
+			{title: 'Phones Details', index: 2}
 		];
 	}
 		  
@@ -58,6 +59,8 @@ class SearchTab extends Component {
 			case 0: return <Search routes={this.routes} navigator={navigator} />
 					break;			
 			case 1: return <SearchResults data={route.data} routes={this.routes} navigator={navigator} />
+					break;			
+			case 2: return <PhoneDetails data={route.data} routes={this.routes} navigator={navigator} />
 					break
  		}
  	}	
