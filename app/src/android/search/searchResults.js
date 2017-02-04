@@ -13,13 +13,21 @@ import {
     ActivityIndicator,
     TabBarIOS,
     NavigatorIOS,
-    TextInput
+    TextInput,
+	BackAndroid
 } from 'react-native';
 
 class SearchResults extends Component {
     constructor(props) {
         super(props);
-
+		
+		BackAndroid.addEventListener('hardwareBackPress', () => {
+			if (this.props.navigator) {
+				this.props.navigator.pop();
+			}
+			return true;
+		});
+		
         var ds = new ListView.DataSource({
             rowHasChanged: (r1, r2) => r1 != r2
         });
@@ -195,16 +203,54 @@ class SearchResults extends Component {
 
         return (
             <View style={{flex: 1, justifyContent: 'center'}}>
-				<View style={{marginTop: 0}}>
-					<Text style={{
-						fontSize: 24,
-						textAlign: 'center',
-						margin: 14,
-						fontWeight: 'bold'
+				<View style={{
+						flexDirection: 'row',
+						justifyContent: 'space-between'
 					}}>
-						{this.state.searchQueryHttp}
-					</Text>
-                </View>
+					<View>
+						<TouchableHighlight
+							onPress={()=> this.goBack()}
+							underlayColor='#ddd'
+						>
+							<Text style={{
+								fontSize: 18,
+								textAlign: 'center',
+								margin: 20,
+								fontWeight: 'bold'
+							}}>
+								 Back
+							</Text>
+						</TouchableHighlight>	
+					</View>
+					<View>
+						<TouchableHighlight
+							underlayColor='#ddd'
+						>
+							<Text style={{
+								fontSize: 24,
+								textAlign: 'center',
+								margin: 14,
+								fontWeight: 'bold'
+							}}>
+								{this.state.searchQueryHttp}
+							</Text>
+						</TouchableHighlight>	
+					</View>						
+					<View>
+						<TouchableHighlight
+							underlayColor='#ddd'
+						>
+							<Text style={{
+								fontSize: 18,
+								textAlign: 'center',
+								margin: 20,
+								fontWeight: 'bold'
+							}}>
+								Done 
+							</Text>
+						</TouchableHighlight>	
+					</View>
+				</View>
 
 				<View style={{marginTop: 0}}>
 					<TextInput style={{

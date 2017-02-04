@@ -13,7 +13,8 @@ import {
     ActivityIndicatorIOS,
     TabBarIOS,
     NavigatorIOS,
-    TextInput
+    TextInput,
+	BackAndroid
 } from 'react-native';
 
 console.disableYellowBox = true;
@@ -24,7 +25,14 @@ import AppContainer from './appContainer';
 class App extends Component {
     constructor(props) {
         super(props);
-
+		
+		BackAndroid.addEventListener('hardwareBackPress', () => {
+			if (this.props.navigator) {
+				this.props.navigator.pop();
+			}
+			return true;
+		});
+		
         this.state = {
             checkingAuth: false,
             showProgress: false,

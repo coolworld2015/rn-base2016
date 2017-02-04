@@ -13,15 +13,21 @@ import {
     ActivityIndicator,
     TabBarIOS,
     NavigatorIOS,
-    TextInput
+    TextInput,
+	BackAndroid
 } from 'react-native';
-
-//import Users from './users';
 
 class UserAdd extends Component {
     constructor(props) {
         super(props);
-
+		
+		BackAndroid.addEventListener('hardwareBackPress', () => {
+			if (this.props.navigator) {
+				this.props.navigator.pop();
+			}
+			return true;
+		});
+		
         this.state = {
             showProgress: false,
 			bugANDROID: ''
