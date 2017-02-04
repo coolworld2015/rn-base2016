@@ -35,10 +35,12 @@ class Users extends Component {
             recordsCount: 25,
             positionY: 0
         };
-
-        this.getUsers();
     }
-
+	
+	componentWillMount() {
+		this.getUsers();
+	}
+	
     componentWillUpdate() {
         if (appConfig.users.refresh) {
             appConfig.users.refresh = false;
@@ -121,7 +123,7 @@ class Users extends Component {
                     borderBottomWidth: 1,
                     backgroundColor: '#fff'
                 }}>
-                    <Text style={{backgroundColor: '#fff'}}>
+                    <Text style={{backgroundColor: '#fff', color: 'black'}}>
                         {rowData.name}
                     </Text>
                 </View>
@@ -233,7 +235,8 @@ class Users extends Component {
 								fontSize: 24,
 								textAlign: 'center',
 								margin: 14,
-								fontWeight: 'bold'
+								fontWeight: 'bold',
+								color: 'black'
 							}}>
 								Users
 							</Text>
@@ -248,7 +251,8 @@ class Users extends Component {
 								fontSize: 18,
 								textAlign: 'center',
 								margin: 20,
-								fontWeight: 'bold'
+								fontWeight: 'bold',
+								color: 'black'
 							}}>
 								Add
 							</Text>
@@ -315,7 +319,8 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         padding: 10,
         borderColor: '#D7D7D7',
-        backgroundColor: 'lightgray'
+        backgroundColor: 'lightgray',
+		color: 'black'
     },
     welcome: {
         fontSize: 20,

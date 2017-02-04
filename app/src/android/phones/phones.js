@@ -32,10 +32,12 @@ class Phones extends Component {
             recordsCount: 25,
             positionY: 0
         };
-
-        this.getPhones();
     }
-
+	
+	componentWillMount() {
+		this.getPhones();
+	}
+	
     componentWillUpdate1() {
         if (appConfig.phones.refresh) {
             appConfig.phones.refresh = false;
@@ -112,7 +114,7 @@ class Phones extends Component {
                     borderBottomWidth: 1,
                     backgroundColor: '#fff'
                 }}>
-                    <Text style={{backgroundColor: '#fff'}}>
+                    <Text style={{backgroundColor: '#fff', color: 'black'}}>
                         {rowData.name} - {rowData.phone}
                     </Text>
                 </View>
@@ -202,7 +204,8 @@ class Phones extends Component {
 						fontSize: 24,
 						textAlign: 'center',
 						margin: 14,
-						fontWeight: 'bold'
+						fontWeight: 'bold',
+						color: 'black'
 					}}>
 						Phones
 					</Text>
@@ -271,7 +274,8 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         padding: 10,
         borderColor: '#D7D7D7',
-        backgroundColor: 'lightgray'
+        backgroundColor: 'lightgray',
+		color: 'black'
     },
     welcome: {
         fontSize: 20,

@@ -80,9 +80,10 @@ class AuditDetails extends Component {
 								fontSize: 24,
 								textAlign: 'center',
 								margin: 14,
-								fontWeight: 'bold'
+								fontWeight: 'bold',
+								color: 'black'
 							}}>
-								{this.state.name}
+								{this.state.date}
 							</Text>
 						</TouchableHighlight>	
 					</View>						
@@ -111,8 +112,8 @@ class AuditDetails extends Component {
 				}}>
 					<TextInput
 						style={styles.loginInput}
-						value={this.state.date}
-						placeholder="Date">
+						value={this.state.name}
+						placeholder="Name">
 					</TextInput>
 					
 					<TextInput
@@ -179,17 +180,17 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: 'lightgray',
         borderRadius: 0,
-        color: 'gray'
+        color: 'black'
     },
     loginInput1: {
-        height: 150,
+        height: 100,
         marginTop: 10,
         padding: 4,
         fontSize: 18,
         borderWidth: 1,
         borderColor: 'lightgray',
         borderRadius: 0,
-        color: 'gray'
+        color: 'black'
     },
     button: {
         height: 50,

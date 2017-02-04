@@ -178,7 +178,8 @@ const styles = StyleSheet.create({
     heading: {
         fontSize: 30,
         marginTop: 10,
-        //marginBottom: 20
+		color: 'black',
+        fontWeight: 'bold'
     },
 	footer: {
         fontSize: 30,
@@ -222,7 +223,7 @@ const styles = StyleSheet.create({
         fontSize: 24
     },
     loader: {
-        marginTop: 40
+        marginTop: 30
     },
     error: {
         color: 'red',

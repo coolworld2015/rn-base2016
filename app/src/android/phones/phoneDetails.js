@@ -79,7 +79,8 @@ class PhoneDetails extends Component {
 									fontSize: 24,
 									textAlign: 'center',
 									margin: 14,
-									fontWeight: 'bold'
+									fontWeight: 'bold',
+									color: 'black'
 								}}>
 									{this.state.name}
 								</Text>
@@ -129,12 +130,6 @@ class PhoneDetails extends Component {
 						<TextInput
 							style={styles.loginInput}
 							value={'Apt: ' + this.state.apt}
-							>
-						</TextInput>	
-
-						<TextInput
-							style={styles.loginInput}
-							value={'ID: ' + this.state.id}
 							>
 						</TextInput>	
 
@@ -191,7 +186,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: 'lightgray',
         borderRadius: 0,
-        color: 'gray'
+        color: 'black'
     },
     button: {
         height: 50,

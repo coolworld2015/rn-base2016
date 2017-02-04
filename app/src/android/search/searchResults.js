@@ -45,10 +45,13 @@ class SearchResults extends Component {
 				recordsCount: 25,
 				positionY: 0
 			};
-			this.findByPhone();
 		}
     }
-
+	
+	componentWillMount() {
+		this.findByPhone();
+	}
+	
     findByPhone() {
 		fetch(appConfig.url + 'api/items/findByPhone/'
             + this.state.searchQueryHttp, {

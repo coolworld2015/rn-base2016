@@ -118,7 +118,8 @@ class UserAdd extends Component {
 								fontSize: 18,
 								textAlign: 'center',
 								margin: 20,
-								fontWeight: 'bold'
+								fontWeight: 'bold',
+								color: 'black'
 							}}>
 								Back
 							</Text>
@@ -132,7 +133,8 @@ class UserAdd extends Component {
 								fontSize: 24,
 								textAlign: 'center',
 								margin: 14,
-								fontWeight: 'bold'
+								fontWeight: 'bold',
+								color: 'black'
 							}}>
 								 New
 							</Text>

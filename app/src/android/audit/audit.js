@@ -36,9 +36,11 @@ class Audit extends Component {
             recordsCount: 25,
             positionY: 0
         };
-
-        this.getAudit();
     }
+	
+	componentWillMount() {
+		this.getAudit();
+	}
 	
 	_handlePress() {
 		//this.props.navigator.pop();
@@ -97,7 +99,7 @@ class Audit extends Component {
                     borderBottomWidth: 1,
                     backgroundColor: '#fff'
                 }}>
-                    <Text style={{backgroundColor: '#fff'}}>
+                    <Text style={{backgroundColor: '#fff', color: 'black'}}>
                         {rowData.name} - {rowData.date}
                     </Text>
                 </View>
@@ -187,7 +189,8 @@ class Audit extends Component {
 						fontSize: 24,
 						textAlign: 'center',
 						margin: 14,
-						fontWeight: 'bold'
+						fontWeight: 'bold',
+						color: 'black'
 					}}>
 						Audit
 					</Text>
@@ -252,7 +255,8 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         padding: 10,
         borderColor: '#D7D7D7',
-        backgroundColor: 'lightgray'
+        backgroundColor: 'lightgray',
+		color: 'black'
     },
     welcome: {
         fontSize: 20,
