@@ -155,7 +155,6 @@ class UserDetails extends Component {
             <ScrollView>
 				<View style={{flex: 1, justifyContent: 'center'}}>
 					<View style={{
-							flex: 1, 
 							flexDirection: 'row',
 							justifyContent: 'space-between'
 						}}>
@@ -181,7 +180,7 @@ class UserDetails extends Component {
 								<Text style={{
 									fontSize: 24,
 									textAlign: 'center',
-									margin: 15,
+									margin: 14,
 									fontWeight: 'bold'
 								}}>
 									{this.state.name}
@@ -208,8 +207,7 @@ class UserDetails extends Component {
 					<View style={{
 						flex: 1,
 						padding: 10,
-						marginTop: -150,
-						paddingBottom: 225,
+						paddingBottom: 50,
 						justifyContent: 'flex-start',
 						backgroundColor: 'white'
 					}}>
@@ -323,7 +321,7 @@ const styles = StyleSheet.create({
         fontSize: 24
     },
     loader: {
-        marginTop: 20
+        marginTop: 40
     },
     error: {
         color: 'red',

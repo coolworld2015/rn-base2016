@@ -206,21 +206,60 @@ class Users extends Component {
 
         return (
             <View style={{flex: 1, justifyContent: 'center'}}>
-				<View style={{marginTop: 0}}>
-					<Text style={{
-						fontSize: 24,
-						textAlign: 'center',
-						marginTop: 10,
-						fontWeight: 'bold'
+				<View style={{
+						flexDirection: 'row',
+						justifyContent: 'space-between'
 					}}>
-						Users
-					</Text>
-                </View>
+					<View>
+						<TouchableHighlight
+							//onPress={()=> this.goBack()}
+							underlayColor='#ddd'
+						>
+							<Text style={{
+								fontSize: 18,
+								textAlign: 'center',
+								margin: 20,
+								fontWeight: 'bold'
+							}}>
+								
+							</Text>
+						</TouchableHighlight>	
+					</View>
+					<View>
+						<TouchableHighlight
+							underlayColor='#ddd'
+						>
+							<Text style={{
+								fontSize: 24,
+								textAlign: 'center',
+								margin: 14,
+								fontWeight: 'bold'
+							}}>
+								Users
+							</Text>
+						</TouchableHighlight>	
+					</View>						
+					<View>
+						<TouchableHighlight
+							onPress={()=> this.addUser()}
+							underlayColor='#ddd'
+						>
+							<Text style={{
+								fontSize: 18,
+								textAlign: 'center',
+								margin: 20,
+								fontWeight: 'bold'
+							}}>
+								Add
+							</Text>
+						</TouchableHighlight>	
+					</View>
+				</View>
 				
                 <View style={{marginTop: 0}}>
                     <TextInput style={{
                         height: 45,
-                        marginTop: 4,
+						marginTop: 4,
                         padding: 5,
                         backgroundColor: 'whitesmoke',
                         borderWidth: 3,
@@ -230,33 +269,29 @@ class Users extends Component {
                                onChangeText={this.onChangeText.bind(this)}
                                value={this.state.searchQuery}
                                placeholder="Search">
-                    </TextInput>
+                    </TextInput>    
 
-                    {errorCtrl}
+					{errorCtrl}
+					
+				</View>
 
-                </View>
-
-                {loader}
-
-                <ScrollView
-                    onScroll={this.refreshData.bind(this)} scrollEventThrottle={16}>
-                    <ListView
-                        style={{marginTop: 0, marginBottom: 0}}
-                        dataSource={this.state.dataSource}
-                        renderRow={this.renderRow.bind(this)}
-                    />
-                </ScrollView>
+                {loader}	
 				
-				<TouchableHighlight
-					onPress={()=> this.addUser()}
-					underlayColor='#ddd'
-				>
-					<View style={{marginBottom: 0}}>
-						<Text style={styles.countFooter}>
-							{this.state.resultsCount} entries were found.
-						</Text>
-					</View>
-				</TouchableHighlight>
+				<ScrollView
+					onScroll={this.refreshData.bind(this)} scrollEventThrottle={16}>
+					<ListView
+						style={{marginTop: 0, marginBottom: 0}}
+						dataSource={this.state.dataSource}
+						renderRow={this.renderRow.bind(this)}
+					/>
+				</ScrollView>
+				
+				<View style={{marginBottom: 0}}>
+					<Text style={styles.countFooter}>
+						{this.state.resultsCount} entries were found.
+					</Text>
+				</View>
+
             </View>
         )
     }

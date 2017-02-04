@@ -222,7 +222,7 @@ const styles = StyleSheet.create({
         fontSize: 24
     },
     loader: {
-        marginTop: 20
+        marginTop: 40
     },
     error: {
         color: 'red',

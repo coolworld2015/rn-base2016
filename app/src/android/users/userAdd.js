@@ -99,21 +99,54 @@ class UserAdd extends Component {
         return (
             <ScrollView>
 				<View style={{flex: 1, justifyContent: 'center'}}>
-					<TouchableHighlight
-						onPress={()=> this.goBack()}
-						underlayColor='#ddd'
-					>
-						<View style={{marginTop: 0}}>
+				<View style={{
+						flexDirection: 'row',
+						justifyContent: 'space-between'
+					}}>
+					<View>
+						<TouchableHighlight
+							onPress={()=> this.goBack()}
+							underlayColor='#ddd'
+						>
+							<Text style={{
+								fontSize: 18,
+								textAlign: 'center',
+								margin: 20,
+								fontWeight: 'bold'
+							}}>
+								Back
+							</Text>
+						</TouchableHighlight>	
+					</View>
+					<View>
+						<TouchableHighlight
+							underlayColor='#ddd'
+						>
 							<Text style={{
 								fontSize: 24,
 								textAlign: 'center',
-								margin: 10,
+								margin: 14,
 								fontWeight: 'bold'
 							}}>
-								New
+								 New
 							</Text>
-						</View>
-					</TouchableHighlight>
+						</TouchableHighlight>	
+					</View>						
+					<View>
+						<TouchableHighlight
+							underlayColor='#ddd'
+						>
+							<Text style={{
+								fontSize: 18,
+								textAlign: 'center',
+								margin: 20,
+								fontWeight: 'bold'
+							}}>
+								 
+							</Text>
+						</TouchableHighlight>	
+					</View>
+				</View>
 					
 					<View style={{
 						flex: 1,
@@ -226,7 +259,7 @@ const styles = StyleSheet.create({
         fontSize: 24
     },
     loader: {
-        marginTop: 20
+        marginTop: 40
     },
     error: {
         color: 'red',

@@ -29,6 +29,8 @@ APK -> cd android -> gradlew assembleDebug(assembleRelease) -> \android\app\buil
 -------------------------------------------------------------------------------------------------
 APK -> react-native bundle --dev false --platform android --entry-file index.android.js --bundle-output ./android/app/build/intermediates/assets/debug/index.android.bundle --assets-dest ./android/app/build/intermediates/res/merged/debug
 -------------------------------------------------------------------------------------------------
+PIC -> /android/app/src/main/res/mipmap
+-------------------------------------------------------------------------------------------------
 react-native start
 -------------------------------------------------------------------------------------------------
 react-native run-ios
