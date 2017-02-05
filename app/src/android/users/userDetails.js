@@ -14,7 +14,8 @@ import {
     TabBarIOS,
     NavigatorIOS,
     TextInput,
-	BackAndroid
+	BackAndroid,
+	Alert
 } from 'react-native';
 
 class UserDetails extends Component {
@@ -96,7 +97,22 @@ class UserDetails extends Component {
             });
     }
 
-    deleteUser() {
+    deleteUserDialog() {
+		Alert.alert(
+			'Delete user',
+			'Are you sure you want to delete user ' + this.state.name + '?',
+			[
+				{text: 'Cancel', onPress: () => console.log('Cancel Pressed!')},
+				{
+					text: 'OK', onPress: () => {
+					this.deleteUser();
+					}
+				},
+			]
+		);	
+	}
+	
+    deleteUser() {		
         this.setState({
             showProgress: true,
 			bugANDROID: ' '
@@ -136,6 +152,7 @@ class UserDetails extends Component {
                     showProgress: false
                 });
             });
+
     }
     
 	goBack() {
@@ -199,7 +216,7 @@ class UserDetails extends Component {
 						</View>						
 						<View>
 							<TouchableHighlight
-								onPress={()=> this.deleteUser()}
+								onPress={()=> this.deleteUserDialog()}
 								underlayColor='#ddd'
 							>
 								<Text style={{
