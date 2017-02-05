@@ -186,9 +186,9 @@ class Audit extends Component {
             <View style={{flex: 1, justifyContent: 'center'}}>
 				<View style={{marginTop: 0}}>
 					<Text style={{
-						fontSize: 24,
+						fontSize: 20,
 						textAlign: 'center',
-						margin: 14,
+						margin: 10,
 						fontWeight: 'bold',
 						color: 'black'
 					}}>

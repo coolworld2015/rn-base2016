@@ -77,9 +77,9 @@ class AuditDetails extends Component {
 							underlayColor='#ddd'
 						>
 							<Text style={{
-								fontSize: 24,
+								fontSize: 20,
 								textAlign: 'center',
-								margin: 14,
+								margin: 10,
 								fontWeight: 'bold',
 								color: 'black'
 							}}>
