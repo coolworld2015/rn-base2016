@@ -17,8 +17,6 @@ import {
     Alert
 } from 'react-native';
 
-import UserDetails from './userDetails';
-
 class Users extends Component {
     constructor(props) {
         super(props);
@@ -37,7 +35,7 @@ class Users extends Component {
         };
     }
 	
-	componentWillMount() {
+	componentDidMount() {
 		this.getUsers();
 	}
 	
@@ -284,6 +282,7 @@ class Users extends Component {
 				<ScrollView
 					onScroll={this.refreshData.bind(this)} scrollEventThrottle={16}>
 					<ListView
+						enableEmptySections={true}
 						style={{marginTop: 0, marginBottom: 0}}
 						dataSource={this.state.dataSource}
 						renderRow={this.renderRow.bind(this)}

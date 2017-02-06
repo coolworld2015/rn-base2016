@@ -27,11 +27,7 @@ class PhoneDetails extends Component {
 			}
 			return true;
 		});
-		
-		this.state = {
-			name: ''
-		}	
-					
+			
 		if (props.data) {
 			this.state = {
 				id: props.data.id,
@@ -44,6 +40,12 @@ class PhoneDetails extends Component {
 			};
 		}
     }
+	
+	componentWillMount() {
+		this.state = {
+			name: ''
+		}
+	}
 	
     goBack(rowData) {
 		this.props.navigator.pop();
@@ -145,7 +147,6 @@ class PhoneDetails extends Component {
 							style={styles.button}>
 							<Text style={styles.buttonText}>Back</Text>
 						</TouchableHighlight>
-						
 					</View>
             </ScrollView>
         );

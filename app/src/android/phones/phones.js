@@ -34,21 +34,9 @@ class Phones extends Component {
         };
     }
 	
-	componentWillMount() {
+	componentDidMount() {
 		this.getPhones();
 	}
-	
-    componentWillUpdate1() {
-        if (appConfig.phones.refresh) {
-            appConfig.phones.refresh = false;
-
-            this.setState({
-                showProgress: true
-            });
-
-            this.getPhones();
-        }
-    }
 
     getPhones() {
         fetch(appConfig.url + 'api/items/get', {			
@@ -235,6 +223,7 @@ class Phones extends Component {
                 <ScrollView
                     onScroll={this.refreshData.bind(this)} scrollEventThrottle={16}>
                     <ListView
+						enableEmptySections={true}
                         style={{marginTop: 0, marginBottom: 0}}
                         dataSource={this.state.dataSource}
                         renderRow={this.renderRow.bind(this)}

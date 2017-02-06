@@ -28,12 +28,7 @@ class UserDetails extends Component {
 			}
 			return true;
 		});			
-		
-		this.state = {
-			serverError: false,
-			bugANDROID: ''
-		}	
-		
+			
 		if (props.data) {
 			this.state = {
 				id: props.data.id,

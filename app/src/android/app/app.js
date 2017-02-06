@@ -34,8 +34,6 @@ class App extends Component {
 		});
 		
         this.state = {
-            checkingAuth: false,
-            showProgress: false,
             isLoggedIn: false
         };
 		
@@ -52,17 +50,6 @@ class App extends Component {
     }
 
     render() {
-        if (this.state.checkingAuth) {
-            return (
-                <View style={styles.container}>
-                    <ActivityIndicatorIOS
-                        animating={true}
-                        size="large"
-                        style={styles.loader}/>
-                </View>
-            )
-        }
-
         if (this.state.isLoggedIn) {
             return (
                 <AppContainer onLogOut={this.onLogOut.bind(this)}/>
