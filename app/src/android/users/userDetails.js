@@ -28,7 +28,11 @@ class UserDetails extends Component {
 			}
 			return true;
 		});			
-			
+		
+		this.state = {
+			serverError: false
+		}	
+		
 		if (props.data) {
 			this.state = {
 				id: props.data.id,

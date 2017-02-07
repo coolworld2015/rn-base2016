@@ -164,7 +164,15 @@ class Phones extends Component {
             searchQuery: text
         })
     }
+	
+	refreshDataAndroid() {
+		this.setState({
+			showProgress: true
+		});
 
+		this.getPhones();
+	}
+	
     render() {
         var errorCtrl, loader;
 
@@ -187,17 +195,58 @@ class Phones extends Component {
 
         return (
             <View style={{flex: 1, justifyContent: 'center'}}>
-				<View style={{marginTop: 0}}>
-					<Text style={{
-						fontSize: 20,
-						textAlign: 'center',
-						margin: 10,
-						fontWeight: 'bold',
-						color: 'black'
+					<View style={{
+						flexDirection: 'row',
+						justifyContent: 'space-between'
 					}}>
-						Phones
-					</Text>
-                </View>
+					<View>
+						<TouchableHighlight
+							onPress={()=> this.refreshDataAndroid()}
+							underlayColor='#ddd'
+						>
+							<Text style={{
+								fontSize: 16,
+								textAlign: 'center',
+								margin: 14,
+								fontWeight: 'bold',
+								color: 'black'
+							}}>
+								Reload
+							</Text>
+						</TouchableHighlight>	
+					</View>
+					<View>
+						<TouchableHighlight
+							underlayColor='#ddd'
+						>
+							<Text style={{
+								fontSize: 20,
+								textAlign: 'center',
+								margin: 10,
+								marginRight: 40,
+								fontWeight: 'bold',
+								color: 'black'
+							}}>
+								Phones
+							</Text>
+						</TouchableHighlight>	
+					</View>						
+					<View>
+						<TouchableHighlight
+							underlayColor='#ddd'
+						>
+							<Text style={{
+								fontSize: 16,
+								textAlign: 'center',
+								margin: 14,
+								fontWeight: 'bold',
+								color: 'black'
+							}}>
+								
+							</Text>
+						</TouchableHighlight>	
+					</View>
+				</View>
 				
                 <View style={{marginTop: 0}}>
                     <TextInput style={{

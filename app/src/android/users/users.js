@@ -130,6 +130,7 @@ class Users extends Component {
     }
 
     refreshData(event) {
+		console.log(event.nativeEvent.contentOffset);
         if (this.state.showProgress == true) {
             return;
         }
@@ -183,7 +184,15 @@ class Users extends Component {
             searchQuery: text
         })
     }
+	
+	refreshDataAndroid() {
+		this.setState({
+			showProgress: true
+		});
 
+		this.getUsers();
+	}
+	
     render() {
         var errorCtrl, loader;
 
@@ -212,16 +221,17 @@ class Users extends Component {
 					}}>
 					<View>
 						<TouchableHighlight
-							//onPress={()=> this.goBack()}
+							onPress={()=> this.refreshDataAndroid()}
 							underlayColor='#ddd'
 						>
 							<Text style={{
 								fontSize: 16,
 								textAlign: 'center',
 								margin: 14,
-								fontWeight: 'bold'
+								fontWeight: 'bold',
+								color: 'black'
 							}}>
-								
+								Reload
 							</Text>
 						</TouchableHighlight>	
 					</View>
@@ -233,6 +243,7 @@ class Users extends Component {
 								fontSize: 20,
 								textAlign: 'center',
 								margin: 10,
+								marginRight: 20,
 								fontWeight: 'bold',
 								color: 'black'
 							}}>
