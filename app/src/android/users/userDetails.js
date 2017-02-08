@@ -192,7 +192,7 @@ class UserDetails extends Component {
 									textAlign: 'center',
 									margin: 14,
 									fontWeight: 'bold',
-									color: 'black'
+									color: 'darkblue'
 								}}>
 									Back
 								</Text>
@@ -223,21 +223,21 @@ class UserDetails extends Component {
 									textAlign: 'center',
 									margin: 14,
 									fontWeight: 'bold',
-									color: 'black'
+									color: 'darkblue'
 								}}>
 									Delete
 								</Text>
 							</TouchableHighlight>	
 						</View>
 					</View>
-					
+
 					<View style={{
 						flex: 1,
 						padding: 10,
 						paddingBottom: 55,
 						justifyContent: 'flex-start',
 						backgroundColor: 'white'
-					}}>
+					}}>						
 						<TextInput
 							onChangeText={(text)=> this.setState({
 								name: text,
@@ -283,7 +283,7 @@ class UserDetails extends Component {
 						</TouchableHighlight>
 						
 						{errorCtrl}
-
+						
 						<ActivityIndicator
 							animating={this.state.showProgress}
 							size="large"

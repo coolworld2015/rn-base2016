@@ -229,7 +229,7 @@ class Users extends Component {
 								textAlign: 'center',
 								margin: 14,
 								fontWeight: 'bold',
-								color: 'black'
+								color: 'darkblue'
 							}}>
 								Reload
 							</Text>
@@ -261,7 +261,7 @@ class Users extends Component {
 								textAlign: 'center',
 								margin: 14,
 								fontWeight: 'bold',
-								color: 'black'
+								color: 'darkblue'
 							}}>
 								Add
 							</Text>

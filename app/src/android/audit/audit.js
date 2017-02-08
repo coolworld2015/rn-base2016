@@ -206,7 +206,7 @@ class Audit extends Component {
 								textAlign: 'center',
 								margin: 14,
 								fontWeight: 'bold',
-								color: 'black'
+								color: 'darkblue'
 							}}>
 								Reload
 							</Text>

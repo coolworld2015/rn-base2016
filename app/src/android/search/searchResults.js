@@ -220,7 +220,7 @@ class SearchResults extends Component {
 								textAlign: 'center',
 								margin: 14,
 								fontWeight: 'bold',
-								color: 'black'
+								color: 'darkblue'
 							}}>
 								 Back
 							</Text>
@@ -251,7 +251,7 @@ class SearchResults extends Component {
 								textAlign: 'center',
 								margin: 14,
 								fontWeight: 'bold',
-								color: 'black'
+								color: 'darkblue'
 							}}>
 								Done 
 							</Text>
