@@ -40,6 +40,7 @@ class SearchResults extends Component {
 			this.state = {
 				dataSource: ds.cloneWithRows([]),
 				searchQueryHttp: props.data.searchQuery,
+				searchType: props.data.searchType,
 				showProgress: true,
 				resultsCount: 0,
 				recordsCount: 25,
@@ -53,8 +54,14 @@ class SearchResults extends Component {
 	}
 	
     findByPhone() {
-		fetch(appConfig.url + 'api/items/findByPhone/'
-            + this.state.searchQueryHttp, {
+		var webUrl;
+		if (this.state.searchType == 'Search by number') {
+			webUrl = 'api/items/findByPhone/'
+		} else {
+			webUrl = 'api/items/findByName/'
+		}
+		
+		fetch(appConfig.url + webUrl + this.state.searchQueryHttp, {
             method: 'get',
             headers: {
                 'Accept': 'application/json',

@@ -25,6 +25,8 @@ class Search extends Component {
         this.state = {
             showProgress: false,
             eventSwitchTitle: true,
+			eventSwitchBase: true,
+            textSwitchBase: 'Search by number',
 			bugANDROID: ''
         }
     }
@@ -49,11 +51,26 @@ class Search extends Component {
             });
             return;
         }
-
+		 
 		this.props.navigator.push({
 			index: 1,
-			data: {searchQuery: this.state.searchQuery}
+			data: {
+				searchQuery: this.state.searchQuery,
+				searchType: this.state.textSwitchBase
+			}
 		});
+    }
+	
+    toggleTypeChange() {
+        if (!this.state.eventSwitchBase) {
+            this.setState({
+                textSwitchBase: 'Search by number'
+            });
+        } else {
+            this.setState({
+                textSwitchBase: 'Search by name'
+            });
+        }
     }
 	
     render() {
@@ -100,7 +117,7 @@ class Search extends Component {
                             <Text style={{
                                 fontSize: 18,
                             }}>
-                                Search by number
+                                {this.state.textSwitchBase}
                             </Text>
                         </View>
 
@@ -109,10 +126,13 @@ class Search extends Component {
                                 marginTop: -1
                             }}>
                             <Switch
-                                onValueChange={(value) => this.setState({
-                                    eventSwitchTitle: value
-                                })}
-                                value={this.state.eventSwitchTitle}
+                                onValueChange={(value) => {
+                                    this.toggleTypeChange();
+                                    this.setState({
+                                        eventSwitchBase: value
+                                    });
+                                }}
+                                value={this.state.eventSwitchBase}
                             />
                         </View>
                     </View>
