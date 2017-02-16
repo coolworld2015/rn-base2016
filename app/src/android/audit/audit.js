@@ -170,6 +170,12 @@ class Audit extends Component {
 		this.getAudit();
 	}
 	
+	addAudit() {
+		this.props.navigator.push({
+			index: 2
+		});
+    }
+	
     render() {
         var errorCtrl, loader;
 
@@ -230,6 +236,7 @@ class Audit extends Component {
 					</View>						
 					<View>
 						<TouchableHighlight
+							onPress={()=> this.addAudit()}
 							underlayColor='#ddd'
 						>
 							<Text style={{
@@ -237,9 +244,9 @@ class Audit extends Component {
 								textAlign: 'center',
 								margin: 14,
 								fontWeight: 'bold',
-								color: 'black'
+								color: 'darkblue'
 							}}>
-								
+								Add
 							</Text>
 						</TouchableHighlight>	
 					</View>

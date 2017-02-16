@@ -16,6 +16,7 @@ import ScrollableTabView from 'react-native-scrollable-tab-view';
 
 import Audit from '../audit/audit';
 import AuditDetails from '../audit/auditDetails';
+import AuditAdd from '../audit/auditAdd';
 
 import Users from '../users/users';
 import UserDetails from '../users/userDetails';
@@ -154,7 +155,8 @@ class AuditTab extends Component {
 		super(props);
 		this.routes = [
 			{title: 'Audit', index: 0},
-			{title: 'Audit Details', index: 1}
+			{title: 'Audit Details', index: 1},
+			{title: 'Add Audit', index: 2}
 		];
 	}
 		  
@@ -163,6 +165,8 @@ class AuditTab extends Component {
 			case 0: return <Audit routes={this.routes} navigator={navigator} />
 					break;			
 			case 1: return <AuditDetails data={route.data} routes={this.routes} navigator={navigator} />
+					break			
+			case 2: return <AuditAdd data={route.data} routes={this.routes} navigator={navigator} />
 					break
  		}
  	}	
