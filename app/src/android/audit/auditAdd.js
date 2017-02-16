@@ -191,7 +191,7 @@ class AuditAdd extends Component {
  
                                     this.setState({
                                         item: value,
-                                        id: value,
+                                        id: item[0].id,
                                         name: item[0].name,
 										pass: item[0].pass,
 										description: item[0].description
