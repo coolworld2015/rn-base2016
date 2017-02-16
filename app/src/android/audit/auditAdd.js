@@ -81,18 +81,26 @@ class AuditAdd extends Component {
         return 0;
     }
 
-    getSelectedImages(images, current) {
-        var num = images.length;
+    addUser() {
+        if (this.state.name == undefined ||
+            this.state.pass == undefined ||
+            this.state.description == undefined) {
+            this.setState({
+                invalidValue: true
+            });
+            return;
+        }
 
         this.setState({
-            num: num,
-            selected: images,
+            showProgress: true,
+			bugANDROID: ' '
         });
-
-        console.log(current);
-        console.log(this.state.selected);
-    }
-
+	}
+	
+	goBack() {
+		this.props.navigator.pop();
+	}
+	
     render() {
         var errorCtrl = <View />;
 
@@ -112,98 +120,143 @@ class AuditAdd extends Component {
 
         return (
             <ScrollView>
+				<View style={{flex: 1, justifyContent: 'center'}}>
+					<View style={{
+							flexDirection: 'row',
+							justifyContent: 'space-between'
+						}}>
+						<View>
+							<TouchableHighlight
+								onPress={()=> this.goBack()}
+								underlayColor='#ddd'
+							>
+								<Text style={{
+									fontSize: 16,
+									textAlign: 'center',
+									margin: 14,
+									fontWeight: 'bold',
+									color: 'darkblue'
+								}}>
+									Back
+								</Text>
+							</TouchableHighlight>	
+						</View>
+						<View>
+							<TouchableHighlight
+								underlayColor='#ddd'
+							>
+								<Text style={{
+									fontSize: 20,
+									textAlign: 'center',
+									margin: 10,
+									marginRight: 40,
+									fontWeight: 'bold',
+									color: 'black'
+								}}>
+									 New
+								</Text>
+							</TouchableHighlight>	
+						</View>						
+						<View>
+							<TouchableHighlight
+								underlayColor='#ddd'
+							>
+								<Text style={{
+									fontSize: 16,
+									textAlign: 'center',
+									margin: 14,
+									fontWeight: 'bold'
+								}}>
+									 
+								</Text>
+							</TouchableHighlight>	
+						</View>
+					</View>
+			
+					<View style={{backgroundColor: 'white'}}>
+						<View style={{
+							borderColor: 'lightgray',
+							borderWidth: 5,
+							marginTop: 15,
+							margin: 5,
+							flex: 1,
+						}}>
+							<Picker style={{marginTop: 0}}
+								selectedValue={this.state.item}
 
-                {errorCtrl}
+								onValueChange={(value) => (
+									this.setState({
+										id: value,
+									})
+								)}>
 
-                <View style={{backgroundColor: 'white'}}>
-                    <Text style={{
-                        fontSize: 24,
-                        marginTop: 15,
-                        textAlign: 'center',
-                        fontWeight: "bold",
-						color: 'black'
-                    }}>
-                        {this.state.item}
-                    </Text>
+								{this.state.items.map((item, i) =>
+									<Picker.Item value={item.id} label={item.name} key={i}/>
+								)}
 
-                    <View style={{
-                        borderColor: 'lightgray',
-                        borderWidth: 5,
-                        marginTop: 10,
-                        margin: 5,
-                        flex: 1,
-                    }}>
-                        <Picker style={{marginTop: 0}}
-                                selectedValue={this.state.item}
+							</Picker>
+						</View>
+					</View>
 
-                                onValueChange={(value) => (
-                                    this.setState({
-                                        item: value,
-                                    })
-                                )}>
+					<View style={{
+						flex: 1,
+						padding: 10,
+						marginTop: -5,
+						paddingBottom: 70,
+						backgroundColor: 'white'
+					}}>
+						<TextInput
+							style={styles.loginInput}
+							value={this.state.id}
+							placeholder="ID">
+						</TextInput>
+						
+						<TextInput
+							onChangeText={(text)=> this.setState({
+								name: text,
+								invalidValue: false
+							})}
+							style={styles.loginInput}
+							value={this.state.name}
+							placeholder="Name">
+						</TextInput>
 
-                            {this.state.items.map((item, i) =>
-                                <Picker.Item value={item.id} label={item.name} key={i}/>
-                            )}
+						<TextInput
+							onChangeText={(text)=> this.setState({
+								pass: text,
+								invalidValue: false
+							})}
+							style={styles.loginInput}
+							value={this.state.pass}
+							placeholder="Password">
+						</TextInput>
 
-                        </Picker>
-                    </View>
-                </View>
+						<TextInput
+							onChangeText={(text)=> this.setState({
+								description: text,
+								invalidValue: false
+							})}
+							style={styles.loginInput}
+							value={this.state.description}
+							placeholder="Description">
+						</TextInput>
 
-                <View style={{
-                    flex: 1,
-                    padding: 10,
-					marginTop: -5,
-                    paddingBottom: 70,
-					backgroundColor: 'white'
-                }}>
-                    <TextInput
-                        onChangeText={(text)=> this.setState({
-                            name: text,
-                            invalidValue: false
-                        })}
-                        style={styles.loginInput}
-                        value={this.state.name}
-                        placeholder="Name">
-                    </TextInput>
+						{validCtrl}
 
-                    <TextInput
-                        onChangeText={(text)=> this.setState({
-                            pass: text,
-                            invalidValue: false
-                        })}
-                        style={styles.loginInput}
-                        value={this.state.pass}
-                        placeholder="Password">
-                    </TextInput>
+						<TouchableHighlight
+							onPress={()=> this.addUser()}
+							style={styles.button}>
+							<Text style={styles.buttonText}>Add</Text>
+						</TouchableHighlight>
+						
+						{errorCtrl}
 
-                    <TextInput
-                        onChangeText={(text)=> this.setState({
-                            description: text,
-                            invalidValue: false
-                        })}
-                        style={styles.loginInput}
-                        value={this.state.description}
-                        placeholder="Description">
-                    </TextInput>
-
-                    <TextInput
-                        onChangeText={(text)=> this.setState({
-                            description: text,
-                            invalidValue: false
-                        })}
-                        style={styles.loginInput}
-                        value={this.state.description}
-                        placeholder="Description">
-                    </TextInput>
-
-                    {validCtrl}
-
-                    <TouchableHighlight
-                        style={styles.button}>
-                        <Text style={styles.buttonText}>Add</Text>
-                    </TouchableHighlight>
-
+						<ActivityIndicator
+							animating={this.state.showProgress}
+							size="large"
+							style={styles.loader}
+						/>
+					</View>
                 </View>
             </ScrollView>
         )
@@ -269,13 +322,11 @@ const styles = StyleSheet.create({
         fontSize: 24
     },
     loader: {
-        top: 80,
-        left: 140,
-        position: 'absolute'
+		marginTop: 30
     },
     error: {
         color: 'red',
-        paddingTop: 10,
+        paddingTop: 20,
         textAlign: 'center'
     },
     img: {

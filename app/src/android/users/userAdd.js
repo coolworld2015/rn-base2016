@@ -105,56 +105,57 @@ class UserAdd extends Component {
         return (
             <ScrollView>
 				<View style={{flex: 1, justifyContent: 'center'}}>
-				<View style={{
-						flexDirection: 'row',
-						justifyContent: 'space-between'
-					}}>
-					<View>
-						<TouchableHighlight
-							onPress={()=> this.goBack()}
-							underlayColor='#ddd'
-						>
-							<Text style={{
-								fontSize: 16,
-								textAlign: 'center',
-								margin: 14,
-								fontWeight: 'bold',
-								color: 'darkblue'
-							}}>
-								Back
-							</Text>
-						</TouchableHighlight>	
+					<View style={{
+							flexDirection: 'row',
+							justifyContent: 'space-between'
+						}}>
+						<View>
+							<TouchableHighlight
+								onPress={()=> this.goBack()}
+								underlayColor='#ddd'
+							>
+								<Text style={{
+									fontSize: 16,
+									textAlign: 'center',
+									margin: 14,
+									fontWeight: 'bold',
+									color: 'darkblue'
+								}}>
+									Back
+								</Text>
+							</TouchableHighlight>	
+						</View>
+						<View>
+							<TouchableHighlight
+								underlayColor='#ddd'
+							>
+								<Text style={{
+									fontSize: 20,
+									textAlign: 'center',
+									margin: 10,
+									marginRight: 40,
+									fontWeight: 'bold',
+									color: 'black'
+								}}>
+									 New
+								</Text>
+							</TouchableHighlight>	
+						</View>						
+						<View>
+							<TouchableHighlight
+								underlayColor='#ddd'
+							>
+								<Text style={{
+									fontSize: 16,
+									textAlign: 'center',
+									margin: 14,
+									fontWeight: 'bold'
+								}}>
+									 
+								</Text>
+							</TouchableHighlight>	
+						</View>
 					</View>
-					<View>
-						<TouchableHighlight
-							underlayColor='#ddd'
-						>
-							<Text style={{
-								fontSize: 20,
-								textAlign: 'center',
-								margin: 10,
-								fontWeight: 'bold',
-								color: 'black'
-							}}>
-								 New
-							</Text>
-						</TouchableHighlight>	
-					</View>						
-					<View>
-						<TouchableHighlight
-							underlayColor='#ddd'
-						>
-							<Text style={{
-								fontSize: 16,
-								textAlign: 'center',
-								margin: 14,
-								fontWeight: 'bold'
-							}}>
-								 
-							</Text>
-						</TouchableHighlight>	
-					</View>
-				</View>
 					
 					<View style={{
 						flex: 1,
