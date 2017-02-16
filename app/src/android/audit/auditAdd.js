@@ -18,12 +18,6 @@ import {
     CameraRoll
 } from 'react-native';
 
-import Users from '../users/users';
-
-//const CameraRollView = require('./CameraRollView');
-
-//import CameraRollPicker from 'react-native-camera-roll-picker';
-
 class AuditAdd extends Component {
     constructor(props) {
         super(props);
@@ -33,15 +27,18 @@ class AuditAdd extends Component {
         });
 
         this.state = {
-            showProgress: true,
+            showProgress: false,
+			serverError: true,
             items: [],
             item: 'New item',
             dataSource: ds.cloneWithRows([])
         };
-
-        this.getUsers();
     }
-
+	
+	componentDidMount() {
+		this.getUsers();
+	}
+	
     getUsers() {
         fetch(appConfig.url + 'api/users/get', {			
             method: 'get',
@@ -53,9 +50,11 @@ class AuditAdd extends Component {
         })
             .then((response)=> response.json())
             .then((responseData)=> {
-
+				var items = responseData.sort(this.sort);
+				items.unshift({name: 'Select user'});
+				//console.log(items);
                 this.setState({
-                    items: responseData.sort(this.sort)
+                    items: items
                 });
             })
             .catch((error)=> {
@@ -65,7 +64,8 @@ class AuditAdd extends Component {
             })
             .finally(()=> {
                 this.setState({
-                    showProgress: false
+                    showProgress: false,
+                    serverError: false
                 });
             });
     }
@@ -179,21 +179,24 @@ class AuditAdd extends Component {
 							borderWidth: 5,
 							marginTop: 15,
 							margin: 5,
+							marginBottom: 0,
 							flex: 1,
 						}}>
 							<Picker style={{marginTop: 0}}
-								selectedValue={this.state.item}
+								selectedValue={this.state.items[0]}
 
-								onValueChange={(value) => (
+								onValueChange={(item) => (
 									this.setState({
-										id: value,
+										id: item.id,
+										name: item.name,
+										pass: item.pass,
+										description: item.description
 									})
 								)}>
 
 								{this.state.items.map((item, i) =>
-									<Picker.Item value={item.id} label={item.name} key={i}/>
+									<Picker.Item value={item} label={item.name} key={i}/>
 								)}
-
 							</Picker>
 						</View>
 					</View>
@@ -201,7 +204,8 @@ class AuditAdd extends Component {
 					<View style={{
 						flex: 1,
 						padding: 10,
-						marginTop: -5,
+						paddingTop: 0,
+						marginTop: 0,
 						paddingBottom: 70,
 						backgroundColor: 'white'
 					}}>

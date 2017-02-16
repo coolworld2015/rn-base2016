@@ -19,8 +19,6 @@ import {
 
 console.disableYellowBox = true;
 
-import AuditDetails from './auditDetails';
-
 class Audit extends Component {
     constructor(props) {
         super(props);
@@ -40,11 +38,6 @@ class Audit extends Component {
 	
 	componentDidMount() {
 		this.getAudit();
-	}
-	
-	_handlePress() {
-		//this.props.navigator.pop();
-		this.props.navigator.push(this.props.routes[1]);
 	}
 	
     getAudit() {		
