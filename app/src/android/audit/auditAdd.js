@@ -183,19 +183,23 @@ class AuditAdd extends Component {
 							flex: 1,
 						}}>
 							<Picker style={{marginTop: 0}}
-								selectedValue={this.state.items[0]}
+                                selectedValue={this.state.item}
 
-								onValueChange={(item) => (
-									this.setState({
-										id: item.id,
-										name: item.name,
-										pass: item.pass,
-										description: item.description
-									})
-								)}>
+                                onValueChange={(value) => {
+									let arr = [].concat(this.state.items);
+ 									let item = arr.filter((el) => el.id == value);
+ 
+                                    this.setState({
+                                        item: value,
+                                        id: value,
+                                        name: item[0].name,
+										pass: item[0].pass,
+										description: item[0].description
+                                    })
+                                }}>
 
 								{this.state.items.map((item, i) =>
-									<Picker.Item value={item} label={item.name} key={i}/>
+									<Picker.Item value={item.id} label={item.name} key={i}/>
 								)}
 							</Picker>
 						</View>
