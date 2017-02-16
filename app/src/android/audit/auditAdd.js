@@ -43,11 +43,12 @@ class AuditAdd extends Component {
     }
 
     getUsers() {
-        fetch('http://ui-base.herokuapp.com/api/users/get', {
+        fetch(appConfig.url + 'api/users/get', {			
             method: 'get',
             headers: {
                 'Accept': 'application/json',
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+				'Authorization': appConfig.access_token
             }
         })
             .then((response)=> response.json())
@@ -114,12 +115,13 @@ class AuditAdd extends Component {
 
                 {errorCtrl}
 
-                <View>
+                <View style={{backgroundColor: 'white'}}>
                     <Text style={{
                         fontSize: 24,
                         marginTop: 15,
                         textAlign: 'center',
-                        fontWeight: "bold"
+                        fontWeight: "bold",
+						color: 'black'
                     }}>
                         {this.state.item}
                     </Text>
@@ -131,8 +133,7 @@ class AuditAdd extends Component {
                         margin: 5,
                         flex: 1,
                     }}>
-
-                        <Picker style={{marginTop: -20}}
+                        <Picker style={{marginTop: 0}}
                                 selectedValue={this.state.item}
 
                                 onValueChange={(value) => (
@@ -152,10 +153,10 @@ class AuditAdd extends Component {
                 <View style={{
                     flex: 1,
                     padding: 10,
-                    justifyContent: 'flex-start'
+					marginTop: -5,
+                    paddingBottom: 70,
+					backgroundColor: 'white'
                 }}>
-
-
                     <TextInput
                         onChangeText={(text)=> this.setState({
                             name: text,
@@ -251,14 +252,14 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: 'lightgray',
         borderRadius: 0,
-        color: 'gray'
+        color: 'black'
     },
     button: {
         height: 50,
         backgroundColor: '#48BBEC',
         borderColor: '#48BBEC',
         alignSelf: 'stretch',
-        marginTop: 10,
+        marginTop: 25,
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 5
